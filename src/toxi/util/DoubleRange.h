@@ -15,6 +15,7 @@ namespace toxi
 			class DoubleRange
 			{
 			public:
+				DoubleRange( void );
 				DoubleRange( double& min, double& max );
 				DoubleRange( DoubleRange& copyTo );
 				~DoubleRange(void);
@@ -34,9 +35,9 @@ namespace toxi
 				std::string to_string( void );
 
 				static toxi::util::datatypes::DoubleRange* fromSamples( std::vector< double >& samples );
+				double min, max, curr_value;
 
 			private:
-				double min, max, curr_value;
 			};
 
 			

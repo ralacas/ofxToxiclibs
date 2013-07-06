@@ -1,5 +1,9 @@
 #include "DoubleRange.h"
 
+toxi::util::datatypes::DoubleRange::DoubleRange( void )
+{
+
+}
 
 toxi::util::datatypes::DoubleRange::DoubleRange( double& _min, double& _max )
 {
