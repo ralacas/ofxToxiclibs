@@ -2,15 +2,19 @@
 
 #include "InterpolateStrategy.h"
 
-class LinearInterpolation :
-	public InterpolateStrategy
+namespace toxi
 {
-public:
-	LinearInterpolation(void);
-	~LinearInterpolation(void);
+	namespace math
+	{
+		class LinearInterpolation :
+			public InterpolateStrategy
+		{
+		public:
+			LinearInterpolation(void);
+			~LinearInterpolation(void);
 
-public:
-	double interpolate(double a, double b, double f);
-	float interpolate(float a, float b, float f);
-};
-
+			virtual double interpolate(double a, double b, double f);
+			virtual float interpolate(float a, float b, float f);
+		};
+	}
+}

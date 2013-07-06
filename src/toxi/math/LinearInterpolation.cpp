@@ -1,21 +1,21 @@
 #include "LinearInterpolation.h"
 
 
-LinearInterpolation::LinearInterpolation(void)
+toxi::math::LinearInterpolation::LinearInterpolation(void)
 {
 }
 
 
-LinearInterpolation::~LinearInterpolation(void)
+toxi::math::LinearInterpolation::~LinearInterpolation(void)
 {
 }
 
-double LinearInterpolation::interpolate( double a, double b, double f )
+double toxi::math::LinearInterpolation::interpolate( double a, double b, double f )
 {
 	return a + (b - a) * f;
 }
 
-float LinearInterpolation::interpolate( float a, float b, float f )
+float toxi::math::LinearInterpolation::interpolate( float a, float b, float f )
 {
 	return a + (b - a) * f;
 }
