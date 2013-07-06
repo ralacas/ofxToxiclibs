@@ -1,11 +1,19 @@
 #pragma once
-class InterpolateStrategy
+
+namespace toxi
 {
-public:
-	InterpolateStrategy(void);
-	~InterpolateStrategy(void);
+	namespace math
+	{
+		class InterpolateStrategy
+		{
+		public:
+			InterpolateStrategy(void);
+			~InterpolateStrategy(void);
 
-	virtual double interpolate( double a, double b, double f );
-	virtual float interpolate( float a, float b, float f);
-};
+			virtual double InterpolateStrategy::interpolate( double a, double b, double f );
+			virtual float InterpolateStrategy::interpolate( float a, float b, float f);
+		};
 
+
+	}
+}
