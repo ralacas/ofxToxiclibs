@@ -332,3 +332,8 @@ double toxi::math::MathUtils::sqrt( double& x )
 		return 0;
 	}
 }
+
+bool toxi::math::MathUtils::isNan( double d )
+{
+	return (d != d) ? true : false;
+}

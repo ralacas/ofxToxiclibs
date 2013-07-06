@@ -81,6 +81,8 @@ namespace toxi
 
 			static unsigned float_to_bits( float x );
 			static float int_bits_to_float ( unsigned x );
+
+			static bool isNan( double d );
 		};
 
 	}
