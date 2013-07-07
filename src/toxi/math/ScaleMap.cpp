@@ -1,79 +1,80 @@
 #include "ScaleMap.h"
 
-toxi::math::ScaleMap::ScaleMap( void )
+namespace toxi
 {
+	namespace math
+	{
+		ScaleMap::ScaleMap( void )
+		{
 
-}
+		}
 
-toxi::math::ScaleMap::ScaleMap( double minIn, double maxIn, double minOut, double maxOut )
-{
-	setInputRange( minIn, maxIn );
-	setOutputRange( minOut, maxOut );
-	mapFunction = LinearInterpolation();
-}
+		ScaleMap::ScaleMap( const double minIn, const double maxIn, const double minOut, const double maxOut )
+		{
+			setInputRange( minIn, maxIn );
+			setOutputRange( minOut, maxOut );
+			mapFunction = LinearInterpolation();
+		}
 
+		ScaleMap::ScaleMap(const ScaleMap copyFrom)
+		{
+		}
 
-toxi::math::ScaleMap::~ScaleMap(void)
-{
-}
+		ScaleMap::~ScaleMap(void)
+		{
+		}
 
-double toxi::math::ScaleMap::getClippedValueFor( double val )
-{
-	double cl = ( val - in.min ) / interval; 
-	double t = toxi::math::MathUtils::clipNormalized( cl );
-	if ( toxi::math::MathUtils::isNan( t ) ) {
-		t = 0;
+		double ScaleMap::getClippedValueFor( double val )
+		{
+			double cl = ( val - this->in.min ) / this->interval; 
+			double t = toxi::math::MathUtils::clipNormalized( cl );
+			if ( toxi::math::MathUtils::isNan( t ) ) {
+				t = 0;
+			}
+			return mapFunction.interpolate(this->out.min, this->out.max, t);
+		}
+
+		double ScaleMap::getInputMedian( void )
+		{
+			return (this->in.min + this->in.max) * 0.5;
+		}
+
+		double ScaleMap::getMappedMedian( void ) const
+		{
+			return this->getMappedValueFor(0.5);
+		}
+
+		double ScaleMap::getMappedValueFor( const double val ) const
+		{
+			double t = ((val - this->in.min) / this->interval);
+			
+			if ( MathUtils::isNan( t ) ) {
+				t = 0;
+			}
+			
+			return this->mapFunction.interpolate(this->out.min, this->out.max, t);
+		}
+
+		double ScaleMap::getOutputMedian( void )
+		{
+			return (this->out.min + this->out.max) * 0.5;
+		}
+
+		void ScaleMap::setInputRange( const double min, const double max )
+		{
+			this->in = toxi::util::datatypes::DoubleRange(min, max);
+			this->interval = max - min;
+		}
+
+		void ScaleMap::setMapFunction( InterpolateStrategy func )
+		{
+			this->mapFunction = func;
+		}
+
+		void ScaleMap::setOutputRange( const double min, const double max )
+		{
+			this->out = toxi::util::datatypes::DoubleRange(min, max);
+			this->mapRange = max - min;
+		}
 	}
-	return mapFunction.interpolate(out.min, out.max, t);
-}
-
-double toxi::math::ScaleMap::getInputMedian( void )
-{
-	return (in.min + in.max) * 0.5;
-}
-
-toxi::util::datatypes::DoubleRange toxi::math::ScaleMap::getInputRange( void )
-{
-	 return in;
-}
-
-double toxi::math::ScaleMap::getMappedMedian( void )
-{
-	return getMappedValueFor(0.5);
-}
-
-double toxi::math::ScaleMap::getMappedValueFor( double val )
-{
-	double t = ((val - in.min) / interval);
-	if ( toxi::math::MathUtils::isNan( t ) ) {
-		t = 0;
-	}
-	return mapFunction.interpolate(out.min, out.max, t);
-}
-
-double toxi::math::ScaleMap::getOutputMedian( void )
-{
-	return (out.min + out.max) * 0.5;
-}
-
-toxi::util::datatypes::DoubleRange toxi::math::ScaleMap::getOutputRange( void )
-{
-	return out;
-}
-
-void toxi::math::ScaleMap::setInputRange( double min, double max )
-{
-	in = toxi::util::datatypes::DoubleRange(min, max);
-	interval = max - min;
-}
-
-void toxi::math::ScaleMap::setMapFunction( toxi::math::InterpolateStrategy func )
-{
-	mapFunction = func;
-}
-
-void toxi::math::ScaleMap::setOutputRange( double min, double max )
-{
-	out = toxi::util::datatypes::DoubleRange(min, max);
-	mapRange = max - min;
 }

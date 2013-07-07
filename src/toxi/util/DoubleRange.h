@@ -1,10 +1,12 @@
-#pragma once
+#ifndef __DOUBLE_RANGE_H__
+#define __DOUBLE_RANGE_H__
+
+#ifdef _WIN32
+	#pragma once
+#endif
 
 #include <vector>
 #include <string>
-#include <sstream>
-#include <iostream>
-#include "../math/MathUtils.h"
 
 namespace toxi
 {
@@ -12,35 +14,40 @@ namespace toxi
 	{
 		namespace datatypes
 		{
+			typedef std::vector<double> DoubleRangeVector;
+			
 			class DoubleRange
 			{
-			public:
-				DoubleRange( void );
-				DoubleRange( double& min, double& max );
-				DoubleRange( DoubleRange& copyTo );
-				~DoubleRange(void);
-				double adjustCurrentBy( double& val );
-				double getCurrent( void );
-				double getMedian( void );
-				double getRange( void );
-				bool isValueInRange( double& val );
-				double pickRandom( void );
-				double setCurrent( double& val );
-				std::vector<double> toVector( double& step );
+				public:
+					DoubleRange( void );
+					DoubleRange( const double min, const double max );
+					DoubleRange( const DoubleRange& copyFrom );
+					~DoubleRange( void );
+					
+					double adjustCurrentBy( double& val );
+					double getMedian( void ) const;
+					double getRange( void ) const;
+					bool isValueInRange( double& val );
+					double pickRandom( void );
+					double setCurrent( const double val );
+					double getAt( const double prec ) const;
+					DoubleRangeVector toVector( const double step ) const;
+					std::string toString( void ) const;
 
-
-				double getAt( double& prec );
+					static DoubleRange* fromSamples( DoubleRangeVector& samples );
 				
+					double getCurrent( void ) const
+					{
+						return this->curr_value;
+					}
 				
-				std::string to_string( void );
-
-				static toxi::util::datatypes::DoubleRange* fromSamples( std::vector< double >& samples );
-				double min, max, curr_value;
-
-			private:
+				private:
+					double min;
+					double max;
+					double curr_value;
 			};
-
-			
 		}
 	}
 }
+
+#endif
