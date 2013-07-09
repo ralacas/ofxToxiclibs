@@ -123,6 +123,17 @@ namespace toxi
 
 				return new DoubleRange( min, max );
 			}
+
+			double DoubleRange::getMin()
+			{
+				return min;
+			}
+
+			double DoubleRange::getMax()
+			{
+				return max;
+			}
+
 		}
 	}
 }
