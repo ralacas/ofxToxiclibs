@@ -18,8 +18,10 @@ namespace toxi
 			public:
 				ScaleMap( void );
 				ScaleMap( double minIn, double maxIn, double minOut, double maxOut );
-				ScaleMap(const ScaleMap copyFrom);
+				ScaleMap(const ScaleMap& copyFrom);
 				~ScaleMap( void );
+
+				ScaleMap& operator= (const ScaleMap &cSource);
 
 			protected:
 				InterpolateStrategy mapFunction;
