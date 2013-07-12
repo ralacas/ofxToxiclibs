@@ -305,7 +305,7 @@ namespace toxi
 			return ( double ) MathUtils::fastCos( ret );
 		}
 
-		double MathUtils::sqrt( double& x )
+		double MathUtils::sqrt( double x )
 		{
 			double _x = MathUtils::fastInverseSqrt(x);
 	

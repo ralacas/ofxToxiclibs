@@ -85,7 +85,7 @@ namespace toxi
 				static double sign( double& x );
 				static int sign( int& x );
 				static double sin( double& theta );
-				static double sqrt( double& x );
+				static double sqrt( double x );
 				static unsigned floatToBits( float x );
 				static float intBitsToFloat ( unsigned x );
 				static bool isNan( double d );

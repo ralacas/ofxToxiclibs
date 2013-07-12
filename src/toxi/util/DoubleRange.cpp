@@ -1,5 +1,6 @@
 #include <toxi/util/DoubleRange.h>
 #include <toxi/math/MathUtils.h>
+
 #include <sstream>
 #include <iostream>
 #include <cfloat>
