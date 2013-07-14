@@ -64,10 +64,10 @@ namespace toxi
 			virtual Vec2D sub(double a, double b) = 0;
 			virtual Vec2D sub(Vec2D v) = 0;
 			virtual Vec2D tangentNormalOfEllipse(Vec2D eO, Vec2D eR) = 0;
-			virtual Vec3D to3DXY() = 0;
-			virtual Vec3D to3DXZ() = 0;
-			virtual Vec3D to3DYZ() = 0;
-			virtual void toArray(double *a) = 0;
+			//virtual Vec3D to3DXY() = 0;
+			//virtual Vec3D to3DXZ() = 0;
+			//virtual Vec3D to3DYZ() = 0;
+			virtual double* toArray(double a) = 0;
 			virtual double x( void ) = 0;
 			virtual double y( void ) = 0;
 		};

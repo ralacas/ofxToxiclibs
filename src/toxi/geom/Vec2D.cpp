@@ -433,9 +433,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::tangentNormalOfEllipse( Vec2D eO, Vec2D eR 
 	return Vec2D(p.x / xr2, p.y / yr2).normalize();
 }
 
-void toxi::geom::Vec2D::toArray( double *a )
+double* toxi::geom::Vec2D::toArray( double a )
 {
-
+	double arr[2] = { x, y };
+	return arr;
 }
 
 

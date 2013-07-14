@@ -77,7 +77,7 @@ namespace toxi
 			 Vec3D to3DXY();
 			 Vec3D to3DXZ();
 			 Vec3D to3DYZ();
-			 void toArray(double *a);
+			 double* toArray(double a);
 			 double x( void );
 			 double y( void );
 
