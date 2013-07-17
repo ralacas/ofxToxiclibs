@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReadonlyVec2D.h"
+#include "Vec2D.h"
 
 namespace toxi
 {
@@ -9,19 +9,19 @@ namespace toxi
 		class Axis2D
 		{
 		public:
-			Axis2D(ReadonlyVec2D vec);
+			Axis2D(Vec2D vec);
 			~Axis2D(void);
 
 		public:
-			ReadonlyVec2D getVector( void );
-			static ReadonlyVec2D X_AXIS;
-			static ReadonlyVec2D Y_AXIS;
-			static ReadonlyVec2D ZERO;
-			static ReadonlyVec2D MIN_VALUE;
-			static ReadonlyVec2D MAX_VALUE;
+			Vec2D getVector( void );
+			static Vec2D X_AXIS;
+			static Vec2D Y_AXIS;
+			static Vec2D ZERO;
+			static Vec2D MIN_VALUE;
+			static Vec2D MAX_VALUE;
 
 		private:
-			ReadonlyVec2D vector;
+			Vec2D vector;
 		};
 
 
