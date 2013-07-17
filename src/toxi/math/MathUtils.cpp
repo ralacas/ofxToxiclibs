@@ -48,12 +48,12 @@ namespace toxi
 			return pow2;
 		}
 
-		double MathUtils::clip( const double a, const double min, const double max )
+		double MathUtils::clip( double a, double min, double max )
 		{
 			return ( a < min ? min : ( a > max ? max : a ) );
 		}
 
-		double MathUtils::clip( int& a , int& min, int& max )
+		double MathUtils::clip( int a , int min, int max )
 		{
 			return a < min ? min : ( a > max ? max : a );
 		}

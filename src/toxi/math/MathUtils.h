@@ -46,8 +46,8 @@ namespace toxi
 				static double abs( double& x );
 				static int abs( const int& x );
 				static int ceilPowerOf2( const int& x );
-				static double clip( const double a, const double min, const double max );
-				static double clip( int& a , int& min, int& max );
+				static double clip( double a, double min, double max );
+				static double clip( int a , int min, int max );
 				static double clipNormalized( double& a );
 				static double cos( double& theta );
 				static double degrees( double& radians );
