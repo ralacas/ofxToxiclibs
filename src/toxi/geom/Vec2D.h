@@ -9,8 +9,7 @@ namespace toxi
 {
 	namespace geom
 	{
-		class Vec2D :
-			public ReadonlyVec2D
+		class Vec2D
 		{
 		public:
 			Vec2D( double _x, double _y );

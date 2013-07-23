@@ -7,8 +7,7 @@ namespace toxi
 {
 	namespace geom
 	{
-		class Vec3D :
-			public ReadonlyVec3D
+		class Vec3D
 		{
 		public:
 			Vec3D(void);
