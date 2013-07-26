@@ -431,3 +431,49 @@ toxi::geom::Vec3D toxi::geom::Vec3D::normalizeTo( double len )
 	}
 	return *this;
 }
+
+toxi::geom::Vec3D toxi::geom::Vec3D::min( Vec3D a, Vec3D b )
+{
+	return Vec3D( toxi::math::MathUtils::min( a.x(), b.x() ), toxi::math::MathUtils::min( a.y(),
+		b.y() ), toxi::math::MathUtils::min( a.z(), b.z() ) );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::max( Vec3D a, Vec3D b )
+{
+	return Vec3D( toxi::math::MathUtils::max( a.x(), b.x() ), toxi::math::MathUtils::max( a.y(),
+		b.y() ), toxi::math::MathUtils::max( a.z(), b.z() ) );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::scaleSelf( float s )
+{
+	this->x *= s;
+	this->y *= s;
+	this->z *= s;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::max_value()
+{
+	return Vec3D(FLT_MAX, FLT_MAX, FLT_MAX);
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::min_value()
+{
+	return Vec3D(FLT_MIN, FLT_MIN, FLT_MIN);
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::maxSelf( Vec3D v )
+{
+	this->x = toxi::math::MathUtils::max( this->x, v.x() );
+	this->y = toxi::math::MathUtils::max( this->y, v.y() );
+	this->z = toxi::math::MathUtils::max( this->z, v.z() );
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::minSelf( Vec3D v )
+{
+	this->x = toxi::math::MathUtils::min( this->x, v.x() );
+	this->y = toxi::math::MathUtils::min( this->y, v.y() );
+	this->z = toxi::math::MathUtils::min( this->z, v.z() );
+	return *this;
+}

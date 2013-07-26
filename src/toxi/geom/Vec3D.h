@@ -68,6 +68,7 @@ namespace toxi
 			Vec3D scale(float s);
 			Vec3D scale(float a, float b, float c);
 			Vec3D scale(Vec3D s);
+			Vec3D scaleSelf( float s );
 			Vec3D sub(float a, float b, float c);
 			Vec3D sub(Vec3D v);
 			Vec2D to2DXY();
@@ -77,6 +78,14 @@ namespace toxi
 			Vec4D to4D(float w);
 			void toArray(float& arr);
 			void toArray4(float& arr, float w);
+
+			static Vec3D min( Vec3D a, Vec3D b );
+			static Vec3D max( Vec3D a, Vec3D b );
+			static Vec3D max_value( );
+			static Vec3D min_value( );
+			Vec3D minSelf( Vec3D v );
+			Vec3D maxSelf( Vec3D v );
+
 			float x();
 			float y();
 			float z();
