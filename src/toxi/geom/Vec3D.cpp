@@ -477,3 +477,49 @@ toxi::geom::Vec3D toxi::geom::Vec3D::minSelf( Vec3D v )
 	this->z = toxi::math::MathUtils::min( this->z, v.z() );
 	return *this;
 }
+
+toxi::geom::Vec3D toxi::geom::Vec3D::X_AXIS()
+{
+	return Vec3D( 1, 0, 0 );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::Y_AXIS()
+{
+	return Vec3D( 0, 1, 0 );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::Z_AXIS()
+{
+	return Vec3D( 0, 0, 1 );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::set( Vec3D v )
+{
+	this->x = v.x;
+	this->y = v.y;
+	this->z = v.z;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::set( float x, float y, float z )
+{
+	this->x = x;
+	this->y = y;
+	this->z = z;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::set( double x, double y, double z )
+{
+	this->x = x;
+	this->y = y;
+	this->z = z;
+	return *this;
+}
+
+std::string toxi::geom::Vec3D::toString()
+{
+	std::stringstream ss;
+	ss << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}";
+	return ss.str( );
+}

@@ -2,6 +2,9 @@
 
 #include "ReadonlyVec3D.h"
 #include "../math/MathUtils.h"
+#include <string>
+#include <iostream>
+#include <sstream>
 
 namespace toxi
 {
@@ -85,6 +88,16 @@ namespace toxi
 			static Vec3D min_value( );
 			Vec3D minSelf( Vec3D v );
 			Vec3D maxSelf( Vec3D v );
+
+			Vec3D set( Vec3D v );
+			Vec3D set( float x, float y, float z );
+			Vec3D set( double x, double y, double z );
+
+			static Vec3D X_AXIS( );
+			static Vec3D Y_AXIS( );
+			static Vec3D Z_AXIS( );
+
+			std::string toString( );
 
 			float x();
 			float y();
