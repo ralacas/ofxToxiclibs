@@ -3,8 +3,11 @@
 #include "Vec3D.h"
 #include "Ray3D.h"
 #include "mesh/Mesh3D.h"
+#include "mesh/TriangleMesh.h"
 #include <vector>
 #include <string>
+#include <iostream>
+#include <sstream>
 
 namespace toxi
 {
@@ -51,6 +54,7 @@ namespace toxi
 			AABB growToContainPoint( Vec3D p );
 			bool intersectsBox( AABB box );
 			Vec3D intersectsRay( Ray3D ray, float minDist, float maxDist );
+			//bool intersectsSphere(Sphere s );
 			bool intersectsSphere( Vec3D c, float r );
 			//bool intersectsTriangle( Triangle3D tri );
 			bool planeBoxOverlap( Vec3D normal, float d, Vec3D maxBox );
@@ -58,11 +62,14 @@ namespace toxi
 			Vec3D set( float a, float b, float c );
 			AABB set( Vec3D v );
 			AABB setExtend( Vec3D extend );
-			bool testAxis( float a, float b, float fa, float fb, float va, float vb, float wb, float ea, float eb );
+			bool testAxis( float a, float b, float fa, float fb, float va, float vb, float wa, float wb, float ea, float eb );
 			Mesh3D toMesh( Mesh3D mesh );
 			Mesh3D toMesh( void );
 			std::string toString( void );
 			AABB updateBound( void );
+
+		private:
+			Vec3D extent, min, max;
 		};
 	}
 }
