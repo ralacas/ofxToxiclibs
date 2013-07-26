@@ -5,6 +5,11 @@ toxi::geom::AABB::AABB(void)
 {
 }
 
+toxi::geom::AABB::AABB( std::vector<Vec3D> points )
+{
+
+}
+
 
 toxi::geom::AABB::~AABB(void)
 {
