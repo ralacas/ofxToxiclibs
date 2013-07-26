@@ -208,6 +208,11 @@ namespace toxi
 			return a > b ? a : b;
 		}
 
+		double MathUtils::max( float a, float b )
+		{
+			return a > b ? a : b;
+		}
+
 		double MathUtils::min( double& a, double& b )
 		{
 			 return a < b ? a : b;
@@ -226,6 +231,11 @@ namespace toxi
 		int MathUtils::min( int& a, int& b, int& c )
 		{
 			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+		}
+
+		double MathUtils::min( float a, float b )
+		{
+			return a < b ? a : b;
 		}
 
 		double MathUtils::normalizedRandom( void )
