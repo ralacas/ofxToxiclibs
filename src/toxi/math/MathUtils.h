@@ -46,8 +46,8 @@ namespace toxi
 				static double abs( double& x );
 				static int abs( const int& x );
 				static int ceilPowerOf2( const int& x );
-				static double clip( const double a, const double min, const double max );
-				static double clip( int& a , int& min, int& max );
+				static double clip( double a, double min, double max );
+				static double clip( int a , int min, int max );
 				static double clipNormalized( double& a );
 				static double cos( double& theta );
 				static double degrees( double& radians );
@@ -64,11 +64,13 @@ namespace toxi
 				static double impulse( double& k, double& t );
 				static int lcm( int& p, int& q );
 				static double max( double& a, double& b );
+				static double max( float a, float b );
 				static double max( double& a, double& b, double& c );
 				static double max( double& values);
 				static int max( int& a, int& b );
 				static int max( int& a, int& b, int& c );
 				static double min( double& a, double& b );
+				static double min( float a, float b );
 				static double min( double& a, double& b, double& c );
 				static int min( int& a, int& b );
 				static int min( int& a, int& b, int& c );
@@ -85,7 +87,7 @@ namespace toxi
 				static double sign( double& x );
 				static int sign( int& x );
 				static double sin( double& theta );
-				static double sqrt( double& x );
+				static double sqrt( double x );
 				static unsigned floatToBits( float x );
 				static float intBitsToFloat ( unsigned x );
 				static bool isNan( double d );

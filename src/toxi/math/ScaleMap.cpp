@@ -16,8 +16,13 @@ namespace toxi
 			mapFunction = LinearInterpolation();
 		}
 
-		ScaleMap::ScaleMap(const ScaleMap copyFrom)
+		ScaleMap::ScaleMap(const ScaleMap& copyFrom)
 		{
+			mapFunction = copyFrom.mapFunction;
+			interval = copyFrom.interval;
+			mapRange = copyFrom.mapRange;
+			in = copyFrom.in;
+			out = copyFrom.out;
 		}
 
 		ScaleMap::~ScaleMap(void)
@@ -26,38 +31,38 @@ namespace toxi
 
 		double ScaleMap::getClippedValueFor( double val )
 		{
-			double cl = ( val - this->in.min ) / this->interval; 
+			double cl = ( val - this->in.getMin() ) / this->interval; 
 			double t = toxi::math::MathUtils::clipNormalized( cl );
 			if ( toxi::math::MathUtils::isNan( t ) ) {
 				t = 0;
 			}
-			return mapFunction.interpolate(this->out.min, this->out.max, t);
+			return mapFunction.interpolate(this->out.getMin(), this->out.getMax(), t);
 		}
 
 		double ScaleMap::getInputMedian( void )
 		{
-			return (this->in.min + this->in.max) * 0.5;
+			return (this->in.getMin() + this->in.getMax()) * 0.5;
 		}
 
-		double ScaleMap::getMappedMedian( void ) const
+		double ScaleMap::getMappedMedian( void )
 		{
 			return this->getMappedValueFor(0.5);
 		}
 
-		double ScaleMap::getMappedValueFor( const double val ) const
+		double ScaleMap::getMappedValueFor( double val )
 		{
-			double t = ((val - this->in.min) / this->interval);
+			double t = ((val - this->in.getMin()) / this->interval);
 			
 			if ( MathUtils::isNan( t ) ) {
 				t = 0;
 			}
 			
-			return this->mapFunction.interpolate(this->out.min, this->out.max, t);
+			return this->mapFunction.interpolate(this->out.getMin(), this->out.getMax(), t);
 		}
 
 		double ScaleMap::getOutputMedian( void )
 		{
-			return (this->out.min + this->out.max) * 0.5;
+			return (this->out.getMin() + this->out.getMax()) * 0.5;
 		}
 
 		void ScaleMap::setInputRange( const double min, const double max )
@@ -76,5 +81,15 @@ namespace toxi
 			this->out = toxi::util::datatypes::DoubleRange(min, max);
 			this->mapRange = max - min;
 		}
+
+		ScaleMap& ScaleMap::operator=( const ScaleMap &copyFrom )
+		{
+			mapFunction = copyFrom.mapFunction;
+			interval = copyFrom.interval;
+			mapRange = copyFrom.mapRange;
+			in = copyFrom.in;
+			out = copyFrom.out;
+		}
+
 	}
 }

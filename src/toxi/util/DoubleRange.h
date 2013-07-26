@@ -40,6 +40,9 @@ namespace toxi
 					{
 						return this->curr_value;
 					}
+
+					double getMin( );
+					double getMax( );
 				
 				private:
 					double min;

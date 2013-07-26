@@ -37,7 +37,7 @@ LIST_OBJECTS = 	Build/OfxToxicLibTestCasesMain.o \
 				Build/DoubleRangeTest.o
 
 DEBUG_SETTINGS =  -g -D_DEBUG
-COMMON_SETTINGS = $(DEBUG_SETTINGS) -Weffc++ -Wall -pedantic-errors -ansi -std=c++98 -I Source/ -I./../src
+COMMON_SETTINGS = $(DEBUG_SETTINGS) -Weffc++ -Wall -pedantic-errors -ansi -std=c++98 -I toxi/ -I./../src
 
 .PHONY: build
 build: check-directories build-executable
@@ -50,7 +50,7 @@ check-directories:
 build-executable: $(LIST_OBJECTS) 
 	g++ -lcppunit -lofxToxiclibs -L./../Lib -o $(APP_TITLE) $^
 	
-Build/%.o: Source/%.cpp
+Build/%.o: toxi/%.cpp
 	g++ $(COMMON_SETTINGS) -c $^ -o $@ 
 
 .PHONY: clean

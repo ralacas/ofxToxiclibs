@@ -48,12 +48,12 @@ namespace toxi
 			return pow2;
 		}
 
-		double MathUtils::clip( const double a, const double min, const double max )
+		double MathUtils::clip( double a, double min, double max )
 		{
 			return ( a < min ? min : ( a > max ? max : a ) );
 		}
 
-		double MathUtils::clip( int& a , int& min, int& max )
+		double MathUtils::clip( int a , int min, int max )
 		{
 			return a < min ? min : ( a > max ? max : a );
 		}
@@ -208,6 +208,11 @@ namespace toxi
 			return a > b ? a : b;
 		}
 
+		double MathUtils::max( float a, float b )
+		{
+			return a > b ? a : b;
+		}
+
 		double MathUtils::min( double& a, double& b )
 		{
 			 return a < b ? a : b;
@@ -226,6 +231,11 @@ namespace toxi
 		int MathUtils::min( int& a, int& b, int& c )
 		{
 			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+		}
+
+		double MathUtils::min( float a, float b )
+		{
+			return a < b ? a : b;
 		}
 
 		double MathUtils::normalizedRandom( void )
@@ -305,7 +315,7 @@ namespace toxi
 			return ( double ) MathUtils::fastCos( ret );
 		}
 
-		double MathUtils::sqrt( double& x )
+		double MathUtils::sqrt( double x )
 		{
 			double _x = MathUtils::fastInverseSqrt(x);
 	
