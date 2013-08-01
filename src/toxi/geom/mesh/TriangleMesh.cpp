@@ -1,11 +1,11 @@
 #include "TriangleMesh.h"
 
 
-TriangleMesh::TriangleMesh(void)
+toxi::geom::mesh::TriangleMesh::TriangleMesh(void)
 {
 }
 
 
-TriangleMesh::~TriangleMesh(void)
+toxi::geom::mesh::TriangleMesh::~TriangleMesh(void)
 {
 }
