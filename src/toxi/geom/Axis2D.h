@@ -13,7 +13,7 @@ namespace toxi
 			//Axis2D( Vec2D v );
 			~Axis2D( void );
 
-			Vec2D* getVector( void );
+			Vec2D getVector( void );
 			static Vec2D X_AXIS( void );
 			static Vec2D Y_AXIS( void );;
 			static Vec2D ZERO( void );
