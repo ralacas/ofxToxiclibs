@@ -523,3 +523,37 @@ std::string toxi::geom::Vec3D::toString()
 	ss << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}";
 	return ss.str( );
 }
+
+toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( Vec3D v )
+{
+	this->x += v.x();
+	this->y += v.y();
+	this->z += v.z();
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( float a, float b, float c )
+{
+	this->x += a;
+	this->y += b;
+	this->z += c;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::clear()
+{
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::crossSelf( Vec3D v )
+{
+	float cx = y * v.z - v.y * z;
+	float cy = z * v.x - v.z * x;
+	this->z = x * v.y - v.x * y;
+	this->y = cy;
+	this->x = cx;
+	return *this;
+}

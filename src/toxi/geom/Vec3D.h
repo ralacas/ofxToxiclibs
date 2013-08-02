@@ -20,6 +20,8 @@ namespace toxi
 			Vec3D add(double a, double b, double c);
 
 			Vec3D add(Vec3D v);
+			Vec3D addSelf( float a, float b, float c );
+			Vec3D addSelf( Vec3D v );
 			float angleBetween(Vec3D v);
 			float angleBetween(Vec3D v, bool forceNormalize);
 			int compareTo(Vec3D v);
@@ -98,6 +100,8 @@ namespace toxi
 			static Vec3D Z_AXIS( );
 
 			std::string toString( );
+			Vec3D clear();
+			Vec3D crossSelf( Vec3D v );
 
 			float x();
 			float y();

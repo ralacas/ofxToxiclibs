@@ -19,9 +19,9 @@ namespace toxi
 		{
 		}
 
-		toxi::geom::Vec2D* toxi::geom::Axis2D::getVector( void )
+		toxi::geom::Vec2D toxi::geom::Axis2D::getVector( void )
 		{
-			return &vector;
+			return vector;
 		}
 
 
