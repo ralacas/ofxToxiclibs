@@ -12,9 +12,11 @@ namespace toxi
 		class LineIntersection
 		{
 		public:
-			LineIntersection( Type type );
-			LineIntersection( Type type, Line3D line, float mua, float mub );
+			LineIntersection( enum toxi::geom::LineIntersection::Type type );
+			LineIntersection( enum toxi::geom::LineIntersection::Type type, Line3D line, float mua, float mub );
 			~LineIntersection(void);
+
+			static enum Type { NON_INTERSECTING, INTERSECTING };
 
 			std::vector< float > getCoefficients( );
 			float getLength();

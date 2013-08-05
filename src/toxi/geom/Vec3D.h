@@ -2,6 +2,7 @@
 
 #include "ReadonlyVec3D.h"
 #include "../math/MathUtils.h"
+#include "VecMathUtil.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -102,6 +103,12 @@ namespace toxi
 			std::string toString( );
 			Vec3D clear();
 			Vec3D crossSelf( Vec3D v );
+			Vec3D subSelf( float a, float b, float c);
+			Vec3D subSelf( Vec3D _v );
+			int hashCode();
+			Vec3D invert();
+			Vec3D interpolateToSelf( Vec3D v, float f );
+			Vec3D limit( float lim );
 
 			float x();
 			float y();

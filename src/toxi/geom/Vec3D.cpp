@@ -557,3 +557,52 @@ toxi::geom::Vec3D toxi::geom::Vec3D::crossSelf( Vec3D v )
 	this->x = cx;
 	return *this;
 }
+
+toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( float a, float b, float c )
+{
+	this->x -= a;
+	this->y -= b;
+	this->z -= c;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( Vec3D _v )
+{
+	this->x -= _v.x;
+	this->y -= _v.y;
+	this->z -= _v.z;
+	return *this;
+}
+
+int toxi::geom::Vec3D::hashCode()
+{
+	long bits = 1;
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(x);
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(y);
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(z);
+	return (int ) ( bits ^ ( bits >> 32 ) );
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::invert()
+{
+	this->x *= -1;
+	this->y *= -1;
+	this->z *= -1;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::interpolateToSelf( Vec3D v, float f )
+{
+	this->x += (v.x - this->x) * f;
+	this->y += (v.y - this->y) * f;
+	this->z += (v.z - this->z) * f;
+	return *this;
+}
+
+toxi::geom::Vec3D toxi::geom::Vec3D::limit( float lim )
+{
+	if ( magSquared() > lim * lim ) {
+		return normalize().scaleSelf( lim );
+	}
+	return *this;
+}

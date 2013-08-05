@@ -1,6 +1,6 @@
 #include "LineIntersection.h"
 
-static enum Type { NON_INTERSECTING, INTERSECTING };
+
 
 toxi::geom::LineIntersection::LineIntersection( Type type )
 {
