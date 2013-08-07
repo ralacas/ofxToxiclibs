@@ -23,7 +23,7 @@ namespace toxi
 
 			static Triangle3D createEquilateralFrom( Vec3D a, Vec3D b );
 
-			Vec3D closesPointOnSurface( Vec3D p );
+			Vec3D closestPointOnSurface( Vec3D p );
 			Vec3D computeCentroid( );
 			bool containsPoint( Vec3D p );
 			Triangle3D flipVertexOrder( );
