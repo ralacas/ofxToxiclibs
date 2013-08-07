@@ -50,6 +50,7 @@ namespace toxi
 				static double clip( int a , int min, int max );
 				static double clipNormalized( double& a );
 				static double cos( double& theta );
+				static float cos( float theta );
 				static double degrees( double& radians );
 				static double dualSign( double& a, double& b );
 				static double fastCos( double& x);
@@ -81,12 +82,13 @@ namespace toxi
 				static double random( double& min, double& max );
 				static double random( int& max );
 				static double random( int& min, int& max );
-				static double reduceAngle( double& theta );
+				static double reduceAngle( double theta );
 				static double roundTo( double& val, double& prec );
 				static int roundTo( int& val, int& prec );
 				static double sign( double& x );
 				static int sign( int& x );
 				static double sin( double& theta );
+				static float sin( float theta );
 				static double sqrt( double x );
 				static unsigned floatToBits( float x );
 				static float intBitsToFloat ( unsigned x );
