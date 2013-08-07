@@ -10,7 +10,7 @@ namespace toxi
 	{
 		namespace mesh
 		{
-			class TriangleMesh : Mesh3D
+			class TriangleMesh : public Mesh3D
 			{
 			public:
 				TriangleMesh( void );
