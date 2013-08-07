@@ -15,6 +15,7 @@ namespace toxi
 			class Face
 			{
 			public:
+				Face( void );
 				Face( Vertex a, Vertex b, Vertex c );
 				Face( Vertex a, Vertex b, Vertex c, Vec2D uvA, Vec2D uvB, Vec2D uvC );
 				~Face(void);
