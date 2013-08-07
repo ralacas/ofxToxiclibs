@@ -7,6 +7,11 @@ toxi::geom::Vec2D::Vec2D( double _x, double _y )
 	this->y = _y;
 }
 
+toxi::geom::Vec2D::Vec2D(  )
+{
+	this->x = 0;
+	this->y = 0;
+}
 
 toxi::geom::Vec2D::~Vec2D(void)
 {

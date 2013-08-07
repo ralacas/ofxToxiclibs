@@ -12,6 +12,7 @@ namespace toxi
 		class Vec2D
 		{
 		public:
+			Vec2D();
 			Vec2D( double _x, double _y );
 			~Vec2D(void);
 
