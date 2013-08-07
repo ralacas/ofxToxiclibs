@@ -77,6 +77,12 @@ namespace toxi
 			return toxi::math::MathUtils::sin(thet);
 		}
 
+		float MathUtils::cos( float theta )
+		{
+			double thet = theta + toxi::math::MathUtils::HALF_PI;
+			return toxi::math::MathUtils::sin(thet);
+		}
+
 		double MathUtils::degrees( double& radians )
 		{
 			return radians * toxi::math::MathUtils::RAD2DEG;
@@ -294,12 +300,12 @@ namespace toxi
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		double MathUtils::sign( double& x )
+		double MathUtils::sign( double x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
-		int MathUtils::sign( int& x )
+		int MathUtils::sign( int x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
@@ -313,6 +319,17 @@ namespace toxi
 			}
 			double ret = MathUtils::HALF_PI - thet;
 			return ( double ) MathUtils::fastCos( ret );
+		}
+
+		float MathUtils::sin( float theta )
+		{
+			double  thet = MathUtils::reduceAngle( theta );
+			if ( MathUtils::abs( thet) <= MathUtils::QUARTER_PI ) 
+			{
+				return ( double ) MathUtils::fastSin(thet);
+			}
+			double ret = MathUtils::HALF_PI - thet;
+			return  MathUtils::fastCos( ret );
 		}
 
 		double MathUtils::sqrt( double x )

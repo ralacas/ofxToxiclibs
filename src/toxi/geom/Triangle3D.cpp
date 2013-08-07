@@ -25,7 +25,7 @@ toxi::geom::Triangle3D toxi::geom::Triangle3D::createEquilateralFrom( Vec3D a, V
 	return Triangle3D( a, b, c );
 }
 
-toxi::geom::Vec3D toxi::geom::Triangle3D::closesPointOnSurface( Vec3D p )
+toxi::geom::Vec3D toxi::geom::Triangle3D::closestPointOnSurface( Vec3D p )
 {
 	Vec3D ab = b.sub( a );
 	Vec3D ac = c.sub( a );
