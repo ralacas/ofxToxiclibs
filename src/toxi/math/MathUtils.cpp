@@ -300,12 +300,12 @@ namespace toxi
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		double MathUtils::sign( double& x )
+		double MathUtils::sign( double x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
-		int MathUtils::sign( int& x )
+		int MathUtils::sign( int x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}

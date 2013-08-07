@@ -85,8 +85,8 @@ namespace toxi
 				static double reduceAngle( double theta );
 				static double roundTo( double& val, double& prec );
 				static int roundTo( int& val, int& prec );
-				static double sign( double& x );
-				static int sign( int& x );
+				static double sign( double x );
+				static int sign( int x );
 				static double sin( double& theta );
 				static float sin( float theta );
 				static double sqrt( double x );
