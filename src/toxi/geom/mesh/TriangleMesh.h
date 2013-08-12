@@ -4,10 +4,16 @@
 #include < vector >
 #include < map >
 #include "Face.h"
+#include "OBJWriter.h"
+#include "STLWriter.h"
+#include "WETriangleMesh.h"
 #include "../Vec3D.h"
 #include "../Vec2D.h"
 #include "Vertex.h"
 #include "../Matrix4x4.h"
+#include "../TriangleIntersector.h"
+#include "../Sphere.h"
+#include "../Quaternion.h"
 
 namespace toxi 
 {
@@ -32,15 +38,15 @@ namespace toxi
 				std::vector< Face > faces;
 
 				//TODO they should always return a pointer to themselves
-				TriangleMesh* addFace( Vec3D a, Vec3D b, Vec3D c );
-				TriangleMesh* addFace( Vec3D a, Vec3D b, Vec3D c, Vec2D uvA,
-					Vec2D uvB, Vec2D uvC );
-				TriangleMesh* addFace( Vec3D a, Vec3D b, Vec3D c, Vec3D n );
-				TriangleMesh* addFace( Vec3D a, Vec3D b, Vec3D c, Vec3D n, Vec2D uvA,
-					Vec2D uvB, Vec2D uvC );
-				TriangleMesh* addMesh( Mesh3D m );
-				AABB center( Vec3D origin );
-				Vertex checkVertex( Vec3D v );
+				TriangleMesh* addFace( Vec3D * a, Vec3D * b, Vec3D * c );
+				TriangleMesh* addFace( Vec3D * a, Vec3D * b, Vec3D * c, Vec2D * uvA,
+					Vec2D * uvB, Vec2D * uvC );
+				TriangleMesh* addFace( Vec3D * a, Vec3D * b, Vec3D * c, Vec3D * n );
+				TriangleMesh* addFace( Vec3D * a, Vec3D * b, Vec3D * c, Vec3D * n, Vec2D * uvA,
+					Vec2D * uvB, Vec2D * uvC );
+				TriangleMesh* addMesh( Mesh3D& m );
+				AABB center( Vec3D * origin );
+				Vertex checkVertex( Vec3D * v );
 				TriangleMesh* clear();
 				Vec3D computeCentroid();
 				TriangleMesh* computeFaceNormals();
@@ -52,28 +58,27 @@ namespace toxi
 				AABB getBoundingBox();
 				Sphere getBoundingSphere();
 				Vertex getClosestVertexToPoint( Vec3D p );
-				float* getFaceNormalsAsArray();
-				float* getFaceNormalsAsArray( float* normals, int offset, int stride );
+				std::vector< float> * getFaceNormalsAsArray();
+				std::vector< float> * getFaceNormalsAsArray( int offset, int stride );
 				std::vector< Face > getFaces();
-				int* getFacesAsArray();
 				IsectData3D getIntersectionData();
-				float* getMeshAsVertexArray();
-				float* getMeshAsVertexArray(float* verts, int offset, int strie );
-				float* getNormalsForUniqueVerticesArray();
+				std::vector< float> * getMeshAsVertexArray();
+				std::vector< float> * getMeshAsVertexArray( int offset, int strie );
+				std::vector< float> * getNormalsForUniqueVerticesArray();
 				int getNumFaces();
 				int getNumVertices();
 				TriangleMesh* getRotatedAroundAxis( Vec3D axis, float theta );
 				TriangleMesh* getRotatedX( float theta );
 				TriangleMesh* getRotatedY( float theta );
-				TriangleMesh* getRotatedY( float theta );
+				TriangleMesh* getRotatedZ( float theta );
 				TriangleMesh* getScaled( float factor );
 				TriangleMesh* getScaled( Vec3D scale );
 				TriangleMesh* getTranslated( Vec3D trans );
-				float* getUniqueVerticesAsArray();
+				std::vector< float> * getUniqueVerticesAsArray();
 				Vertex getVertexAtPoint( Vec3D v );
 				Vertex getVertexForID( int id );
-				float* getVertexNormalsAsArray();
-				float* getVertexNormalsAsArray( float* normals, int offset, int stride );
+				std::vector< float> * getVertexNormalsAsArray();
+				std::vector< float> * getVertexNormalsAsArray( int offset, int stride );
 				std::vector< Vertex > getVertices();
 				TriangleMesh* init( std::string name, int numV, int numF );
 				bool intersectsRay( Ray3D ray );
@@ -85,8 +90,8 @@ namespace toxi
 				TriangleMesh* rotateX( float theta );
 				TriangleMesh* rotateY( float theta );
 				TriangleMesh* rotateZ( float theta );
-				void saveAsOBJ( OBJWriter obj );
-				void saveAsOBJ( OBJWriter obj, bool saveNormals );
+				void saveAsOBJ( OBJWriter * obj );
+				void saveAsOBJ( OBJWriter * obj, bool saveNormals );
 				void saveAsOBJ( std::string path );
 				void saveAsOBJ( std::string path, bool saveNormals );
 				void saveAsSTL( std::string path );
@@ -102,9 +107,9 @@ namespace toxi
 				TriangleMesh* translate( Vec3D trans );
 				TriangleMesh* updateVertex( Vec3D orig, Vec3D newPos );
 
-				
+
 			protected:
-				handleSaveAsStl( STLWriter stl, bool useFlippedY );
+				void handleSaveAsStl( STLWriter stl, bool useFlippedY );
 
 
 			protected:
@@ -118,7 +123,7 @@ namespace toxi
 
 
 			private:
-				
+
 			};
 		}
 	}
