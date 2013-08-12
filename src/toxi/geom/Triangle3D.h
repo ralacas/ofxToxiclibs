@@ -25,6 +25,7 @@ namespace toxi
 
 			Vec3D closestPointOnSurface( Vec3D p );
 			Vec3D computeCentroid( );
+			Vec3D computeNormal();
 			bool containsPoint( Vec3D p );
 			Triangle3D flipVertexOrder( );
 			Vec3D fromVarycentric( Vec3D v );

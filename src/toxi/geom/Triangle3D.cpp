@@ -247,3 +247,9 @@ std::string toxi::geom::Triangle3D::toString()
 	ss << "Triangle3D: " << a.toString() << ", " << b.toString() << ", " << c.toString();
 	return ss.str();
 }
+
+toxi::geom::Vec3D toxi::geom::Triangle3D::computeNormal()
+{
+	normal = a.sub(c).crossSelf(a.sub(b)).normalize();
+	return normal;
+}

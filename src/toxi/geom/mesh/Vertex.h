@@ -9,7 +9,7 @@ namespace toxi
 	{
 		namespace mesh
 		{
-			class Vertex
+			class Vertex: public Vec3D
 			{
 			public:
 				Vertex(void);

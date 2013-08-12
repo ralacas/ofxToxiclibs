@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ReadonlyVec4D.h"
-
 namespace toxi
 {
 	namespace geom

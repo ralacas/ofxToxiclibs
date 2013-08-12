@@ -1,8 +1,11 @@
 #pragma once
 
-#include "ReadonlyVec3D.h"
 #include "../math/MathUtils.h"
+#include "../math/ScaleMap.h"
 #include "VecMathUtil.h"
+#include "AABB.h"
+#include "Axis3D.h"
+#include "Vec4D.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -39,7 +42,7 @@ namespace toxi
 			toxi::geom::Axis3D getClosestAxis();
 			float getComponent(toxi::geom::Axis3D id);
 			float getComponent(int id);
-			Vec3D getConstrained(AABB box);
+			Vec3D getConstrained(toxi::geom::AABB box);
 			Vec3D constrain(AABB box);
 			Vec3D constrain(Vec3D min, Vec3D max);
 			Vec3D getFloored();
