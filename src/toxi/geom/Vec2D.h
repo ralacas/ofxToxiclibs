@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ReadonlyVec2D.h"
 #include <math.h>
 #include "../math/MathUtils.h"
 #include "Vec3D.h"
