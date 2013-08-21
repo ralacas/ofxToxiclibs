@@ -9,6 +9,8 @@ namespace toxi
 		class Rect;
 		class MathUtils;
 		class Vec3D;
+		class ScaleMap;
+		class InterpolateStrategy;
 		class Vec2D
 		{
 		public:
@@ -37,7 +39,7 @@ namespace toxi
 			 Vec2D getFrac();
 			 Vec2D getInverted();
 			 Vec2D getLimited( double lim );
-			 Vec2D getMapped( toxi::math::ScaleMap map );
+			 Vec2D getMapped( toxi::geom::ScaleMap map );
 			 Vec2D normalize( );
 			 Vec2D subSelf( double a, double b );
 			 Vec2D subSelf( Vec2D *v );
@@ -58,7 +60,7 @@ namespace toxi
 			 Vec2D getSignum();
 			 double heading();
 			 Vec2D interpolateTo(Vec2D v, double f);
-			 Vec2D interpolateTo(Vec2D v, double f, toxi::math::InterpolateStrategy s);
+			 Vec2D interpolateTo(Vec2D v, double f, toxi::geom::InterpolateStrategy s);
 			 bool isInCircle(Vec2D sO, double sR);
 			 bool isInRectangle(Rect r);
 			 bool isInTriangle(Vec2D a, Vec2D b, Vec2D c);
