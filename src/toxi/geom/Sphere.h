@@ -1,6 +1,8 @@
 #pragma once
 #include "vec3d.h"
 #include "mesh/Mesh3D.h"
+#include "Ray3D.h"
+#include "../math/MathUtils.h"
 
 namespace toxi
 {
@@ -10,6 +12,7 @@ namespace toxi
 		class Vec3D;
 		class SurfaceMeshBuilder;
 		class SphereFunction;
+		class Ray3D;
 		class Sphere :
 			public toxi::geom::Vec3D
 		{
