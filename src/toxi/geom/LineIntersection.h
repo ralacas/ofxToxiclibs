@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Line3D.h"
+
 #include < vector >
 #include < string >
 #include < sstream >
@@ -18,16 +20,16 @@ namespace toxi
 			LineIntersection( enum toxi::geom::LineIntersection::Type type, toxi::geom::Line3D line, float mua, float mub );
 			~LineIntersection(void);
 
-			std::vector< float > getCoefficients( );
+			std::vector< float > getCoefficients();
 			float getLength();
-			toxi::geom::Line3D getLine();
+			toxi::geom::Line3D * getLine();
 			Type getType();
 			bool iIntersectionInside();
 			std::string toString();
 
 		private:
 			Type type;
-			toxi::geom::Line3D line;
+			toxi::geom::Line3D * line;
 			std::vector< float > coeff;
 		};
 	}
