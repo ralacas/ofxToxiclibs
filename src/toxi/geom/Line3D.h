@@ -1,5 +1,10 @@
 #pragma once
 
+#include "Vec3D.h"
+#include "AABB.h"
+#include "LineIntersection.h"
+#include "../math/MathUtils.h"
+
 #include < vector >
 #include < string >
 
@@ -11,6 +16,7 @@ namespace toxi
 		class Ray3D;
 		class Vec3D;
 		class AABB;
+		class MathUtils;
 		class Line3D
 		{
 		public:
