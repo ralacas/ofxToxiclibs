@@ -153,9 +153,19 @@ namespace toxi
 			return ( std::rand() > 0.5 );
 		}
 
-		long MathUtils::floor( double& x )
+		long MathUtils::floor( double x )
 		{
 			long y = (long) x;
+			if ( x < 0 && x != y ) 
+			{
+				y--;
+			}
+			return y;
+		}
+
+		int MathUtils::floor( float x )
+		{
+			int y = (int) x;
 			if ( x < 0 && x != y ) 
 			{
 				y--;

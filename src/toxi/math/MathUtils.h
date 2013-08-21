@@ -59,7 +59,8 @@ namespace toxi
 				static double fastPow( double& a, double& b );
 				static double fastSin( double& x );
 				static bool flipCoin( void );
-				static long floor( double& x );
+				static long floor( double x );
+				static int floor( float x );
 				static int floorPowerOf2( int& x );
 				static int gcd( int& p, int& q );
 				static double impulse( double& k, double& t );
@@ -83,7 +84,8 @@ namespace toxi
 				static double random( int& max );
 				static double random( int& min, int& max );
 				static double reduceAngle( double theta );
-				static double roundTo( double& val, double& prec );
+				static double roundTo( double val, double prec );
+				static float roundTo( float val, float prec );
 				static int roundTo( int& val, int& prec );
 				static double sign( double x );
 				static int sign( int x );
