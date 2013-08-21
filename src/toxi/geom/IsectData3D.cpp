@@ -14,9 +14,9 @@ void toxi::geom::IsectData3D::clear()
 {
 	isIntersection = false;
 	dist = 0.0;
-	pos = Vec3D( );
-	dir = Vec3D( );
-	normal = Vec3D( );
+	pos = new Vec3D( );
+	dir = new Vec3D( );
+	normal = new Vec3D( );
 }
 
 std::string toxi::geom::IsectData3D::toString()
@@ -25,7 +25,7 @@ std::string toxi::geom::IsectData3D::toString()
 	ss << "isec: " << isIntersection;
 	if( isIntersection )
 	{
-		ss << " at: " << pos.toString() << " dist: " << dist << " normal: " << normal.toString();
+		ss << " at: " << pos->toString() << " dist: " << dist << " normal: " << normal->toString();
 	}
 	return ss.str();
 }

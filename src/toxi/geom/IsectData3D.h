@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vec3D.h"
+
 #include < string >
 #include < sstream >
 
