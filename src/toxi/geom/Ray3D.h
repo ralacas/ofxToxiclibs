@@ -2,6 +2,7 @@
 
 #include < string >
 #include "Vec3D.h"
+#include "Line3D.h"
 
 namespace toxi
 {
@@ -14,8 +15,8 @@ namespace toxi
 		{
 		public:
 			Ray3D(void);
-			Ray3D( float x, float y, float z, toxi::geom::Vec3D d );
-			Ray3D( toxi::geom::Vec3D o, toxi::geom::Vec3D d );
+			Ray3D( float x, float y, float z, toxi::geom::Vec3D * d );
+			Ray3D( toxi::geom::Vec3D * o, toxi::geom::Vec3D * d );
 			~Ray3D(void);
 
 			toxi::geom::Vec3D * dir;
