@@ -21,3 +21,18 @@ toxi::geom::Vec3D * toxi::geom::Axis3D::getVector( void )
 {
 	return vector;
 }
+
+toxi::geom::Axis3D * toxi::geom::Axis3D::Z_AXIS()
+{
+	return new Axis3D(new Vec3D( 0, 0, 1 ) );
+}
+
+toxi::geom::Axis3D * toxi::geom::Axis3D::Y_AXIS()
+{
+	return new Axis3D(new Vec3D( 0, 1, 0 ) );
+}
+
+toxi::geom::Axis3D * toxi::geom::Axis3D::X_AXIS()
+{
+	return new Axis3D(new Vec3D( 1, 0, 0 ) );
+}

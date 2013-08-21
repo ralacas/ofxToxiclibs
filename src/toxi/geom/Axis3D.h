@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vec3D.h"
+
 namespace toxi
 {
 	namespace geom
@@ -13,9 +15,9 @@ namespace toxi
 
 			toxi::geom::Vec3D * getVector( void );
 
-			static toxi::geom::Vec3D * X_AXIS;
-			static toxi::geom::Vec3D * Y_AXIS;
-			static toxi::geom::Vec3D * Z_AXIS;
+			static toxi::geom::Axis3D * X_AXIS();
+			static toxi::geom::Axis3D * Y_AXIS();
+			static toxi::geom::Axis3D * Z_AXIS();
 			static toxi::geom::Vec3D * ZERO;
 			static toxi::geom::Vec3D * MIN_VALUE;
 			static toxi::geom::Vec3D * MAX_VALUE;
