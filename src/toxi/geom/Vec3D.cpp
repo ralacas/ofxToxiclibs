@@ -5,6 +5,19 @@ toxi::geom::Vec3D::Vec3D(void)
 {
 }
 
+toxi::geom::Vec3D::Vec3D(float x, float y, float z )
+{
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
+
+toxi::geom::Vec3D::Vec3D( int x, int y, int z )
+{
+	this->x = static_cast< float > ( x );
+	this->y = static_cast< float > ( y );
+	this->z = static_cast< float > ( z );
+}
 
 toxi::geom::Vec3D::~Vec3D(void)
 {
@@ -426,7 +439,7 @@ toxi::geom::Vec4D toxi::geom::Vec3D::to4D( float w )
 
 void toxi::geom::Vec3D::toArray( float& arr )
 {
-
+	// TODO
 }
 
 void toxi::geom::Vec3D::toArray4( float& arr, float w )
