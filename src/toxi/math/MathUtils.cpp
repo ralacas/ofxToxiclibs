@@ -27,12 +27,17 @@ namespace toxi
 		double MathUtils::SIN_B = 4.0 / MathUtils::PI;
 		double MathUtils::SIN_P = 9.0 / MathUtils::PI;
 
-		double MathUtils::abs( double& x )
+		double MathUtils::abs( double x )
 		{
 			return x < 0 ? -x : x;
 		}
 
-		int MathUtils::abs( const int& x )
+		float MathUtils::abs( float x )
+		{
+			return x < 0 ? -x : x;
+		}
+
+		int MathUtils::abs( int x )
 		{
 			int y = x >> 31;
 			return ( x ^ y ) - y;
@@ -307,6 +312,12 @@ namespace toxi
 		int MathUtils::roundTo( int& val, int& prec )
 		{
 			double reval = val / prec + 0.5;
+			return toxi::math::MathUtils::floor( reval ) * prec;
+		}
+
+		float MathUtils::roundTo( float val, float prec )
+		{
+			float reval = val / prec + 0.5;
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
