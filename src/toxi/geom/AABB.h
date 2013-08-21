@@ -1,9 +1,5 @@
 #pragma once
 
-#include "Vec3D.h"
-#include "Ray3D.h"
-#include "mesh/Mesh3D.h"
-#include "mesh/TriangleMesh.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -13,6 +9,10 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
+		class Ray3D;
+		class Mesh3D;
+		class TriangleMesh;
 		class AABB : Vec3D
 		{
 		public:
@@ -63,8 +63,7 @@ namespace toxi
 			AABB set( Vec3D v );
 			AABB setExtend( Vec3D extend );
 			bool testAxis( float a, float b, float fa, float fb, float va, float vb, float wa, float wb, float ea, float eb );
-			Mesh3D toMesh( Mesh3D mesh );
-			Mesh3D toMesh( void );
+			toxi::geom::mesh::Mesh3D * toMesh( void );
 			std::string toString( void );
 			AABB updateBound( void );
 

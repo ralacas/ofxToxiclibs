@@ -6,6 +6,8 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Triangle3D;
+		class IsectData3D;
 		class TriangleIntersector :
 			public toxi::geom::Intersector3D
 		{

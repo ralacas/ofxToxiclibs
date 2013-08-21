@@ -22,7 +22,9 @@ toxi::geom::AABB::AABB( Vec3D point, double extend )
 
 toxi::geom::AABB::AABB( Vec3D point, Vec3D extend )
 {
-	AABB( point );
+	this->x = point.x;
+	this->y = point.y;
+	this->z = point.z;
 	setExtend( extend );
 }
 
@@ -89,7 +91,7 @@ bool toxi::geom::AABB::intersectsBox( AABB box )
 
 toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( Ray3D ray, float minDist, float maxDist )
 {
-	Vec3D invDir = ray.getDirection().getReciprocal();
+	Vec3D invDir = ray.getDirection()->getReciprocal();
 	bool signDirX = invDir.x < 0;
 	bool signDirY = invDir.y < 0;
 	bool signDirZ = invDir.z < 0;
@@ -124,7 +126,7 @@ toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( Ray3D ray, float minDist, flo
 		tmax = tzmax;
 	}
 	if ((tmin < maxDist) && (tmax > minDist)) {
-		return ray.getPointAtDistance(tmin);
+		return *ray.getPointAtDistance(tmin);
 	}
 	return Vec3D();
 }
@@ -243,11 +245,12 @@ bool toxi::geom::AABB::testAxis( float a, float b, float fa, float fb, float va,
 	return (min > rad || max < -rad);
 }
 
-Mesh3D toxi::geom::AABB::toMesh( Mesh3D mesh )
+toxi::geom::mesh::Mesh3D * toxi::geom::AABB::toMesh()
 {
 	//if (mesh == null) {
 	//	mesh = TriangleMesh("aabb", 8, 12);
 	//}
+	toxi::geom::mesh::Mesh3D* mesh;
 	Vec3D a = min;
 	Vec3D g = max;
 	Vec3D b = Vec3D(a.x, a.y, g.z);
@@ -261,29 +264,24 @@ Mesh3D toxi::geom::AABB::toMesh( Mesh3D mesh )
 	Vec2D uc = Vec2D(1, 1);
 	Vec2D ud = Vec2D(0, 1);
 	// left
-	mesh.addFace(a, b, f, ud, uc, ub);
-	mesh.addFace(a, f, e, ud, ub, ua);
+	mesh->addFace(&a, &b, &f, &ud, &uc, &ub);
+	mesh->addFace(&a, &f, &e, &ud, &ub, &ua);
 	// front
-	mesh.addFace(b, c, g, ud, uc, ub);
-	mesh.addFace(b, g, f, ud, ub, ua);
+	mesh->addFace(&b, &c, &g, &ud, &uc, &ub);
+	mesh->addFace(&b, &g, &f, &ud, &ub, &ua);
 	// right
-	mesh.addFace(c, d, h, ud, uc, ub);
-	mesh.addFace(c, h, g, ud, ub, ua);
+	mesh->addFace(&c, &d, &h, &ud, &uc, &ub);
+	mesh->addFace(&c, &h, &g, &ud, &ub, &ua);
 	// back
-	mesh.addFace(d, a, e, ud, uc, ub);
-	mesh.addFace(d, e, h, ud, ub, ua);
+	mesh->addFace(&d, &a, &e, &ud, &uc, &ub);
+	mesh->addFace(&d, &e, &h, &ud, &ub, &ua);
 	// top
-	mesh.addFace(e, f, h, ua, ud, ub);
-	mesh.addFace(f, g, h, ud, uc, ub);
+	mesh->addFace(&e, &f, &h, &ua, &ud, &ub);
+	mesh->addFace(&f, &g, &h, &ud, &uc, &ub);
 	// bottom
-	mesh.addFace(a, d, b, ud, uc, ua);
-	mesh.addFace(b, d, c, ua, uc, ub);
+	mesh->addFace(&a, &d, &b, &ud, &uc, &ua);
+	mesh->addFace(&b, &d, &c, &ua, &uc, &ub);
 	return mesh;
-}
-
-Mesh3D toxi::geom::AABB::toMesh( void )
-{
-	return toMesh( Mesh3D() );
 }
 
 std::string toxi::geom::AABB::toString( void )

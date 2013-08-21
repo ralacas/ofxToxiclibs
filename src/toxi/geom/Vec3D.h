@@ -1,11 +1,5 @@
 #pragma once
 
-#include "../math/MathUtils.h"
-#include "../math/ScaleMap.h"
-#include "VecMathUtil.h"
-#include "AABB.h"
-#include "Axis3D.h"
-#include "Vec4D.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -14,6 +8,12 @@ namespace toxi
 {
 	namespace geom
 	{
+		class AABB;
+		class Axis3D;
+		class Vec2D;
+		class MathUtils;
+		class ScaleMap;
+		class Vec4D;
 		class Vec3D
 		{
 		public:
@@ -42,7 +42,7 @@ namespace toxi
 			toxi::geom::Axis3D getClosestAxis();
 			float getComponent(toxi::geom::Axis3D id);
 			float getComponent(int id);
-			Vec3D getConstrained(toxi::geom::AABB box);
+			Vec3D getConstrained( AABB box);
 			Vec3D constrain(AABB box);
 			Vec3D constrain(Vec3D min, Vec3D max);
 			Vec3D getFloored();
@@ -68,7 +68,7 @@ namespace toxi
 			float headingYZ();
 			Vec3D interpolateTo(Vec3D v, float f);
 			Vec3D interpolateTo(Vec3D v, float f, toxi::math::InterpolateStrategy s);
-			bool isInAABB(toxi::geom::AABB box);
+			bool isInAABB( AABB box );
 			bool isInAABB(Vec3D boxOrigin, Vec3D boxExtent);
 			bool isMajorAxis(float tolerance);
 			bool isZeroVector();
@@ -113,9 +113,9 @@ namespace toxi
 			Vec3D interpolateToSelf( Vec3D v, float f );
 			Vec3D limit( float lim );
 
-			float x();
-			float y();
-			float z();
+			float x;
+			float y;
+			float z;
 		};
 
 

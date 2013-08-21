@@ -1,9 +1,5 @@
 #pragma once
 
-#include "Vec3D.h"
-#include "Triangle3D.h"
-#include "AABB.h"
-#include "Line3D.h"
 #include < vector >
 #include < string >
 
@@ -11,6 +7,9 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
+		class AABB;
+		class Line3D;
 		class Triangle3D
 		{
 		public:
@@ -18,7 +17,7 @@ namespace toxi
 			Triangle3D( Vec3D a, Vec3D b, Vec3D c );
 			~Triangle3D(void);
 
-			Vec3D a, b, c;
+			Vec3D a, b, c; // TODO: pointers here
 			Vec3D normal, centroid;
 
 			static Triangle3D createEquilateralFrom( Vec3D a, Vec3D b );

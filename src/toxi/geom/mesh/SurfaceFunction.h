@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\Vec3D.h"
 
 namespace toxi
 {
@@ -8,6 +7,7 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Vec3D;
 			class SurfaceFunction
 			{
 			public:

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../math/MathUtils.h"
-#include "Vec3D.h"
 #include < sstream >
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
+		class MathUtils;
 		class Matrix4x4
 		{
 		public:

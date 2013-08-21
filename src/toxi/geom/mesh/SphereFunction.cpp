@@ -19,6 +19,7 @@ toxi::geom::mesh::SphereFunction::SphereFunction( Sphere s )
 
 toxi::geom::mesh::SphereFunction::~SphereFunction(void)
 {
+	delete sphere;
 }
 
 toxi::geom::Vec3D toxi::geom::mesh::SphereFunction::computeVertexFor( Vec3D p, float phi, float theta )

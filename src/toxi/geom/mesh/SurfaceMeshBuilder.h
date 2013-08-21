@@ -1,10 +1,6 @@
 #pragma once
 
-#include "..\Vec3D.h"
-#include "..\Vec2D.h"
-#include "SurfaceFunction.h"
-#include "Mesh3D.h"
-#include "TriangleMesh.h"
+#include "../Vec3D.h"
 
 namespace toxi
 {
@@ -12,6 +8,12 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			
+			class Vec2D;
+			class SurfaceFunction;
+			class Mesh3D;
+			class TriangleMesh;
+			class Vec3D;
 			class SurfaceMeshBuilder :
 				public toxi::geom::Vec3D
 			{

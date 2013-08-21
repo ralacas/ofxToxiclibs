@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Vec3D.h"
-#include "LineIntersection.h"
 #include < vector >
 #include < string >
 
@@ -9,15 +7,19 @@ namespace toxi
 {
 	namespace geom
 	{
+		class LineIntersection;
+		class Ray3D;
+		class Vec3D;
+		class AABB;
 		class Line3D
 		{
 		public:
 			Line3D(void);
 			Line3D( float x1, float y1, float z1, float x2, float y2, float z2 );
-			Line3D( toxi::geom::Vec3D a, toxi::geom::Vec3D b );
+			Line3D( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b );
 			~Line3D(void);
 
-			Vec3D a, b;
+			toxi::geom::Vec3D * a, * b;
 			
 			toxi::geom::LineIntersection closestLineTo( toxi::geom::Line3D l );
 			toxi::geom::Vec3D closestPointTo( toxi::geom::Vec3D p );

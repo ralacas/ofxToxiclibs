@@ -70,7 +70,7 @@ toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::addMesh( Mesh3D&
 	return this;
 }
 
-toxi::geom::AABB toxi::geom::mesh::TriangleMesh::center( Vec3D * origin )
+toxi::geom::AABB * toxi::geom::mesh::TriangleMesh::center( Vec3D * origin )
 {
 	computeCentroid();
 	Vec3D delta = origin != nullptr ? origin->sub(centroid) : centroid
@@ -193,7 +193,7 @@ toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::flipYAxis()
 	return this;
 }
 
-toxi::geom::AABB toxi::geom::mesh::TriangleMesh::getBoundingBox()
+toxi::geom::AABB * toxi::geom::mesh::TriangleMesh::getBoundingBox()
 {
 	Vec3D minBounds = Vec3D::max_value();
 	Vec3D maxBounds = Vec3D::min_value();

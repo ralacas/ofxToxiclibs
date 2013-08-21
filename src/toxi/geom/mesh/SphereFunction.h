@@ -1,6 +1,4 @@
 #pragma once
-#include "surfacefunction.h"
-#include "../Sphere.h"
 
 namespace toxi
 {
@@ -8,8 +6,11 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Sphere;
+			class Vec3D;
+			class SurfaceFunction;
 			class SphereFunction :
-				public toxi::geom::mesh::SurfaceFunction
+				public SurfaceFunction
 			{
 			public:
 				SphereFunction(void);
@@ -17,7 +18,7 @@ namespace toxi
 				SphereFunction( Sphere s );
 				~SphereFunction(void);
 
-				Sphere sphere;
+				Sphere * sphere;
 
 				Vec3D computeVertexFor( Vec3D p, float phi, float theta );
 				float getPhiRange();

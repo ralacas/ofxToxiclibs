@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\Vec3D.h"
 #include < string >
 
 namespace toxi
@@ -9,7 +8,8 @@ namespace toxi
 	{
 		namespace mesh
 		{
-			class Vertex: public Vec3D
+			class Vec3D;
+			class Vertex: public toxi::geom::Vec3D
 			{
 			public:
 				Vertex(void);

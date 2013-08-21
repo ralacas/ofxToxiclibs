@@ -1,9 +1,5 @@
 #pragma once
 
-#include "Vec3D.h"
-#include "Matrix4x4.h"
-#include "../math/InterpolateStrategy.h"
-
 #include < string >
 #include < sstream >
 
@@ -11,6 +7,9 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Matrix4x4;
+		class Vec3D;
+		class InterpolateStrategy;
 		class Quaternion
 		{
 		public:

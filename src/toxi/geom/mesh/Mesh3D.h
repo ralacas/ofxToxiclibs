@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Vec3D.h"
-#include "../Vec2D.h"
 
 namespace toxi
 {
@@ -9,6 +7,13 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Vec2D;
+			class Vec3D;
+			class Sphere;
+			class AABB;
+			class Vertex;
+			class Face;
+
 			class Mesh3D
 			{
 			public:
@@ -29,7 +34,7 @@ namespace toxi
 				virtual Mesh3D* faceOutwards();
 				virtual Mesh3D* flipVertexOrder();
 				virtual Mesh3D* flipYAxis();
-				virtual AABB getBoundingBox();
+				virtual AABB * getBoundingBox();
 				virtual Sphere getBoundingSphere();
 				virtual Vertex getClosestVertexToPoint( Vec3D p );
 				virtual std::vector< Face > getFaces();

@@ -1,12 +1,11 @@
-#pragma once
-
-#include "IsectData3D.h"
-#include "Ray3D.h"
+#pragma onces
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Ray3D;
+		class IsectData3D;
 		class Intersector3D
 		{
 		public:

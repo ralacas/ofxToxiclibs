@@ -9,6 +9,7 @@ namespace toxi
 		public:
 			Vec4D(void);
 			virtual ~Vec4D(void);
+			//TODO: implement
 		};
 	}
 }

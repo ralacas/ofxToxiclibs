@@ -13,5 +13,5 @@ toxi::geom::mesh::Face::~Face(void)
 
 toxi::geom::Triangle3D toxi::geom::mesh::Face::toTriangle()
 {
-	return toxi::geom::Triangle3D( a, b, c );
+	return toxi::geom::Triangle3D( *a, *b, *c );
 }

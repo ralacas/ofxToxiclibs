@@ -1,13 +1,15 @@
 #pragma once
 #include "vec3d.h"
 #include "mesh/Mesh3D.h"
-#include "mesh/SurfaceMeshBuilder.h"
-#include "mesh/SphereFunction.h"
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Triangle3D;
+		class Vec3D;
+		class SurfaceMeshBuilder;
+		class SphereFunction;
 		class Sphere :
 			public toxi::geom::Vec3D
 		{
@@ -25,8 +27,8 @@ namespace toxi
 			bool intersectSphereTriangle( Triangle3D t, Vec3D result );
 			double surfaceDistanceBetween( Vec2D p, Vec2D q );
 			Vec3D tangentPlaneNormalAt( Vec3D q );
-			toxi::geom::mesh::Mesh3D toMesh( int res );
-			toxi::geom::mesh::Mesh3D toMesh( toxi::geom::mesh::Mesh3D mesh, int res );
+			toxi::geom::mesh::Mesh3D * toMesh( int res ); // TODO: change implementation in Sphere.cpp
+			toxi::geom::mesh::Mesh3D * toMesh( toxi::geom::mesh::Mesh3D * mesh, int res );
 		};
 	}
 }

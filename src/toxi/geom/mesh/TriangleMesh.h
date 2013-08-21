@@ -7,13 +7,12 @@
 #include "OBJWriter.h"
 #include "STLWriter.h"
 #include "WETriangleMesh.h"
-#include "../Vec3D.h"
-#include "../Vec2D.h"
 #include "Vertex.h"
 #include "../Matrix4x4.h"
 #include "../TriangleIntersector.h"
-#include "../Sphere.h"
 #include "../Quaternion.h"
+#include "Mesh3D.h"
+#include "Vec3D.h"
 
 namespace toxi 
 {
@@ -21,6 +20,9 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Sphere;
+			class toxi::geom::AABB;
+			class Mesh3D;
 			class TriangleMesh : public Mesh3D
 			{
 			public:
@@ -45,7 +47,7 @@ namespace toxi
 				TriangleMesh* addFace( Vec3D * a, Vec3D * b, Vec3D * c, Vec3D * n, Vec2D * uvA,
 					Vec2D * uvB, Vec2D * uvC );
 				TriangleMesh* addMesh( Mesh3D& m );
-				AABB center( Vec3D * origin );
+				AABB * center( Vec3D * origin );
 				Vertex checkVertex( Vec3D * v );
 				TriangleMesh* clear();
 				Vec3D computeCentroid();
@@ -55,7 +57,7 @@ namespace toxi
 				TriangleMesh* faceOutwards();
 				TriangleMesh* flipVertexOrder();
 				TriangleMesh* flipYAxis();
-				AABB getBoundingBox();
+				AABB * getBoundingBox();
 				Sphere getBoundingSphere();
 				Vertex getClosestVertexToPoint( Vec3D p );
 				std::vector< float> * getFaceNormalsAsArray();
@@ -113,8 +115,8 @@ namespace toxi
 
 
 			protected:
-				AABB bounds;
-				Vec3D centroid;
+				toxi::geom::AABB * bounds;
+				toxi::geom::Vec3D centroid;
 				int numVertices;
 				int numFaces;
 				Matrix4x4 matrix;

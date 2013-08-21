@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Vec2D.h"
-
 namespace toxi
 {
 	namespace geom
 	{
+		class Vec2D;
 		class Axis2D
 		{
 		public:
