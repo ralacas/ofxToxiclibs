@@ -1,9 +1,7 @@
+#pragma once
+
 #ifndef __MATH_UTILS_H__
 #define __MATH_UTILS_H__
-
-#ifdef _WIN32
-	#pragma once
-#endif
 
 #include <stdlib.h>
 #include <iostream>
@@ -43,8 +41,9 @@ namespace toxi
 					float float_bits;
 				};
 
-				static double abs( double& x );
-				static int abs( const int& x );
+				static double abs( double x );
+				static float abs( float x );
+				static int abs( int x );
 				static int ceilPowerOf2( const int& x );
 				static double clip( double a, double min, double max );
 				static double clip( int a , int min, int max );

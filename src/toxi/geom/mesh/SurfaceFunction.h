@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef __SURFACEFUNCTION_H__
+#define __SURFACEFUNCTION_H__
 
 namespace toxi
 {
@@ -24,4 +26,4 @@ namespace toxi
 	}
 }
 
-
+#endif

@@ -1,6 +1,10 @@
 #pragma once
 
+#ifndef _AXIS2D_H__
+#define _AXIS2D_H__
+
 #include "Vec2D.h"
+#include < cfloat >
 
 namespace toxi
 {
@@ -28,3 +32,5 @@ namespace toxi
 
 	}
 }
+
+#endif

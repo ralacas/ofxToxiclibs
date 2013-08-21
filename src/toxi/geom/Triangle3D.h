@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __TRIANGLE3D_H__
+#define __TRIANGLE3D_H__
+
 #include < vector >
 #include < string >
 
@@ -43,4 +46,4 @@ namespace toxi
 	}
 }
 
-
+#endif

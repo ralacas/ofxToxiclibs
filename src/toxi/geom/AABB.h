@@ -1,7 +1,10 @@
 #pragma once
 
-#include "Vec3D.h"
+#ifndef __AABB_H__
+#define __AABB_H__
+
 #include "Vec2D.h"
+#include "Vec3D.h"
 #include "../math/MathUtils.h"
 #include "Ray3D.h"
 #include "mesh/Mesh3D.h"
@@ -16,19 +19,19 @@ namespace toxi
 	namespace geom
 	{
 		class Vec2D;
-		class Vec3D;
+		//class Vec3D{};
 		class Ray3D;
 		class TriangleMesh;
 		class MathUtils;
-		class AABB : Vec3D
+		class AABB : public toxi::geom::Vec3D
 		{
 		public:
 			AABB( void );
-			static AABB fromMinMax( Vec3D min, Vec3D max ) 
+			static AABB fromMinMax( Vec3D * min, Vec3D * max ) 
 			{
 				Vec3D a = Vec3D::min( min, max );
 				Vec3D b = Vec3D::max( min , max );
-				return AABB( a.interpolateTo( b, 0.5 ), b.sub( a ).scaleSelf( 0.5 ) );
+				return AABB( a.interpolateTo( &b, 0.5 ), b.sub( &a ).scaleSelf( 0.5 ) );
 			}
 
 			static AABB getBoundingBox( std::vector<Vec3D> points  )
@@ -39,10 +42,10 @@ namespace toxi
 				Vec3D min = Vec3D::max_value();
 				Vec3D max = Vec3D::min_value();
 				for (Vec3D p : points) {
-					min.minSelf(p);
-					max.maxSelf(p);
+					min.minSelf(&p);
+					max.maxSelf(&p);
 				}
-				return fromMinMax(min, max);
+				return fromMinMax(&min, &max);
 			}
 
 			AABB( AABB &box );
@@ -54,25 +57,25 @@ namespace toxi
 
 			Vec3D getMin();
 			Vec3D getMax();
-			bool containsPoint( Vec3D point );
+			bool containsPoint( Vec3D * point );
 			//Sphere getBoundingSphere();
 			Vec3D getExtend(  );
-			Vec3D getNormalForPoint( Vec3D p );
-			AABB growToContainPoint( Vec3D p );
-			bool intersectsBox( AABB box );
-			Vec3D intersectsRay( Ray3D ray, float minDist, float maxDist );
+			Vec3D getNormalForPoint( Vec3D * p );
+			AABB * growToContainPoint( Vec3D * p );
+			bool intersectsBox( AABB * box );
+			Vec3D intersectsRay( Ray3D * ray, float minDist, float maxDist );
 			//bool intersectsSphere(Sphere s );
-			bool intersectsSphere( Vec3D c, float r );
+			bool intersectsSphere( Vec3D * c, float r );
 			//bool intersectsTriangle( Triangle3D tri );
-			bool planeBoxOverlap( Vec3D normal, float d, Vec3D maxBox );
-			AABB set( AABB box );
+			bool planeBoxOverlap( Vec3D * normal, float d, Vec3D * maxBox );
+			AABB * set( AABB * box );
 			Vec3D set( float a, float b, float c );
-			AABB set( Vec3D v );
-			AABB setExtend( Vec3D extend );
+			AABB * set( Vec3D * v );
+			AABB * setExtend( Vec3D * extend );
 			bool testAxis( float a, float b, float fa, float fb, float va, float vb, float wa, float wb, float ea, float eb );
 			toxi::geom::mesh::Mesh3D * toMesh( void );
 			std::string toString( void );
-			AABB updateBound( void );
+			AABB * updateBound( void );
 
 		private:
 			Vec3D extent, min, max;
@@ -80,4 +83,4 @@ namespace toxi
 	}
 }
 
-
+#endif

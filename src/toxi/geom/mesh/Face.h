@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __FACE_H__
+#define __FACE_H__
+
 #include < vector >
 #include < string >
 
@@ -37,4 +40,4 @@ namespace toxi
 	}
 }
 
-
+#endif

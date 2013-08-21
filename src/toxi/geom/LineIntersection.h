@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __LINEINTERSECTION_H__
+#define __LINEINTERSECTION_H__
+
 #include "Line3D.h"
 
 #include < vector >
@@ -35,3 +38,4 @@ namespace toxi
 	}
 }
 
+#endif

@@ -1,11 +1,10 @@
+#pragma once
+
 #ifndef __SCALE_MAP_H__
 #define __SCALE_MAP_H__
-//TODO: find out what this does and put it in any class
 
-#ifdef _WIN32
-	#pragma once
-#endif
-
+#include "InterpolateStrategy.h"
+#include "../util/DoubleRange.h"
 
 namespace toxi
 {

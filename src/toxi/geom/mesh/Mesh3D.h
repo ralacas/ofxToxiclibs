@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __MESH3D_H__
+#define __MESH3D_H__
+
 #include < vector >
 
 namespace toxi
@@ -49,3 +52,4 @@ namespace toxi
 	}
 }
 
+#endif

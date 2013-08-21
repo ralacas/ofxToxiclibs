@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef __STLWRITER_H__
+#define __STLWRITER_H__
+
+
 namespace toxi
 {
 	namespace geom
@@ -17,3 +21,4 @@ namespace toxi
 	}
 }
 
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __AXIS3D_H__
+#define __AXIS3D_H__
+
 #include "Vec3D.h"
 
 namespace toxi
@@ -27,3 +30,5 @@ namespace toxi
 		};
 	}
 }
+
+#endif

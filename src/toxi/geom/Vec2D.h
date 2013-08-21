@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __VEC2D_H__
+#define __VEC2D_H__
+
 #include <math.h>
 
 namespace toxi
@@ -86,3 +89,5 @@ namespace toxi
 		};
 	}
 }
+
+#endif

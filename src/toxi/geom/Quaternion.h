@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __QUATERNION_H__
+#define __QUATERNION_H__
+
 #include < string >
 #include < sstream >
 #include "Vec3D.h"
@@ -58,4 +61,4 @@ namespace toxi
 	}
 }
 
-
+#endif

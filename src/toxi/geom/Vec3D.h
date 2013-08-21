@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __VEC3D_H__
+#define __VEC3D_H__
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -28,6 +31,7 @@ namespace toxi
 		public:
 			Vec3D(void);
 			Vec3D( int x, int y, int z );
+			Vec3D( float x, float y, float z );
 			~Vec3D(void);
 
 			Vec3D add(double a, double b, double c);
@@ -139,3 +143,5 @@ namespace toxi
 
 	}
 }
+
+#endif

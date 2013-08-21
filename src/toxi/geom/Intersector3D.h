@@ -1,5 +1,8 @@
 #pragma onces
 
+#ifndef __INTERSECTOR3D_H__
+#define __INTERSECTOR3D_H__
+
 namespace toxi
 {
 	namespace geom
@@ -18,4 +21,4 @@ namespace toxi
 	}
 }
 
-
+#endif

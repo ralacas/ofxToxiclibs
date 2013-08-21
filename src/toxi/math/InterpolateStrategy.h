@@ -1,9 +1,7 @@
+#pragma once
+
 #ifndef __INTERPOLATE_STRATEGY_H__
 #define __INTERPOLATE_STRATEGY_H__
-
-#ifdef _WIN32
-	#pragma once
-#endif
 
 namespace toxi
 {

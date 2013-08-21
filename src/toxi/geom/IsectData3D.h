@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __ISECDATA3D_H__
+#define __ISECDATA3D_H__
+
 #include "Vec3D.h"
 
 #include < string >
@@ -28,4 +31,4 @@ namespace toxi
 	}
 }
 
-
+#endif

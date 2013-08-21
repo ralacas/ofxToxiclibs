@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _VERTEX_H__
+#define _VERTEX_H__
+
 #include < string >
 
 namespace toxi
@@ -28,4 +31,4 @@ namespace toxi
 	}
 }
 
-
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __TRIANGLEMESH_H__
+#define __TRIANGLEMESH_H__
+
 #include < string >
 #include < vector >
 #include < map >
@@ -130,3 +133,5 @@ namespace toxi
 		}
 	}
 }
+
+#endif

@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef __SPHERE_H__
+#define __SPHERE_H__
+
 #include "vec3d.h"
 #include "mesh/Mesh3D.h"
 #include "Ray3D.h"
@@ -36,4 +40,4 @@ namespace toxi
 	}
 }
 
-
+#endif

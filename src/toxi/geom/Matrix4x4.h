@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __MATRIX4X4_H__
+#define __MATRIX4X4_H__
+
 #include < sstream >
 #include "../math/MathUtils.h"
 #include "Vec3D.h"
@@ -88,3 +91,5 @@ namespace toxi
 		};
 	}
 }
+
+#endif

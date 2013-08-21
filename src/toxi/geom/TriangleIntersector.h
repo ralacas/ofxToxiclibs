@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __TRIANGLEINTERSECTOR_H__
+#define __TRIANGLEINTERSECTOR_H__
+
 #include "Intersector3D.h"
 
 namespace toxi
@@ -29,4 +32,4 @@ namespace toxi
 	}
 }
 
-
+#endif

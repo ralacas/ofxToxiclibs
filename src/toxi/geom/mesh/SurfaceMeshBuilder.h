@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __SURFACEMESHBUILDER_H__
+#define __SURFACEMESHBUILDER_H__
+
 #include "../Vec3D.h"
 
 namespace toxi
@@ -36,4 +39,4 @@ namespace toxi
 	}
 }
 
-
+#endif
