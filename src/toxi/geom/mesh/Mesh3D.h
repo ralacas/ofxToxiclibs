@@ -1,5 +1,6 @@
 #pragma once
 
+#include < vector >
 
 namespace toxi
 {
@@ -37,10 +38,10 @@ namespace toxi
 				virtual AABB * getBoundingBox();
 				virtual Sphere getBoundingSphere();
 				virtual Vertex getClosestVertexToPoint( Vec3D p );
-				virtual std::vector< Face > getFaces();
+				virtual std::vector< toxi::geom::mesh::Face > getFaces();
 				virtual int getNumFaces();
 				virtual int getNumVertices();
-				virtual std::vector< Vertex> getVertices();
+				virtual std::vector< toxi::geom::mesh::Vertex> getVertices();
 				virtual Mesh3D* init( std::string name, int numV, int numF );
 				virtual Mesh3D* setName( std::string name );
 			};
