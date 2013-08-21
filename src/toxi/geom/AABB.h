@@ -1,5 +1,11 @@
 #pragma once
 
+#include "Vec3D.h"
+#include "Vec2D.h"
+#include "../math/MathUtils.h"
+#include "Ray3D.h"
+#include "mesh/Mesh3D.h"
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -9,10 +15,11 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Vec2D;
 		class Vec3D;
 		class Ray3D;
-		class Mesh3D;
 		class TriangleMesh;
+		class MathUtils;
 		class AABB : Vec3D
 		{
 		public:

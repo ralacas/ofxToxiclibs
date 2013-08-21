@@ -89,7 +89,7 @@ bool toxi::geom::AABB::intersectsBox( AABB box )
 		&& toxi::math::MathUtils::abs( t.z ) <= ( extent.z + box.extent.z );
 }
 
-toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( Ray3D ray, float minDist, float maxDist )
+toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( toxi::geom::Ray3D ray, float minDist, float maxDist )
 {
 	Vec3D invDir = ray.getDirection()->getReciprocal();
 	bool signDirX = invDir.x < 0;
