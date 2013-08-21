@@ -1,6 +1,8 @@
 #pragma once
 
 #include < sstream >
+#include "../math/MathUtils.h"
+#include "Vec3D.h"
 
 namespace toxi
 {

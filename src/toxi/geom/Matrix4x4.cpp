@@ -485,9 +485,9 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( Matrix4x4 mat )
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( Vec3D axis, double theta )
 {
 	double x, y, z, s, c, t, tx, ty;
-	x = axis.x();
-	y = axis.y();
-	z = axis.z();
+	x = axis.x;
+	y = axis.y;
+	z = axis.z;
 	s = toxi::math::MathUtils::sin( theta );
 	c = toxi::math::MathUtils::cos( theta );
 	t = 1 - c;
