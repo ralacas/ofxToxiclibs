@@ -6,7 +6,7 @@
  * @version 	1.0.0 11-Jul-13
  * @copyright	Copyright (c) 2013 by Marcel Schwittlick. All rights reserved. (http://www.mrzl.net)
  */
-#include <toxi/geom/Vec2DTest.h>
+#include "Vec2DTest.h"
 #include <toxi/geom/Vec2D.h>
 
 /**
