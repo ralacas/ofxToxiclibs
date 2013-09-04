@@ -1,8 +1,8 @@
 #include "Matrix4x4.h"
 
-toxi::geom::Matrix4x4 TEMP = toxi::geom::Matrix4x4();
-static const int width = 4;
-static const int height = 4;
+//toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::TEMP = toxi::geom::Matrix4x4();
+static const int width;// = 4;
+static const int height;// = 4;
 
 toxi::geom::Matrix4x4::Matrix4x4(void) 
 {
@@ -493,37 +493,37 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( Vec3D axis, doubl
 	t = 1 - c;
 	tx = t * x;
 	ty = t * y;
-	TEMP.set( tx * x + c, tx * y + s * z, tx * z - s * y, 0, tx * y - s * z,
+	TEMP->set( tx * x + c, tx * y + s * z, tx * z - s * y, 0, tx * y - s * z,
 		ty * y + c, ty * z + s * x, 0, tx * z + s * y, ty * z - s * x,
 		t * z * z + c, 0, 0, 0, 0, 1 );
-	return this->multiplySelf( TEMP );
+	return this->multiplySelf( *TEMP );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateX( double theta )
 {
-	TEMP.identity();
-	TEMP.matrix[1][1] = TEMP.matrix[2][2] = toxi::math::MathUtils::cos(theta);
-	TEMP.matrix[2][1] = toxi::math::MathUtils::sin(theta);
-	TEMP.matrix[1][2] = -TEMP.matrix[2][1];
-	return this->multiplySelf(TEMP);
+	TEMP->identity();
+	TEMP->matrix[1][1] = TEMP->matrix[2][2] = toxi::math::MathUtils::cos(theta);
+	TEMP->matrix[2][1] = toxi::math::MathUtils::sin(theta);
+	TEMP->matrix[1][2] = -TEMP->matrix[2][1];
+	return this->multiplySelf(*TEMP);
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateY( double theta )
 {
-	TEMP.identity();
-	TEMP.matrix[0][0] = TEMP.matrix[2][2] = toxi::math::MathUtils::cos(theta);
-	TEMP.matrix[0][2] = toxi::math::MathUtils::sin(theta);
-	TEMP.matrix[2][0] = -TEMP.matrix[0][2];
-	return this->multiplySelf(TEMP);
+	TEMP->identity();
+	TEMP->matrix[0][0] = TEMP->matrix[2][2] = toxi::math::MathUtils::cos(theta);
+	TEMP->matrix[0][2] = toxi::math::MathUtils::sin(theta);
+	TEMP->matrix[2][0] = -TEMP->matrix[0][2];
+	return this->multiplySelf(*TEMP);
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateZ( double theta )
 {
-	TEMP.identity();
-	TEMP.matrix[0][0] = TEMP.matrix[1][1] = toxi::math::MathUtils::cos(theta);
-	TEMP.matrix[1][0] = toxi::math::MathUtils::sin(theta);
-	TEMP.matrix[0][1] = -TEMP.matrix[1][0];
-	return this->multiplySelf(TEMP);
+	TEMP->identity();
+	TEMP->matrix[0][0] = TEMP->matrix[1][1] = toxi::math::MathUtils::cos(theta);
+	TEMP->matrix[1][0] = toxi::math::MathUtils::sin(theta);
+	TEMP->matrix[0][1] = -TEMP->matrix[1][0];
+	return this->multiplySelf(*TEMP);
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( double scale )
@@ -548,9 +548,9 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( double scale )
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( double scaleX, double scaleY, double scaleZ )
 {
-	TEMP.identity();
-	TEMP.setScale(scaleX, scaleY, scaleZ);
-	return this->multiplySelf(TEMP);
+	TEMP->identity();
+	TEMP->setScale(scaleX, scaleY, scaleZ);
+	return this->multiplySelf(*TEMP);
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( Vec3D scale )
@@ -709,9 +709,9 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( Vec3D v )
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translateSelf( double dx, double dy, double dz )
 {
-	TEMP.identity();
-	TEMP.setPosition(dx, dy, dz);
-	return this->multiplySelf(TEMP);
+	TEMP->identity();
+	TEMP->setPosition(dx, dy, dz);
+	return this->multiplySelf(*TEMP);
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::transpose()

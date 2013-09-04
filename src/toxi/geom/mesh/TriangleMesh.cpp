@@ -1,5 +1,8 @@
 #include "TriangleMesh.h"
 
+int toxi::geom::mesh::TriangleMesh::DEFAULT_STRIDE = 0; // TODO
+int toxi::geom::mesh::TriangleMesh::DEFAULT_NUM_VERTICES = 1000;
+int toxi::geom::mesh::TriangleMesh::DEFAULT_NUN_FACES = 1000;
 
 toxi::geom::mesh::TriangleMesh::TriangleMesh(void)
 {
@@ -90,7 +93,8 @@ toxi::geom::mesh::Vertex toxi::geom::mesh::TriangleMesh::checkVertex( toxi::geom
 	Vertex * vertex = &vertices.at( *v );
 	if (vertex == nullptr) {
 		*vertex = createVertex(*v, uniqueVertexID++);
-		vertices.insert(vertex, vertex);
+		//TODO
+		//vertices.insert(vertex, vertex);
 		numVertices++;
 	}
 	return *vertex;
@@ -367,9 +371,9 @@ std::vector< float> * toxi::geom::mesh::TriangleMesh::getUniqueVerticesAsArray()
 
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
 	{
-		verts->assign(i++, it->second.x );
-		verts->assign(i++, it->second.y );
-		verts->assign(i++, it->second.z );
+		//verts->assign(i++, it->second.x );
+		//verts->assign(i++, it->second.y );
+		//verts->assign(i++, it->second.z );
 		/*verts[ i++ ] = it->second.x;
 		verts[ i++ ] = it->second.y;
 		verts[ i++ ] = it->second.z;*/
@@ -413,24 +417,24 @@ std::vector< float> * toxi::geom::mesh::TriangleMesh::getVertexNormalsAsArray( i
 
 	for( auto it = faces.begin(); it != faces.end(); ++it )
 	{
-		normals->assign(i, it->a->normal->x);
-		normals->assign(i+ 1, it->a->normal->x);
-		normals->assign(i+2, it->a->normal->x);
+		//normals->assign(i, it->a->normal->x);
+		//normals->assign(i+ 1, it->a->normal->x);
+		//normals->assign(i+2, it->a->normal->x);
 		/*normals[ i ] = it->a->normal->x;
 		normals[ i + 1 ] = it->a.normal.y;
 		normals[ i + 2 ] = it->a.normal.z;*/
 		i += stride;
-		normals->assign(i, it->b->normal->x);
-		normals->assign(i+ 1, it->b->normal->x);
-		normals->assign(i+2, it->b->normal->x);
+		//normals->assign(i, it->b->normal->x);
+		//normals->assign(i+ 1, it->b->normal->x);
+		//normals->assign(i+2, it->b->normal->x);
 		/*
 		normals[ i ] = it->b.normal.x;
 		normals[ i + 1 ] = it->b.normal.y;
 		normals[ i + 2 ] = it->b.normal.z;*/
 		i += stride;
-		normals->assign(i, it->c->normal->x);
-		normals->assign(i+ 1, it->c->normal->x);
-		normals->assign(i+2, it->c->normal->x);
+		//normals->assign(i, it->c->normal->x);
+		//normals->assign(i+ 1, it->c->normal->x);
+		//normals->assign(i+2, it->c->normal->x);
 		/*
 		normals[ i ] = it->c.normal.x;
 		normals[ i + 1 ] = it->c.normal.y;

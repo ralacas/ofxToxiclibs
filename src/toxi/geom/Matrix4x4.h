@@ -28,8 +28,9 @@ namespace toxi
 			~Matrix4x4(void);
 
 			double** matrix;
-			static const int width;
-			static const int height;
+			int width;
+			int height;
+			toxi::geom::Matrix4x4 * TEMP;
 
 			static bool LUDecomposition( double* matrix0, int* row_perm, int width );
 
@@ -84,8 +85,6 @@ namespace toxi
 			Matrix4x4 translateSelf( double dx, double dy, double dz );
 			Matrix4x4 transpose();
 
-		private:
-			static Matrix4x4 TEMP;
 
 		protected:
 			double* temp;

@@ -28,7 +28,7 @@ toxi::geom::Vec3D * toxi::geom::Ray3D::getDirection()
 
 toxi::geom::Vec3D * toxi::geom::Ray3D::getPointAtDistance( float d )
 {
-	Vec3D * v;
+	Vec3D * v = new Vec3D();
 	return v;
 }
 
