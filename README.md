@@ -8,7 +8,7 @@ My plan is to develop this port for the next weeks/months, but never put 100% of
 Libraries
 =========
 
-To be able to run the TestCases, you need to install CppUnit 1.12.1 before: 
+In order to run the tests yourself, you need to have CppUnit 1.12.1 installed:
 [CppUnit](http://sourceforge.net/apps/mediawiki/cppunit/index.php?title=Main_Page)
 
 Status
@@ -16,3 +16,6 @@ Status
 
 05.07.2013:
 toxiclibs.core : 5 / 216 (2.3%)
+
+05.09.2013:
+toxiclibs.core : 33 / 216 ( 15.8&)
