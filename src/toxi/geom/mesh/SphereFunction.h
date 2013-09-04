@@ -1,6 +1,14 @@
 #pragma once
-#include "surfacefunction.h"
+
+#ifndef __SPHEREFUNCTION_H__
+#define __SPHEREFUNCTION_H__
+
+
+
 #include "../Sphere.h"
+//#include "SurfaceFunction.h"
+#include "../Vec3D.h"
+#include "../../math/MathUtils.h"
 
 namespace toxi
 {
@@ -8,18 +16,21 @@ namespace toxi
 	{
 		namespace mesh
 		{
-			class SphereFunction :
-				public toxi::geom::mesh::SurfaceFunction
+			//class toxi::geom::Sphere;
+			//class toxi::geom::Vec3D;
+			class Sphere;
+			class SurfaceFunction;
+			class SphereFunction //: public SurfaceFunction //TODO FIX THIS INHERITANCE
 			{
 			public:
 				SphereFunction(void);
 				SphereFunction( float radius );
-				SphereFunction( Sphere s );
+				SphereFunction( Sphere * s );
 				~SphereFunction(void);
 
-				Sphere sphere;
+				Sphere * sphere;
 
-				Vec3D computeVertexFor( Vec3D p, float phi, float theta );
+				toxi::geom::Vec3D * computeVertexFor( toxi::geom::Vec3D * p, float phi, float theta );
 				float getPhiRange();
 				int getPhiResolutionLimit(int res );
 				float getThetaRange();
@@ -36,3 +47,4 @@ namespace toxi
 	}
 }
 
+#endif

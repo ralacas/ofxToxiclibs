@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __VECMATHUTIL_H__
+#define __VECMATHUTIL_H__
+
 namespace toxi
 {
 	namespace geom 
@@ -16,3 +19,4 @@ namespace toxi
 	}
 }
 
+#endif

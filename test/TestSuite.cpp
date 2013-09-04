@@ -12,7 +12,9 @@
 #include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
-#include <DoubleRangeTest.h>
+#include "toxi/util/datatypes/DoubleRangeTest.h"
+#include "toxi/geom/Vec2DTest.h"
+#include "HtmlOutputter.h"
 
 /**
  * Performs this application as start point.
@@ -22,16 +24,26 @@
  */
 int main(void)
 {
-	std::ofstream outputStream("TestResult.xml", std::ofstream::out);
+	std::ofstream outputStream("test/TestResult.html", std::ofstream::out);
 	CppUnit::TextTestRunner runner;
 	
-	runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
+	HtmlOutputter * hmtlOutputter = new HtmlOutputter( &runner.result(), outputStream, "OFXTOXICLIBS TESTSUITE" );
+	hmtlOutputter->setStylesheetPath( "Style.css" );
+
+	//runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
+	runner.setOutputter( hmtlOutputter );
 	runner.addTest(DoubleRangeTest::suite());
+	runner.addTest(Vec2DTest::suite() );
 	runner.run();
 
 	outputStream.close();
 
 	std::cout << "Test suite were performend and the result were written into 'TestResult.xml'!" << std::endl;
 
+	char c;
+	std::cin >> c;
+
 	return EXIT_SUCCESS;
+
+	
 }

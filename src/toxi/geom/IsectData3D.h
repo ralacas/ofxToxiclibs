@@ -1,13 +1,18 @@
 #pragma once
 
+#ifndef __ISECDATA3D_H__
+#define __ISECDATA3D_H__
+
 #include < string >
 #include < sstream >
+
 #include "Vec3D.h"
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
 		class IsectData3D
 		{
 		public:
@@ -19,11 +24,11 @@ namespace toxi
 
 			bool isIntersection;
 			float dist;
-			Vec3D pos;
-			Vec3D dir;
-			Vec3D normal;
+			toxi::geom::Vec3D * pos; // TODO: every pointer needs to be deleted.
+			toxi::geom::Vec3D * dir;
+			toxi::geom::Vec3D * normal;
 		};
 	}
 }
 
-
+#endif

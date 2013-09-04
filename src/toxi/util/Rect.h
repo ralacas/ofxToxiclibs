@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __RECT_H__
+#define __RECT_H__
+
 namespace toxi
 {
 	namespace geom
@@ -14,3 +17,5 @@ namespace toxi
 		};
 	}
 }
+
+#endif

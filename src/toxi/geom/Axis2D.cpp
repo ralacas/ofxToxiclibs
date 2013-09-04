@@ -19,35 +19,35 @@ namespace toxi
 		{
 		}
 
-		toxi::geom::Vec2D toxi::geom::Axis2D::getVector( void )
+		toxi::geom::Vec2D * toxi::geom::Axis2D::getVector( void )
 		{
 			return vector;
 		}
 
 
-		toxi::geom::Vec2D Axis2D::X_AXIS( void )
+		toxi::geom::Vec2D * Axis2D::X_AXIS( void )
 		{
-			return toxi::geom::Vec2D( 1, 0 );
+			return new toxi::geom::Vec2D( 1, 0 );
 		}
 
-		toxi::geom::Vec2D Axis2D::Y_AXIS( void )
+		toxi::geom::Vec2D * Axis2D::Y_AXIS( void )
 		{
-			return toxi::geom::Vec2D( 0, 1 );
+			return new toxi::geom::Vec2D( 0, 1 );
 		}
 
-		toxi::geom::Vec2D Axis2D::ZERO( void )
+		toxi::geom::Vec2D * Axis2D::ZERO( void )
 		{
-			return toxi::geom::Vec2D( 0, 0 );
+			return new toxi::geom::Vec2D( 0, 0 );
 		}
 
-		toxi::geom::Vec2D Axis2D::MIN_VALUE( void )
+		toxi::geom::Vec2D * Axis2D::MIN_VALUE( void )
 		{
-			return toxi::geom::Vec2D( DBL_MIN, DBL_MIN );
+			return new toxi::geom::Vec2D( DBL_MIN, DBL_MIN );
 		}
 
-		toxi::geom::Vec2D Axis2D::MAX_VALUE( void )
+		toxi::geom::Vec2D * Axis2D::MAX_VALUE( void )
 		{
-			return toxi::geom::Vec2D( DBL_MAX, DBL_MAX );
+			return new toxi::geom::Vec2D( DBL_MAX, DBL_MAX );
 		}
 
 	}

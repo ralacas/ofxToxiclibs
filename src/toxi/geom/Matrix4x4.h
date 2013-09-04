@@ -1,13 +1,19 @@
 #pragma once
 
+#ifndef __MATRIX4X4_H__
+#define __MATRIX4X4_H__
+
+#include < sstream >
+
 #include "../math/MathUtils.h"
 #include "Vec3D.h"
-#include < sstream >
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
+		class MathUtils;
 		class Matrix4x4
 		{
 		public:
@@ -22,8 +28,9 @@ namespace toxi
 			~Matrix4x4(void);
 
 			double** matrix;
-			static const int width;
-			static const int height;
+			int width;
+			int height;
+			toxi::geom::Matrix4x4 * TEMP;
 
 			static bool LUDecomposition( double* matrix0, int* row_perm, int width );
 
@@ -78,11 +85,11 @@ namespace toxi
 			Matrix4x4 translateSelf( double dx, double dy, double dz );
 			Matrix4x4 transpose();
 
-		private:
-			static Matrix4x4 TEMP;
 
 		protected:
 			double* temp;
 		};
 	}
 }
+
+#endif

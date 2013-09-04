@@ -1,16 +1,23 @@
 #pragma once
 
-#include "Vec3D.h"
-#include "Matrix4x4.h"
-#include "../math/InterpolateStrategy.h"
+#ifndef __QUATERNION_H__
+#define __QUATERNION_H__
 
 #include < string >
 #include < sstream >
+
+#include "Matrix4x4.h"
+#include "Vec3D.h"
+#include "../math/MathUtils.h"
+#include "../math/InterpolateStrategy.h"
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Matrix4x4;
+		class Vec3D;
+		//class InterpolateStrategy;
 		class Quaternion
 		{
 		public:
@@ -35,9 +42,9 @@ namespace toxi
 			Quaternion getNormalized();
 			Quaternion identity();
 			Quaternion interpolateTo( Quaternion target, float t );
-			Quaternion interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy is );
+			Quaternion interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy *is );
 			Quaternion interpolateToSelf( Quaternion target, double t );
-			Quaternion interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy is );
+			Quaternion interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy * is );
 			float magnitude( );
 			Quaternion multiply( Quaternion q2 );
 			Quaternion normalize();
@@ -57,4 +64,4 @@ namespace toxi
 	}
 }
 
-
+#endif

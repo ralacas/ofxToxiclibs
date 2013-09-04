@@ -1,13 +1,22 @@
 #pragma once
 
+#ifndef __VEC2D_H__
+#define __VEC2D_H__
+
 #include <math.h>
 #include "../math/MathUtils.h"
+#include "../math/ScaleMap.h"
+#include "../util/Rect.h"
 #include "Vec3D.h"
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
+		class ScaleMap;
+		class Rect;
+		class InterpolateStrategy;
 		class Vec2D
 		{
 		public:
@@ -29,7 +38,7 @@ namespace toxi
 			 bool equalsWithTolerance(Vec2D v, double tolerance);
 			 Vec2D getCartesian();
 			 double getComponent(int id);
-			 Vec2D constrain(toxi::geom::Rect r);
+			 Vec2D constrain(Rect r);
 			 Vec2D floor( void );
 			 Vec2D getFloored();
 			 Vec2D frac( );
@@ -77,11 +86,11 @@ namespace toxi
 			 Vec3D to3DXZ();
 			 Vec3D to3DYZ();
 			 double* toArray(double a);
-			 double x( void );
-			 double y( void );
 
 			double x;
 			double y;
 		};
 	}
 }
+
+#endif

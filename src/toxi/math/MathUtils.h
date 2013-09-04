@@ -1,9 +1,7 @@
+#pragma once
+
 #ifndef __MATH_UTILS_H__
 #define __MATH_UTILS_H__
-
-#ifdef _WIN32
-	#pragma once
-#endif
 
 #include <stdlib.h>
 #include <iostream>
@@ -43,8 +41,9 @@ namespace toxi
 					float float_bits;
 				};
 
-				static double abs( double& x );
-				static int abs( const int& x );
+				static double abs( double x );
+				static float abs( float x );
+				static int abs( int x );
 				static int ceilPowerOf2( const int& x );
 				static double clip( double a, double min, double max );
 				static double clip( int a , int min, int max );
@@ -59,7 +58,8 @@ namespace toxi
 				static double fastPow( double& a, double& b );
 				static double fastSin( double& x );
 				static bool flipCoin( void );
-				static long floor( double& x );
+				static long floor( double x );
+				static int floor( float x );
 				static int floorPowerOf2( int& x );
 				static int gcd( int& p, int& q );
 				static double impulse( double& k, double& t );
@@ -83,7 +83,8 @@ namespace toxi
 				static double random( int& max );
 				static double random( int& min, int& max );
 				static double reduceAngle( double theta );
-				static double roundTo( double& val, double& prec );
+				static double roundTo( double val, double prec );
+				static float roundTo( float val, float prec );
 				static int roundTo( int& val, int& prec );
 				static double sign( double x );
 				static int sign( int x );

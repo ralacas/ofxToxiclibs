@@ -1,35 +1,41 @@
 #pragma once
 
-#include "Line3D.h"
+#ifndef __LINEINTERSECTION_H__
+#define __LINEINTERSECTION_H__
+
 #include < vector >
 #include < string >
 #include < sstream >
+
+#include "Line3D.h"
 
 namespace toxi
 {
 	namespace geom 
 	{
+		class Line3D;
 		class LineIntersection
 		{
 		public:
-			LineIntersection( enum toxi::geom::LineIntersection::Type type );
-			LineIntersection( enum toxi::geom::LineIntersection::Type type, Line3D line, float mua, float mub );
-			~LineIntersection(void);
-
 			static enum Type { NON_INTERSECTING, INTERSECTING };
 
-			std::vector< float > getCoefficients( );
+			LineIntersection( enum toxi::geom::LineIntersection::Type type );
+			LineIntersection( enum toxi::geom::LineIntersection::Type type, toxi::geom::Line3D line, float mua, float mub );
+			~LineIntersection(void);
+
+			std::vector< float > getCoefficients();
 			float getLength();
-			Line3D getLine();
+			toxi::geom::Line3D * getLine();
 			Type getType();
 			bool iIntersectionInside();
 			std::string toString();
 
 		private:
 			Type type;
-			Line3D line;
+			toxi::geom::Line3D * line;
 			std::vector< float > coeff;
 		};
 	}
 }
 
+#endif

@@ -1,12 +1,14 @@
 #pragma once
 
-#include "IsectData3D.h"
-#include "Ray3D.h"
+#ifndef __INTERSECTOR3D_H__
+#define __INTERSECTOR3D_H__
 
 namespace toxi
 {
 	namespace geom
 	{
+		class Ray3D;
+		class IsectData3D;
 		class Intersector3D
 		{
 		public:
@@ -19,4 +21,4 @@ namespace toxi
 	}
 }
 
-
+#endif

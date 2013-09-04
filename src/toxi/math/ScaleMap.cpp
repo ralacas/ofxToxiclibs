@@ -13,7 +13,7 @@ namespace toxi
 		{
 			setInputRange( minIn, maxIn );
 			setOutputRange( minOut, maxOut );
-			mapFunction = LinearInterpolation();
+			mapFunction = new toxi::math::LinearInterpolation();
 		}
 
 		ScaleMap::ScaleMap(const ScaleMap& copyFrom)
@@ -31,17 +31,17 @@ namespace toxi
 
 		double ScaleMap::getClippedValueFor( double val )
 		{
-			double cl = ( val - this->in.getMin() ) / this->interval; 
+			double cl = ( val - in->getMin() ) / this->interval; 
 			double t = toxi::math::MathUtils::clipNormalized( cl );
 			if ( toxi::math::MathUtils::isNan( t ) ) {
 				t = 0;
 			}
-			return mapFunction.interpolate(this->out.getMin(), this->out.getMax(), t);
+			return mapFunction->interpolate(out->getMin(), out->getMax(), t);
 		}
 
 		double ScaleMap::getInputMedian( void )
 		{
-			return (this->in.getMin() + this->in.getMax()) * 0.5;
+			return (in->getMin() + in->getMax()) * 0.5;
 		}
 
 		double ScaleMap::getMappedMedian( void )
@@ -51,34 +51,34 @@ namespace toxi
 
 		double ScaleMap::getMappedValueFor( double val )
 		{
-			double t = ((val - this->in.getMin()) / this->interval);
+			double t = ((val - in->getMin()) / this->interval);
 			
 			if ( MathUtils::isNan( t ) ) {
 				t = 0;
 			}
 			
-			return this->mapFunction.interpolate(this->out.getMin(), this->out.getMax(), t);
+			return mapFunction->interpolate(out->getMin(), out->getMax(), t);
 		}
 
 		double ScaleMap::getOutputMedian( void )
 		{
-			return (this->out.getMin() + this->out.getMax()) * 0.5;
+			return (out->getMin() + out->getMax()) * 0.5;
 		}
 
 		void ScaleMap::setInputRange( const double min, const double max )
 		{
-			this->in = toxi::util::datatypes::DoubleRange(min, max);
+			this->in = new toxi::util::datatypes::DoubleRange(min, max);
 			this->interval = max - min;
 		}
 
-		void ScaleMap::setMapFunction( InterpolateStrategy func )
+		void ScaleMap::setMapFunction( InterpolateStrategy *  func )
 		{
 			this->mapFunction = func;
 		}
 
 		void ScaleMap::setOutputRange( const double min, const double max )
 		{
-			this->out = toxi::util::datatypes::DoubleRange(min, max);
+			this->out = new toxi::util::datatypes::DoubleRange(min, max);
 			this->mapRange = max - min;
 		}
 

@@ -12,9 +12,9 @@ toxi::geom::mesh::SurfaceFunction::~SurfaceFunction(void)
 {
 }
 
-toxi::geom::Vec3D toxi::geom::mesh::SurfaceFunction::computeVertexFor( Vec3D p, float phi, float theta )
+toxi::geom::Vec3D * toxi::geom::mesh::SurfaceFunction::computeVertexFor( toxi::geom::Vec3D * p, float phi, float theta )
 {
-	return Vec3D();
+	return new toxi::geom::Vec3D();
 }
 
 float toxi::geom::mesh::SurfaceFunction::getPhiRange()

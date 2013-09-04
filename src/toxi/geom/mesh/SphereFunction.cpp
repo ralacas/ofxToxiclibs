@@ -8,10 +8,11 @@ toxi::geom::mesh::SphereFunction::SphereFunction(void)
 
 toxi::geom::mesh::SphereFunction::SphereFunction( float radius )
 {
-	SphereFunction( Sphere( Vec3D(), radius ) );
+	//SphereFunction( new toxi::geom::Sphere( toxi::geom::Vec3D(), radius ) );
+	//TODO: FHIX THIS
 }
 
-toxi::geom::mesh::SphereFunction::SphereFunction( Sphere s )
+toxi::geom::mesh::SphereFunction::SphereFunction( Sphere * s )
 {
 	this->sphere = sphere;
 }
@@ -19,9 +20,10 @@ toxi::geom::mesh::SphereFunction::SphereFunction( Sphere s )
 
 toxi::geom::mesh::SphereFunction::~SphereFunction(void)
 {
+	delete sphere;
 }
 
-toxi::geom::Vec3D toxi::geom::mesh::SphereFunction::computeVertexFor( Vec3D p, float phi, float theta )
+toxi::geom::Vec3D * toxi::geom::mesh::SphereFunction::computeVertexFor( toxi::geom::Vec3D * p, float phi, float theta )
 {
 	phi -= toxi::math::MathUtils::HALF_PI;
 	float cosPhi = toxi::math::MathUtils::cos(phi);
@@ -29,10 +31,12 @@ toxi::geom::Vec3D toxi::geom::mesh::SphereFunction::computeVertexFor( Vec3D p, f
 	float sinPhi = toxi::math::MathUtils::sin(phi);
 	float sinTheta = toxi::math::MathUtils::sin(theta);
 	float t = toxi::math::MathUtils::sign(cosPhi) * toxi::math::MathUtils::abs(cosPhi);
-	p.x = t * toxi::math::MathUtils::sign(cosTheta) * toxi::math::MathUtils::abs(cosTheta);
-	p.y = toxi::math::MathUtils::sign(sinPhi) * toxi::math::MathUtils::abs(sinPhi);
-	p.z = t * toxi::math::MathUtils::sign(sinTheta) * toxi::math::MathUtils::abs(sinTheta);
-	return p.scaleSelf(sphere.radius).addSelf(sphere);
+	p->x = t * toxi::math::MathUtils::sign(cosTheta) * toxi::math::MathUtils::abs(cosTheta);
+	p->y = toxi::math::MathUtils::sign(sinPhi) * toxi::math::MathUtils::abs(sinPhi);
+	p->z = t * toxi::math::MathUtils::sign(sinTheta) * toxi::math::MathUtils::abs(sinTheta);
+	//return p->scaleSelf(sphere->radius)->addSelf(sphere);
+	//TODO
+	return new toxi::geom::Vec3D();
 }
 
 float toxi::geom::mesh::SphereFunction::getPhiRange()

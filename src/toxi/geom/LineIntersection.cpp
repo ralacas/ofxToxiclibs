@@ -10,7 +10,7 @@ toxi::geom::LineIntersection::LineIntersection( Type type )
 toxi::geom::LineIntersection::LineIntersection( Type type, Line3D line, float mua, float mub )
 {
 	this->type = type;
-	this->line = line;
+	this->line = & line;
 	this->coeff.push_back( mua );
 	this->coeff.push_back( mub );
 }
@@ -26,15 +26,15 @@ std::vector< float > toxi::geom::LineIntersection::getCoefficients()
 
 float toxi::geom::LineIntersection::getLength()
 {
-	return line.getLength();
+	return line->getLength();
 }
 
-toxi::geom::Line3D toxi::geom::LineIntersection::getLine()
+toxi::geom::Line3D * toxi::geom::LineIntersection::getLine()
 {
 	return line;
 }
 
-Type toxi::geom::LineIntersection::getType()
+toxi::geom::LineIntersection::Type toxi::geom::LineIntersection::getType()
 {
 	return type;
 }
@@ -48,6 +48,6 @@ bool toxi::geom::LineIntersection::iIntersectionInside()
 std::string toxi::geom::LineIntersection::toString()
 {
 	std::stringstream ss;
-	ss << "type: " << type << " line: " << line.toString();
+	ss << "type: " << type << " line: " << line->toString();
 	return ss.str();
 }

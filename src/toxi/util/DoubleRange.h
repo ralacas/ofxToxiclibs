@@ -1,9 +1,7 @@
+#pragma once
+
 #ifndef __DOUBLE_RANGE_H__
 #define __DOUBLE_RANGE_H__
-
-#ifdef _WIN32
-	#pragma once
-#endif
 
 #include <vector>
 #include <string>

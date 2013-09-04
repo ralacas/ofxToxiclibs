@@ -41,8 +41,8 @@ toxi::geom::Vec2D toxi::geom::Vec2D::add( double _x, double _y )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::add( Vec2D v )
 {
-	Vec2D v = Vec2D( v.x, v.y );
-	return v;
+	Vec2D _v = Vec2D( v.x, v.y );
+	return _v;
 }
 
 toxi::geom::Vec3D toxi::geom::Vec2D::bisect( Vec2D b )
@@ -50,7 +50,7 @@ toxi::geom::Vec3D toxi::geom::Vec2D::bisect( Vec2D b )
 	Vec2D diff = this->sub(b);
 	Vec2D sum = this->add(b);
 	double dot = diff.dot(sum);
-	return Vec3D(diff.x, diff.y, -dot / 2)
+	return Vec3D(diff.x, diff.y, -dot / 2);
 }
 
 int toxi::geom::Vec2D::compareTo( Vec2D v )
@@ -244,7 +244,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::reflect( Vec2D normal )
 toxi::geom::Vec2D toxi::geom::Vec2D::getReflected( Vec2D normal )
 {
 	Vec2D v = Vec2D( x, y );
-	return v.reflect();
+	return v.reflect(normal);
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::rotate( double theta )

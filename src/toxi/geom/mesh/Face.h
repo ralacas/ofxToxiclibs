@@ -1,39 +1,46 @@
 #pragma once
 
-#include "Vertex.h"
-#include "..\Vec2D.h"
-#include "..\Vec3D.h"
-#include "..\Triangle3D.h"
+#ifndef __FACE_H__
+#define __FACE_H__
+
 #include < vector >
 #include < string >
+
+#include "../Triangle3D.h"
+#include "../Vec2D.h"
+#include "Vertex.h"
+
 namespace toxi
 {
 	namespace geom
 	{
 		namespace mesh
 		{
+			class Vertex;
+			class Vec2D;
+			class Triangle3D;
 			class Face
 			{
 			public:
 				Face( void );
-				Face( Vertex a, Vertex b, Vertex c );
-				Face( Vertex a, Vertex b, Vertex c, Vec2D uvA, Vec2D uvB, Vec2D uvC );
+				Face( toxi::geom::mesh::Vertex * a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c );
+				Face( toxi::geom::mesh::Vertex * a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c, toxi::geom::Vec2D * uvA, toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC );
 				~Face(void);
 
-				Vertex a, b, c;
-				Vec2D uvA, uvB, uvC;
-				Vec3D normal;
+				toxi::geom::mesh::Vertex *a, *b, *c;
+				toxi::geom::Vec2D * uvA, * uvB, * uvC;
+				toxi::geom::Vec3D * normal;
 
 				void computeNormal();
 				void flipVertexOrder();
-				Vec3D getCentroid( );
-				Vertex* getVertices( );
+				toxi::geom::Vec3D * getCentroid( );
+				std::vector< Vertex * >  getVertices( );
 				std::string toString( );
-				toxi::geom::Triangle3D toTriangle( );
+				toxi::geom::Triangle3D * toTriangle( );
 				
 			};
 		}
 	}
 }
 
-
+#endif

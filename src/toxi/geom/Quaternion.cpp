@@ -120,9 +120,9 @@ toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( Matrix4x4 m )
 toxi::geom::Quaternion toxi::geom::Quaternion::getAlignmentQuat( Vec3D dir, Vec3D forward )
 {
 	Vec3D target = dir.getNormalized();
-	Vec3D axis = forward.cross(target);
+	Vec3D axis = forward.cross(&target);
 	float length = axis.magnitude() + 0.0001f;
-	float angle = (float) std::atan2(length, forward.dot(target));
+	float angle = (float) std::atan2(length, forward.dot(&target));
 	return createFromAxisAngle(axis, angle);
 }
 
@@ -179,9 +179,9 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target,
 	return Quaternion( *this ).interpolateToSelf( target, t );
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy * is )
 {
-	return Quaternion( *this ).interpolateToSelf( target, is.interpolate(0, 1, t) );
+	return Quaternion( *this ).interpolateToSelf( target, is->interpolate(0, 1, t) );
 }
 
 toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t )
@@ -212,9 +212,10 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion tar
 	return normalize();
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy * is )
 {
-	return interpolateToSelf(target, is.interpolate(0, 1, t));
+	float st = is->interpolate(0, 1, t);
+	return interpolateToSelf(target, st);
 }
 
 float toxi::geom::Quaternion::magnitude()

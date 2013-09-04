@@ -6,8 +6,8 @@
  * @version 	1.0.0 11-Jul-13
  * @copyright	Copyright (c) 2013 by Marcel Schwittlick. All rights reserved. (http://www.mrzl.net)
  */
-#ifndef __DOUBLE_RANGE_TEST_H__
-#define __DOUBLE_RANGE_TEST_H__
+#ifndef __VEC2D_TEST_H__
+#define __VEC2D_TEST_H__
 
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCase.h>
@@ -19,7 +19,8 @@ class Vec2DTest : public CppUnit::TestFixture
 {
 	public:
 		CPPUNIT_TEST_SUITE(Vec2DTest);
-		CPPUNIT_TEST(getRangeTest);
+		CPPUNIT_TEST(normalizeTest);
+		//CPPUNIT_TEST(getRangeTest);
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	

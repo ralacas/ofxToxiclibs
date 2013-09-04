@@ -1,9 +1,7 @@
+#pragma once
+
 #ifndef __LINEAR_INTERPOLATION_H__
 #define __LINEAR_INTERPOLATION_H__
-
-#ifdef _WIN32
-#pragma once
-#endif
 
 #include "InterpolateStrategy.h"
 
