@@ -17,7 +17,7 @@ namespace toxi
 	{
 		class Matrix4x4;
 		class Vec3D;
-		class InterpolateStrategy;
+		//class InterpolateStrategy;
 		class Quaternion
 		{
 		public:
@@ -42,9 +42,9 @@ namespace toxi
 			Quaternion getNormalized();
 			Quaternion identity();
 			Quaternion interpolateTo( Quaternion target, float t );
-			Quaternion interpolateTo( Quaternion target, float t, toxi::geom::InterpolateStrategy *is );
+			Quaternion interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy *is );
 			Quaternion interpolateToSelf( Quaternion target, double t );
-			Quaternion interpolateToSelf( Quaternion target, double t, toxi::geom::InterpolateStrategy * is );
+			Quaternion interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy * is );
 			float magnitude( );
 			Quaternion multiply( Quaternion q2 );
 			Quaternion normalize();

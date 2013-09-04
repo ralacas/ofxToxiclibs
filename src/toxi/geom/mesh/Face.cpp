@@ -23,7 +23,7 @@ toxi::geom::mesh::Face::Face( Vertex * a, Vertex * b, Vertex * c )
 	c->addFaceNormal(normal);
 }
 
-toxi::geom::mesh::Face::Face( Vertex * a, Vertex * b, Vertex * c, Vec2D * uvA, Vec2D * uvB, Vec2D * uvC )
+toxi::geom::mesh::Face::Face(  toxi::geom::mesh::Vertex * a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c, toxi::geom::Vec2D * uvA, toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC  )
 {
 	this->a = a;
 	this->b = b;
@@ -45,7 +45,7 @@ toxi::geom::mesh::Face::~Face(void)
 
 toxi::geom::Triangle3D * toxi::geom::mesh::Face::toTriangle()
 {
-	return new toxi::geom::Triangle3D( *a, *b, *c );
+	return new toxi::geom::Triangle3D( a, b, c );
 }
 
 void toxi::geom::mesh::Face::computeNormal()

@@ -3,6 +3,7 @@
 #ifndef __SURFACEMESHBUILDER_H__
 #define __SURFACEMESHBUILDER_H__
 
+
 #include "../Vec3D.h"
 #include "SurfaceFunction.h"
 
@@ -14,26 +15,27 @@ namespace toxi
 		{
 			
 			class Vec2D;
-			class SurfaceFunction;// TODO this too.
+			//class SurfaceFunction;// TODO this too.
 			class Mesh3D;
 			class TriangleMesh;
-			class Vec3D; //TODO this might fuck things up
+			//class Vec3D; //TODO this might fuck things up
 			class SurfaceMeshBuilder :
 				public toxi::geom::Vec3D
 			{
 			public:
-				SurfaceMeshBuilder( SurfaceFunction function );
+				SurfaceMeshBuilder();
+				SurfaceMeshBuilder( SurfaceFunction * function );
 				~SurfaceMeshBuilder(void);
 
-				Mesh3D createMesh( int res );
-				Mesh3D createMesh( Mesh3D mesh, int res, float size );
-				Mesh3D createMesh( Mesh3D mesh, int res, float size, bool isClosed );
+				Mesh3D * createMesh( int res );
+				Mesh3D * createMesh( Mesh3D * mesh, int res, float size );
+				Mesh3D * createMesh( Mesh3D * mesh, int res, float size, bool isClosed );
 
-				SurfaceFunction getFunction();
-				void setFunction( SurfaceFunction function );
+				toxi::geom::mesh::SurfaceFunction * getFunction();
+				void setFunction( SurfaceFunction * function );
 
 			protected:
-				SurfaceFunction function;
+				toxi::geom::mesh::SurfaceFunction * function;
 			};
 
 		}

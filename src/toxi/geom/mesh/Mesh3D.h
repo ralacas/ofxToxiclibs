@@ -5,8 +5,8 @@
 
 #include < vector >
 
-#include "Vec2D.h"
-#include "Vec3D.h"
+#include "../Vec2D.h"
+#include "../Vec3D.h"
 
 namespace toxi
 {
@@ -16,10 +16,10 @@ namespace toxi
 		{
 			class Sphere;
 			class AABB;
-			class toxi::geom::Vec2D;
+			class Vec2D;
 			class Vertex;
 			class Face;
-			class toxi::geom::Vec3D;
+			class Vec3D;
 			class Mesh3D
 			{
 			public:

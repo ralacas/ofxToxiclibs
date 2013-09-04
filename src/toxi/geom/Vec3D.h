@@ -7,6 +7,17 @@
 #include <iostream>
 #include <sstream>
 
+#include "Axis3D.h"
+#include "Vec2D.h"
+#include "Vec4D.h"
+#include "VecMathUtil.h"
+
+#include "../math/InterpolateStrategy.h"
+#include "../math/MathUtils.h"
+#include "../math/ScaleMap.h"
+
+
+
 namespace toxi
 {
 	namespace geom
@@ -16,7 +27,7 @@ namespace toxi
 		class Vec2D;
 		class MathUtils;
 		class ScaleMap;
-		class InterpolateStrategy;
+		//class InterpolateStrategy;
 		class Vec4D;
 		class Vec3D
 		{
@@ -55,7 +66,7 @@ namespace toxi
 			Vec3D getFrac();
 			Vec3D getInverted();
 			Vec3D getLimited(float lim);
-			Vec3D getMapped( toxi::geom::ScaleMap * map);
+			Vec3D getMapped( toxi::math::ScaleMap * map);
 			Vec3D getNormalized();
 			Vec3D getNormalizedTo(float len);
 			Vec3D normalize( void );
@@ -82,7 +93,7 @@ namespace toxi
 			float headingXZ();
 			float headingYZ();
 			Vec3D interpolateTo(Vec3D * v, float f);
-			Vec3D interpolateTo(toxi::geom::Vec3D * v, float f, InterpolateStrategy * s);
+			Vec3D interpolateTo(toxi::geom::Vec3D * v, float f, toxi::math::InterpolateStrategy * s);
 			bool isInAABB( AABB * box );
 			bool isInAABB(Vec3D * boxOrigin, Vec3D * boxExtent);
 			bool isMajorAxis(float tolerance);

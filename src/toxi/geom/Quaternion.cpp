@@ -179,7 +179,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target,
 	return Quaternion( *this ).interpolateToSelf( target, t );
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::geom::InterpolateStrategy * is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy * is )
 {
 	return Quaternion( *this ).interpolateToSelf( target, is->interpolate(0, 1, t) );
 }
@@ -212,7 +212,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion tar
 	return normalize();
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t, toxi::geom::InterpolateStrategy * is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy * is )
 {
 	float st = is->interpolate(0, 1, t);
 	return interpolateToSelf(target, st);

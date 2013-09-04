@@ -5,6 +5,9 @@
 
 #include < string >
 
+#include "Line3D.h"
+#include "Vec3D.h"
+
 namespace toxi
 {
 	namespace geom

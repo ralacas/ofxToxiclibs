@@ -1,4 +1,4 @@
-#pragma onces
+#pragma once
 
 #ifndef __INTERSECTOR3D_H__
 #define __INTERSECTOR3D_H__

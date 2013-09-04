@@ -55,7 +55,7 @@ float toxi::geom::Vec3D::angleBetween( Vec3D * v, bool forceNormalize )
 {
 	float theta;
 	if (forceNormalize) {
-		theta = getNormalized().dot(v.getNormalized());
+		theta = getNormalized().dot(&v->getNormalized());
 	} else {
 		theta = dot(v);
 	}
@@ -100,9 +100,9 @@ toxi::geom::Vec3D toxi::geom::Vec3D::crossInto( Vec3D * v)
 
 float toxi::geom::Vec3D::distanceTo( Vec3D * v )
 {
-	float dx = this->x - v.x();
-	float dy = this->y - v.y();
-	float dz = this->z - v.z();
+	float dx = this->x - v->x;
+	float dy = this->y - v->y;
+	float dz = this->z - v->z;
 	return (float) toxi::math::MathUtils::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
@@ -233,7 +233,7 @@ toxi::geom::Vec3D toxi::geom::Vec3D::getLimited( float lim )
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::getMapped( toxi::geom::ScaleMap * map )
+toxi::geom::Vec3D toxi::geom::Vec3D::getMapped( toxi::math::ScaleMap * map )
 {
 	return Vec3D(map->getClippedValueFor(this->x),
 		map->getClippedValueFor(this->y),
@@ -322,7 +322,7 @@ toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( toxi::geom::Vec3D * v, float
 		s->interpolate(y, v->y, f), s->interpolate(z, v->z, f));
 }
 
-bool toxi::geom::Vec3D::isInAABB( AABB* box )
+bool toxi::geom::Vec3D::isInAABB( toxi::geom::AABB * box )
 {
 	Vec3D min = box->getMin();
 	Vec3D max = box->getMax();
@@ -456,7 +456,7 @@ void toxi::geom::Vec3D::toArray4( float& arr, float w )
 
 toxi::geom::Vec3D toxi::geom::Vec3D::constrain( AABB * box )
 {
-	return constrain(&box->getMin(),& box->getMax());
+	return constrain(box->getMin(), box->getMax());
 }
 
 toxi::geom::Vec3D toxi::geom::Vec3D::constrain( Vec3D * min, Vec3D * max )

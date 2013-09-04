@@ -3,6 +3,12 @@
 #ifndef __SPHERE_H__
 #define __SPHERE_H__
 
+#include "Ray3D.h"
+#include "Triangle3D.h"
+#include "Vec3D.h"
+#include "mesh/SphereFunction.h"
+#include "mesh/SurfaceMeshBuilder.h"
+
 namespace toxi
 {
 	namespace geom
@@ -28,8 +34,8 @@ namespace toxi
 			bool intersectSphereTriangle( Triangle3D * t, Vec3D * result );
 			double surfaceDistanceBetween( toxi::geom::Vec2D * p,  toxi::geom::Vec2D * q );
 			Vec3D tangentPlaneNormalAt( Vec3D * q );
-			toxi::geom::Mesh3D * toMesh( int res ); // TODO: change implementation in Sphere.cpp
-			toxi::geom::Mesh3D * toMesh( toxi::geom::Mesh3D * mesh, int res );
+			//toxi::geom::mesh::Mesh3D * toMesh( int res ); // TODO: change implementation in Sphere.cpp
+			toxi::geom::mesh::Mesh3D * toMesh( toxi::geom::mesh::Mesh3D * mesh, int res );
 		};
 	}
 }

@@ -6,6 +6,10 @@
 #include < vector >
 #include < string >
 
+#include "../Triangle3D.h"
+#include "../Vec2D.h"
+#include "Vertex.h"
+
 namespace toxi
 {
 	namespace geom
@@ -13,6 +17,8 @@ namespace toxi
 		namespace mesh
 		{
 			class Vertex;
+			class Vec2D;
+			class Triangle3D;
 			class Face
 			{
 			public:

@@ -6,6 +6,9 @@ toxi::geom::mesh::SurfaceMeshBuilder::SurfaceMeshBuilder( SurfaceFunction functi
 	this->function = function;
 }
 
+toxi::geom::mesh::SurfaceMeshBuilder::SurfaceMeshBuilder(void)
+{
+}
 
 toxi::geom::mesh::SurfaceMeshBuilder::~SurfaceMeshBuilder(void)
 {

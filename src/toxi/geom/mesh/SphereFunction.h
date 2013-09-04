@@ -3,27 +3,34 @@
 #ifndef __SPHEREFUNCTION_H__
 #define __SPHEREFUNCTION_H__
 
+
+
+#include "../Sphere.h"
+//#include "SurfaceFunction.h"
+#include "../Vec3D.h"
+#include "../../math/MathUtils.h"
+
 namespace toxi
 {
 	namespace geom
 	{
 		namespace mesh
 		{
+			//class toxi::geom::Sphere;
+			//class toxi::geom::Vec3D;
 			class Sphere;
-			class Vec3D;
 			class SurfaceFunction;
-			class SphereFunction :
-				public SurfaceFunction
+			class SphereFunction //: public SurfaceFunction //TODO FIX THIS INHERITANCE
 			{
 			public:
 				SphereFunction(void);
 				SphereFunction( float radius );
-				SphereFunction( Sphere s );
+				SphereFunction( Sphere * s );
 				~SphereFunction(void);
 
 				Sphere * sphere;
 
-				Vec3D computeVertexFor( Vec3D p, float phi, float theta );
+				toxi::geom::Vec3D * computeVertexFor( toxi::geom::Vec3D * p, float phi, float theta );
 				float getPhiRange();
 				int getPhiResolutionLimit(int res );
 				float getThetaRange();
