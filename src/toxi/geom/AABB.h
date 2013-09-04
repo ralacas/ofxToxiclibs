@@ -24,7 +24,7 @@ namespace toxi
 		class MathUtils;
 		class mesh::Mesh3D;
 		class Vec3D;
-		class AABB : public toxi::geom::Vec3D
+		class AABB// : public Vec3D
 		{
 		public:
 			AABB( void );
@@ -77,9 +77,14 @@ namespace toxi
 			mesh::Mesh3D * toMesh( void );
 			std::string toString( void );
 			AABB * updateBound( void );
+			Vec3D sub(float a, float b, float c);
+			Vec3D sub(Vec3D * v);
+			Vec3D add(float a, float b, float c);
+			Vec3D add(Vec3D * v);
 
 		private:
 			Vec3D * extent, * min, * max;
+			float x, y, z;
 		};
 	}
 }

@@ -7,7 +7,7 @@ toxi::geom::AABB::AABB(void)
 
 toxi::geom::AABB::AABB( AABB& aabb )
 {
-	AABB( aabb, *aabb.getExtend() );
+	AABB( toxi::geom::Vec3D(aabb.getMin()->x, aabb.getMin()->y, aabb.getMin()->z), *aabb.getExtend() );
 }
 
 toxi::geom::AABB::AABB( double extend )
@@ -58,7 +58,7 @@ toxi::geom::Vec3D * toxi::geom::AABB::getExtend()
 
 toxi::geom::Vec3D * toxi::geom::AABB::getNormalForPoint( Vec3D * p )
 {
-	p = &p->sub(this);
+	p = &p->sub(new Vec3D( x, y, z ) );
 	Vec3D pabs = extent->sub(&p->getAbs());
 	Vec3D psign = p->getSignum();
 	Vec3D normal = Vec3D::X_AXIS().scale(psign.x);
@@ -84,7 +84,7 @@ toxi::geom::AABB * toxi::geom::AABB::growToContainPoint( Vec3D * p )
 
 bool toxi::geom::AABB::intersectsBox( AABB * box )
 {
-	Vec3D t = box->sub(this);
+	Vec3D t = box->sub(x, y, z);
 	return toxi::math::MathUtils::abs( t.x ) <= ( extent->x + box->extent->x )
 		&& toxi::math::MathUtils::abs( t.y ) <= ( extent->y + box->extent->y )
 		&& toxi::math::MathUtils::abs( t.z ) <= ( extent->z + box->extent->z );
@@ -212,7 +212,7 @@ toxi::geom::Vec3D * toxi::geom::AABB::set( float a, float b, float c )
 	this->y = b;
 	this->z = c;
 	updateBound();
-	return this;
+	return new Vec3D( x, y, z );; // TODO
 }
 
 toxi::geom::AABB * toxi::geom::AABB::set( Vec3D * v )
@@ -288,13 +288,33 @@ toxi::geom::mesh::Mesh3D * toxi::geom::AABB::toMesh()
 std::string toxi::geom::AABB::toString( void )
 {
 	std::stringstream ss;
-	ss << "<aabb> pos: " << Vec3D::toString() << " ext: " << extent->toString() ;
+	ss << "<aabb> pos: " << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}" << " ext: " << extent->toString() ;
 	return ss.str( );
 }
 
 toxi::geom::AABB * toxi::geom::AABB::updateBound( void )
 {
-	this->min = &this->sub(extent);
-	this->max = this->add(extent);
+	this->min = &sub(extent);
+	this->max = &add(extent);
 	return this;
+}
+
+toxi::geom::Vec3D toxi::geom::AABB::sub( float a, float b, float c )
+{
+	return Vec3D( x-a, y-b, z-c );
+}
+
+toxi::geom::Vec3D toxi::geom::AABB::sub( toxi::geom::Vec3D * v )
+{
+	return Vec3D( x-v->x, y-v->y, z-v->z );
+}
+
+toxi::geom::Vec3D toxi::geom::AABB::add( float a, float b, float c )
+{
+	return Vec3D( x+a, y+b, z+c );
+}
+
+toxi::geom::Vec3D toxi::geom::AABB::add( Vec3D * v )
+{
+	return Vec3D( x+v->y, y+v->y, z+v->z );
 }

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 
+//#include "AABB.h"
 #include "Axis3D.h"
 #include "Vec2D.h"
 #include "Vec4D.h"
@@ -138,6 +139,18 @@ namespace toxi
 			Vec3D invert();
 			Vec3D interpolateToSelf( Vec3D * v, float f );
 			Vec3D limit( float lim );
+
+			//TODO
+			bool operator<( const toxi::geom::Vec3D &rhs) const
+			{
+				return false;
+			}
+
+			bool operator>( const toxi::geom::Vec3D &rhs) const
+			{
+				return true;
+			}
+			
 
 			float x;
 			float y;

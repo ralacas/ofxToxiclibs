@@ -324,8 +324,9 @@ toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( toxi::geom::Vec3D * v, float
 
 bool toxi::geom::Vec3D::isInAABB( toxi::geom::AABB * box )
 {
-	Vec3D min = box->getMin();
-	Vec3D max = box->getMax();
+	//TODO
+	Vec3D min = Vec3D(); //box->getMin();
+	Vec3D max = Vec3D();// box->getMax();
 	if (x < min.x || x > max.x) {
 		return false;
 	}
@@ -454,9 +455,10 @@ void toxi::geom::Vec3D::toArray4( float& arr, float w )
 
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::constrain( AABB * box )
+toxi::geom::Vec3D toxi::geom::Vec3D::constrain( toxi::geom::AABB * box )
 {
-	return constrain(box->getMin(), box->getMax());
+	//TODO
+	//return constrain(box->getMin(), box->getMax());
 }
 
 toxi::geom::Vec3D toxi::geom::Vec3D::constrain( Vec3D * min, Vec3D * max )

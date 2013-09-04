@@ -34,7 +34,9 @@ toxi::geom::Vec3D * toxi::geom::mesh::SphereFunction::computeVertexFor( toxi::ge
 	p->x = t * toxi::math::MathUtils::sign(cosTheta) * toxi::math::MathUtils::abs(cosTheta);
 	p->y = toxi::math::MathUtils::sign(sinPhi) * toxi::math::MathUtils::abs(sinPhi);
 	p->z = t * toxi::math::MathUtils::sign(sinTheta) * toxi::math::MathUtils::abs(sinTheta);
-	return &p->scaleSelf(sphere->radius).addSelf(sphere);
+	//return p->scaleSelf(sphere->radius)->addSelf(sphere);
+	//TODO
+	return new toxi::geom::Vec3D();
 }
 
 float toxi::geom::mesh::SphereFunction::getPhiRange()

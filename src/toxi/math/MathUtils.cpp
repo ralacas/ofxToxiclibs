@@ -289,7 +289,7 @@ namespace toxi
 			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
 		}
 
-		double MathUtils::reduceAngle( double& theta )
+		double MathUtils::reduceAngle( double theta )
 		{
 			double t = std::fmod( theta, TWO_PI );
 			if ( abs( t ) > MathUtils::PI ) 
@@ -303,7 +303,7 @@ namespace toxi
 			return theta;
 		}
 
-		double MathUtils::roundTo( double& val, double& prec )
+		double MathUtils::roundTo( double val, double prec )
 		{
 			double reval = val / prec + 0.5;
 			return toxi::math::MathUtils::floor( reval ) * prec;

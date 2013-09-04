@@ -3,9 +3,10 @@
 #ifndef __SURFACEMESHBUILDER_H__
 #define __SURFACEMESHBUILDER_H__
 
-
+#include "../Vec2D.h"
 #include "../Vec3D.h"
 #include "SurfaceFunction.h"
+#include "TriangleMesh.h"
 
 namespace toxi
 {
@@ -14,8 +15,8 @@ namespace toxi
 		namespace mesh
 		{
 			
-			class Vec2D;
-			//class SurfaceFunction;// TODO this too.
+			//class Vec2D;
+			class SurfaceFunction;// TODO this too.
 			class Mesh3D;
 			class TriangleMesh;
 			//class Vec3D; //TODO this might fuck things up
@@ -25,6 +26,7 @@ namespace toxi
 			public:
 				SurfaceMeshBuilder();
 				SurfaceMeshBuilder( SurfaceFunction * function );
+				//SurfaceMeshBuilder( SphereFunction * f );
 				~SurfaceMeshBuilder(void);
 
 				Mesh3D * createMesh( int res );

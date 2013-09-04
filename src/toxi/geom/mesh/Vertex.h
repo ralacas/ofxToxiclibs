@@ -5,6 +5,8 @@
 
 #include < string >
 
+#include "../Vec3D.h"
+
 namespace toxi
 {
 	namespace geom

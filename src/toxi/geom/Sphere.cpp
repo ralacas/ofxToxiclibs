@@ -97,7 +97,7 @@ toxi::geom::Vec3D toxi::geom::Sphere::tangentPlaneNormalAt( Vec3D * q )
 
 toxi::geom::mesh::Mesh3D * toxi::geom::Sphere::toMesh( toxi::geom::mesh::Mesh3D * mesh, int res )
 {
-	toxi::geom::mesh::SurfaceMeshBuilder builder = toxi::geom::mesh::SurfaceMeshBuilder( toxi::geom::mesh::SphereFunction(this->radius)); // TODO: this might be wrong
+	toxi::geom::mesh::SurfaceMeshBuilder builder = toxi::geom::mesh::SurfaceMeshBuilder( );//new toxi::geom::mesh::SphereFunction(this->radius)); // TODO: this might be wrong
 	
 	return builder.createMesh(mesh, res, 1);
 }
