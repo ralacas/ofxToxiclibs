@@ -3,11 +3,11 @@
 #ifndef __LINEINTERSECTION_H__
 #define __LINEINTERSECTION_H__
 
-#include "Line3D.h"
-
 #include < vector >
 #include < string >
 #include < sstream >
+
+#include "Line3D.h"
 
 namespace toxi
 {

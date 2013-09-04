@@ -4,6 +4,7 @@
 #define __SURFACEMESHBUILDER_H__
 
 #include "../Vec3D.h"
+#include "SurfaceFunction.h"
 
 namespace toxi
 {
@@ -13,10 +14,10 @@ namespace toxi
 		{
 			
 			class Vec2D;
-			class SurfaceFunction;
+			class SurfaceFunction;// TODO this too.
 			class Mesh3D;
 			class TriangleMesh;
-			class Vec3D;
+			class Vec3D; //TODO this might fuck things up
 			class SurfaceMeshBuilder :
 				public toxi::geom::Vec3D
 			{

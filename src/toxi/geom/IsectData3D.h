@@ -3,10 +3,10 @@
 #ifndef __ISECDATA3D_H__
 #define __ISECDATA3D_H__
 
-#include "Vec3D.h"
-
 #include < string >
 #include < sstream >
+
+#include "Vec3D.h"
 
 namespace toxi
 {

@@ -7,6 +7,7 @@ namespace toxi
 {
 	namespace geom
 	{
+		class Vec3D;
 		class Vec4D
 		{
 		public:

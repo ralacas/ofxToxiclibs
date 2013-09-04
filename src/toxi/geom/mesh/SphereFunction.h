@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __SPHEREFUNCTION_H__
+#define __SPHEREFUNCTION_H__
+
 namespace toxi
 {
 	namespace geom
@@ -37,3 +40,4 @@ namespace toxi
 	}
 }
 
+#endif

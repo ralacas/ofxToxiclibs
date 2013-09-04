@@ -19,6 +19,13 @@ toxi::geom::Vec3D::Vec3D( int x, int y, int z )
 	this->z = static_cast< float > ( z );
 }
 
+toxi::geom::Vec3D::Vec3D( double x, double y, double z )
+{
+	this->x = static_cast< float > ( x );
+	this->y = static_cast< float > ( y );
+	this->z = static_cast< float > ( z );
+}
+
 toxi::geom::Vec3D::~Vec3D(void)
 {
 }
@@ -484,15 +491,15 @@ toxi::geom::Vec3D toxi::geom::Vec3D::normalizeTo( double len )
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::min( Vec3D * a, Vec3D * b )
+toxi::geom::Vec3D * toxi::geom::Vec3D::min( Vec3D * a, Vec3D * b )
 {
-	return Vec3D( toxi::math::MathUtils::min( a->x, b->x ), toxi::math::MathUtils::min( a->y,
+	return new Vec3D( toxi::math::MathUtils::min( a->x, b->x ), toxi::math::MathUtils::min( a->y,
 		b->y ), toxi::math::MathUtils::min( a->z, b->z ) );
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::max( Vec3D * a, Vec3D * b )
+toxi::geom::Vec3D * toxi::geom::Vec3D::max( Vec3D * a, Vec3D * b )
 {
-	return Vec3D( toxi::math::MathUtils::max( a->x, b->x ), toxi::math::MathUtils::max( a->y,
+	return new Vec3D( toxi::math::MathUtils::max( a->x, b->x ), toxi::math::MathUtils::max( a->y,
 		b->y ), toxi::math::MathUtils::max( a->z, b->z ) );
 }
 

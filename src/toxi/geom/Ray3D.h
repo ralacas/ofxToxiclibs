@@ -4,8 +4,6 @@
 #define __RAY3D_H__
 
 #include < string >
-#include "Line3D.h"
-#include "Vec3D.h"
 
 namespace toxi
 {
@@ -14,7 +12,7 @@ namespace toxi
 		class Vec3D;
 		class Line3D;
 		class Ray3D :
-			public toxi::geom::Vec3D
+			public Vec3D
 		{
 		public:
 			Ray3D(void);

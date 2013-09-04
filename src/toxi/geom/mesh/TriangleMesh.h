@@ -6,16 +6,6 @@
 #include < string >
 #include < vector >
 #include < map >
-#include "Face.h"
-#include "OBJWriter.h"
-#include "STLWriter.h"
-#include "WETriangleMesh.h"
-#include "Vertex.h"
-#include "../Matrix4x4.h"
-#include "../TriangleIntersector.h"
-#include "../Quaternion.h"
-#include "Mesh3D.h"
-#include "Vec3D.h"
 
 namespace toxi 
 {
@@ -24,8 +14,20 @@ namespace toxi
 		namespace mesh
 		{
 			class Sphere;
-			class toxi::geom::AABB;
+			class AABB;
 			class Mesh3D;
+			class Vec3D;
+			class Vertex;
+			class Face;
+			class Vec2D;
+			class IsectData3D;
+			class Ray3D;
+			class Triangle3D;
+			class OBJWriter;
+			class Matrix4x4;
+			class WETriangleMesh;
+			class STLWriter;
+			class TriangleIntersector;
 			class TriangleMesh : public Mesh3D
 			{
 			public:
@@ -118,8 +120,8 @@ namespace toxi
 
 
 			protected:
-				toxi::geom::AABB * bounds;
-				toxi::geom::Vec3D centroid;
+				AABB * bounds;
+				Vec3D centroid;
 				int numVertices;
 				int numFaces;
 				Matrix4x4 matrix;

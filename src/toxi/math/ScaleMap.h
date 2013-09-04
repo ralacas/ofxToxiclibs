@@ -3,9 +3,6 @@
 #ifndef __SCALE_MAP_H__
 #define __SCALE_MAP_H__
 
-#include "InterpolateStrategy.h"
-#include "../util/DoubleRange.h"
-
 namespace toxi
 {
 	namespace math
@@ -13,6 +10,7 @@ namespace toxi
 		class DoubleRange;
 		class MathUtils;
 		class LinearInterpolation;
+		class InterpolateStrategy;
 		class ScaleMap
 		{
 			public:
@@ -24,11 +22,11 @@ namespace toxi
 				ScaleMap& operator= (const ScaleMap &cSource);
 
 			protected:
-				InterpolateStrategy mapFunction;
+				InterpolateStrategy * mapFunction;
 				double interval;
 				double mapRange;
-				util::datatypes::DoubleRange in;
-				util::datatypes::DoubleRange out;
+				DoubleRange * in;
+				DoubleRange * out;
 
 			public:
 				double getClippedValueFor( double val );
@@ -40,12 +38,12 @@ namespace toxi
 				void setMapFunction( toxi::math::InterpolateStrategy func );
 				void setOutputRange( double min, double max );
 				
-				util::datatypes::DoubleRange getOutputRange( void ) const
+				DoubleRange * getOutputRange( void ) const
 				{
 					return this->out;
 				}
 				
-				util::datatypes::DoubleRange getInputRange( void ) const
+				DoubleRange * getInputRange( void ) const
 				{
 					return this->in;
 				}

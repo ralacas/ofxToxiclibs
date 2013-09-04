@@ -7,14 +7,6 @@
 #include <iostream>
 #include <sstream>
 
-#include "../math/InterpolateStrategy.h"
-#include "../math/MathUtils.h"
-#include "../math/ScaleMap.h"
-#include "Axis3D.h"
-#include "AABB.h"
-#include "Vec4D.h"
-#include "VecMathUtil.h"
-
 namespace toxi
 {
 	namespace geom
@@ -32,6 +24,7 @@ namespace toxi
 			Vec3D(void);
 			Vec3D( int x, int y, int z );
 			Vec3D( float x, float y, float z );
+			Vec3D( double x, double y, double z );
 			~Vec3D(void);
 
 			Vec3D add(double a, double b, double c);
@@ -89,7 +82,7 @@ namespace toxi
 			float headingXZ();
 			float headingYZ();
 			Vec3D interpolateTo(Vec3D * v, float f);
-			Vec3D interpolateTo(toxi::geom::Vec3D * v, float f, toxi::math::InterpolateStrategy * s);
+			Vec3D interpolateTo(toxi::geom::Vec3D * v, float f, InterpolateStrategy * s);
 			bool isInAABB( AABB * box );
 			bool isInAABB(Vec3D * boxOrigin, Vec3D * boxExtent);
 			bool isMajorAxis(float tolerance);
@@ -110,8 +103,8 @@ namespace toxi
 			void toArray(float& arr);
 			void toArray4(float& arr, float w);
 
-			static Vec3D min( Vec3D * a, Vec3D * b );
-			static Vec3D max( Vec3D * a, Vec3D * b );
+			static Vec3D * min( Vec3D * a, Vec3D * b );
+			static Vec3D * max( Vec3D * a, Vec3D * b );
 			static Vec3D max_value( );
 			static Vec3D min_value( );
 			Vec3D minSelf( Vec3D * v );

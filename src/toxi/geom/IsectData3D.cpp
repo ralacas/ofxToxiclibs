@@ -14,7 +14,7 @@ void toxi::geom::IsectData3D::clear()
 {
 	isIntersection = false;
 	dist = 0.0;
-	pos = new Vec3D( );
+	pos = new toxi::geom::Vec3D( );
 	dir = new Vec3D( );
 	normal = new Vec3D( );
 }

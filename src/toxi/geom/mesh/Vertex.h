@@ -16,15 +16,15 @@ namespace toxi
 			{
 			public:
 				Vertex(void);
-				Vertex( toxi::geom::Vec3D v, int id );
+				Vertex( Vec3D v, int id );
 				~Vertex(void);
 
-				void addFaceNormal( toxi::geom::Vec3D n );
+				void addFaceNormal( Vec3D * n );
 				void clearNormal( );
 				void computeNormal( );
 				std::string toString( );
 
-				toxi::geom::Vec3D normal;
+				Vec3D * normal;
 				int id;
 			};
 		}

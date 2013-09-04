@@ -9,10 +9,9 @@ namespace toxi
 {
 	namespace geom
 	{
-		class Rect;
-		class MathUtils;
 		class Vec3D;
 		class ScaleMap;
+		class Rect;
 		class InterpolateStrategy;
 		class Vec2D
 		{

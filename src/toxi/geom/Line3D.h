@@ -3,8 +3,14 @@
 #ifndef __LINE3D_H__
 #define __LINE3D_H__
 
-#include "Vec3D.h"
+/*#include "Vec3D.h"
 #include "AABB.h"
+#include "LineIntersection.h"
+#include "../math/MathUtils.h"*/
+
+#include "AABB.h"
+#include "Ray3D.h"
+#include "Vec3D.h"
 #include "LineIntersection.h"
 #include "../math/MathUtils.h"
 

@@ -435,11 +435,11 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::invert()
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::lookAt( Vec3D eye, Vec3D target, Vec3D up )
 {
-	Vec3D f = eye.sub( target ).normalize();
-	Vec3D s = up.cross( f ).normalize();
-	Vec3D t = f.cross( s ).normalize();
-	return set( s.x, s.y, s.z, -s.dot( eye ), t.x, t.y, t.z, -t.dot( eye ), f.x,
-		f.y, f.z, -f.dot( eye ), 0, 0, 0, 1 );
+	Vec3D f = eye.sub( &target ).normalize();
+	Vec3D s = up.cross( &f ).normalize();
+	Vec3D t = f.cross( &s ).normalize();
+	return set( s.x, s.y, s.z, -s.dot( &eye ), t.x, t.y, t.z, -t.dot( &eye ), f.x,
+		f.y, f.z, -f.dot( &eye ), 0, 0, 0, 1 );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( double factor )

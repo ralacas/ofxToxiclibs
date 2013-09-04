@@ -120,9 +120,9 @@ toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( Matrix4x4 m )
 toxi::geom::Quaternion toxi::geom::Quaternion::getAlignmentQuat( Vec3D dir, Vec3D forward )
 {
 	Vec3D target = dir.getNormalized();
-	Vec3D axis = forward.cross(target);
+	Vec3D axis = forward.cross(&target);
 	float length = axis.magnitude() + 0.0001f;
-	float angle = (float) std::atan2(length, forward.dot(target));
+	float angle = (float) std::atan2(length, forward.dot(&target));
 	return createFromAxisAngle(axis, angle);
 }
 
@@ -179,7 +179,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target,
 	return Quaternion( *this ).interpolateToSelf( target, t );
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, InterpolateStrategy * is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::geom::InterpolateStrategy * is )
 {
 	return Quaternion( *this ).interpolateToSelf( target, is->interpolate(0, 1, t) );
 }

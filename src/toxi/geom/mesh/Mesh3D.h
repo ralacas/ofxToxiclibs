@@ -5,19 +5,21 @@
 
 #include < vector >
 
+#include "Vec2D.h"
+#include "Vec3D.h"
+
 namespace toxi
 {
 	namespace geom
 	{
 		namespace mesh
 		{
-			class Vec2D;
-			class Vec3D;
 			class Sphere;
 			class AABB;
+			class toxi::geom::Vec2D;
 			class Vertex;
 			class Face;
-
+			class toxi::geom::Vec3D;
 			class Mesh3D
 			{
 			public:
@@ -27,7 +29,7 @@ namespace toxi
 				virtual Mesh3D* addFace(toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c) = 0;
 				virtual Mesh3D* addFace(toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec2D * uvA, toxi::geom::Vec2D * uvB,	toxi::geom::Vec2D * uvC) = 0;
 				virtual Mesh3D* addFace(toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n) = 0;
-				virtual Mesh3D* addFace(toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n,toxi::geom:: Vec2D * uvA,
+				virtual Mesh3D* addFace(toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n, toxi::geom::Vec2D * uvA,
 					toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC) = 0;
 				virtual Mesh3D* addMesh( Mesh3D* m );
 				virtual AABB center( Vec3D origin );
@@ -39,8 +41,8 @@ namespace toxi
 				virtual Mesh3D* flipVertexOrder();
 				virtual Mesh3D* flipYAxis();
 				virtual AABB * getBoundingBox();
-				virtual Sphere getBoundingSphere();
-				virtual Vertex getClosestVertexToPoint( Vec3D p );
+				virtual Sphere * getBoundingSphere();
+				virtual Vertex * getClosestVertexToPoint( Vec3D * p );
 				virtual std::vector< toxi::geom::mesh::Face > getFaces();
 				virtual int getNumFaces();
 				virtual int getNumVertices();

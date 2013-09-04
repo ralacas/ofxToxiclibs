@@ -12,7 +12,6 @@ namespace toxi
 	{
 		class Vec3D;
 		class AABB;
-		class Line3D;
 		class Triangle3D
 		{
 		public:
@@ -20,8 +19,8 @@ namespace toxi
 			Triangle3D( Vec3D a, Vec3D b, Vec3D c );
 			~Triangle3D(void);
 
-			Vec3D a, b, c; // TODO: pointers here
-			Vec3D normal, centroid;
+			toxi::geom::Vec3D * a, * b, * c; // TODO: pointers here
+			toxi::geom::Vec3D * normal, * centroid;
 
 			static Triangle3D createEquilateralFrom( Vec3D a, Vec3D b );
 

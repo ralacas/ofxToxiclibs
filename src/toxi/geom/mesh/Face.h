@@ -6,22 +6,19 @@
 #include < vector >
 #include < string >
 
-#include "../Vec3D.h"
-#include "../Triangle3D.h"
-
 namespace toxi
 {
 	namespace geom
 	{
 		namespace mesh
 		{
-
+			class Vertex;
 			class Face
 			{
 			public:
 				Face( void );
-				Face( Vertex * a, Vertex * b, Vertex * c );
-				Face( Vertex * a, Vertex * b, Vertex * c, Vec2D * uvA, Vec2D * uvB, Vec2D * uvC );
+				Face( toxi::geom::mesh::Vertex * a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c );
+				Face( toxi::geom::mesh::Vertex * a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c, toxi::geom::Vec2D * uvA, toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC );
 				~Face(void);
 
 				toxi::geom::mesh::Vertex *a, *b, *c;

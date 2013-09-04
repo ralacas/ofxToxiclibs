@@ -2,8 +2,6 @@
 
 #ifndef __OBJWRITER_H__
 #define __OBJWRITER_H__
-#endif // !__OBJWRITER_H__
-
 
 namespace toxi
 {
