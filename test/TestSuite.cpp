@@ -12,7 +12,7 @@
 #include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
-#include <DoubleRangeTest.h>
+#include "toxi/util/datatypes/DoubleRangeTest.h"
 
 /**
  * Performs this application as start point.
@@ -33,5 +33,10 @@ int main(void)
 
 	std::cout << "Test suite were performend and the result were written into 'TestResult.xml'!" << std::endl;
 
+	char c;
+	std::cin >> c;
+
 	return EXIT_SUCCESS;
+
+	
 }
