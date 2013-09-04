@@ -6,7 +6,7 @@
  * @version 	1.0.0 07-Jul-13
  * @copyright	Copyright (c) 2013 by Andy Liebke. All rights reserved. (http://www.andysmiles4games.com)
  */
-#include <DoubleRangeTest.h>
+#include "DoubleRangeTest.h"
 #include <toxi/util/DoubleRange.h>
 
 /**
