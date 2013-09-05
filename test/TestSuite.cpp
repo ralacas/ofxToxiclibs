@@ -12,6 +12,7 @@
 #include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
+#include "toxi/math/MathUtilsTest.h"
 #include "toxi/util/datatypes/DoubleRangeTest.h"
 #include "toxi/geom/Vec2DTest.h"
 #include "HtmlOutputter.h"
@@ -32,6 +33,7 @@ int main(void)
 
 	//runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
 	runner.setOutputter( hmtlOutputter );
+	runner.addTest(MathUtilsTest::suite() );
 	runner.addTest(DoubleRangeTest::suite());
 	runner.addTest(Vec2DTest::suite() );
 	runner.run();
