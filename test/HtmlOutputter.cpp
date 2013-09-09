@@ -195,7 +195,7 @@ void HtmlOutputter::_writeResultListFooter(void)
 {
 	this->_stream << "\t\t\t<tfoot>\n";
 	this->_stream << "\t\t\t<tr>\n";
-	this->_stream << "\t\t\t\t<td colspan=\"2\">Fails: " << this->_result->testFailuresTotal() << " Success: " << (this->_result->runTests() -  this->_result->testFailuresTotal()) << "</td>\n";
+	this->_stream << "\t\t\t\t<td colspan=\"2\" class=\"status-fail\">Fails: " << this->_result->testFailuresTotal() << "</td>\n" << "\t\t\t\t<td colspan=\"2\" class=\"status-success\"> Success: " << (this->_result->runTests() -  this->_result->testFailuresTotal()) << "</td>\n";
 	this->_stream << "\t\t\t</tr>\n";
 	this->_stream << "\t\t\t</tfoot>\n";
 }

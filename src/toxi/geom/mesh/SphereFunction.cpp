@@ -61,10 +61,14 @@ int toxi::geom::mesh::SphereFunction::getThetaResolutionLimit( int res )
 
 void toxi::geom::mesh::SphereFunction::setMaxPhi( float max )
 {
-	phiRange = toxi::math::MathUtils::min( max / 2, toxi::math::MathUtils::PI );
+	float first = max / 2.0;
+	float second = static_cast< float > ( toxi::math::MathUtils::PI );
+	phiRange = toxi::math::MathUtils::min( first,  second);
 }
 
 void toxi::geom::mesh::SphereFunction::setMaxTheta( float max )
 {
-	thetaRange = toxi::math::MathUtils::min( max / 2, toxi::math::MathUtils::PI );
+	float first = max / 2.0;
+	float second = static_cast< float > ( toxi::math::MathUtils::PI );
+	thetaRange = toxi::math::MathUtils::min( first, second );
 }
