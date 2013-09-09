@@ -30,6 +30,16 @@ class MathUtilsTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( sin );
 		CPPUNIT_TEST( radians );
 		CPPUNIT_TEST( degree );
+		CPPUNIT_TEST( floor );
+		CPPUNIT_TEST( flipCoin );
+		CPPUNIT_TEST( gcd );
+		CPPUNIT_TEST( impulse );
+		CPPUNIT_TEST( lcm );
+		CPPUNIT_TEST( maxTest );
+		CPPUNIT_TEST( minTest );
+		CPPUNIT_TEST( random );
+		CPPUNIT_TEST( reduceAngle );
+		CPPUNIT_TEST( sign );
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
@@ -58,6 +68,18 @@ class MathUtilsTest : public CppUnit::TestFixture
 
 		void radians( void );
 		void degree( void );
+
+		void floor( void );
+		void flipCoin( void );
+		void dualSign( void );
+		void gcd( void );
+		void impulse( void );
+		void lcm( void );
+		void maxTest( void );
+		void minTest( void );
+		void random( void );
+		void reduceAngle( void );
+		void sign( void );
 };
 
 #endif
