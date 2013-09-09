@@ -164,6 +164,12 @@ namespace toxi
 			return ( b >= 0 ? x : -x );
 		}
 
+		float MathUtils::dualSign( float a, float b )
+		{
+			float x = ( a >= 0 ? a : -a );
+			return ( b >= 0 ? x : -x );
+		}
+
 		double MathUtils::fastCos( double x )
 		{
 			double val = x + ((x > toxi::math::MathUtils::HALF_PI) ? -toxi::math::MathUtils::THREE_HALVES_PI : toxi::math::MathUtils::HALF_PI);
@@ -186,15 +192,20 @@ namespace toxi
 			return x * ( 1.5F - half * x * x );
 		}
 
+
 		unsigned MathUtils::floatToBits(float x)
 		{
-			unsigned y;
+			//TODO
+			std::cerr << "The untested floatToBits function has just been called. Handle with care." << std::endl;
+			unsigned int y;
 			std::memcpy( &y, &x, 4 );
 			return y;
 		}
 		
 		float MathUtils::intBitsToFloat( unsigned x )
 		{
+			//TODO
+			std::cerr << "The untested intBitsToFloat function has just been called. Handle with care." << std::endl;
 			union int_float_bits bits;
 			bits.int_bits = x;
 			return bits.float_bits;
@@ -220,7 +231,7 @@ namespace toxi
 
 		bool MathUtils::flipCoin( void )
 		{
-			return ( std::rand() > 0.5 );
+			return ( std::rand() % 100 > 50 );
 		}
 
 		long MathUtils::floor( double x )
@@ -264,6 +275,12 @@ namespace toxi
 			return h * std::exp( 1.0 - h );
 		}
 
+		float MathUtils::impulse( float k, float t )
+		{
+			float h = k * t;
+			return static_cast < float > ( h * std::exp( 1.0 - h ) );
+		}
+
 		int MathUtils::lcm( int p, int q )
 		{
 			int pq = p * q;
@@ -290,9 +307,24 @@ namespace toxi
 			return a > b ? a : b;
 		}
 
-		double MathUtils::max( float a, float b )
+		float MathUtils::max( float a, float b )
 		{
 			return a > b ? a : b;
+		}
+
+		float MathUtils::max( float a, float b, float c )
+		{
+			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
+		}
+
+		long MathUtils::max( long a, long b )
+		{
+			return a > b ? a : b;
+		}
+
+		long MathUtils::max( long a, long b, long c )
+		{
+			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 		}
 
 		double MathUtils::min( double a, double b )
@@ -320,8 +352,14 @@ namespace toxi
 			return a < b ? a : b;
 		}
 
+		float MathUtils::min( float a, float b, float c )
+		{
+			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+		}
+
 		double MathUtils::normalizedRandom( void )
 		{
+			
 			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * 2 - 1;
 		}
 
@@ -352,12 +390,24 @@ namespace toxi
 
 		double MathUtils::random( int max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * max;
+			double f = std::rand()  / (double)RAND_MAX;
+			double r = (  f ) * max;
+			return r;
 		}
 
 		double MathUtils::random( int min, int max )
 		{
 			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+		}
+
+		float MathUtils::random( float max )
+		{
+			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * max;
+		}
+
+		float MathUtils::random( float min, float max )
+		{
+			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
 		}
 
 		double MathUtils::reduceAngle( double theta )
@@ -371,7 +421,21 @@ namespace toxi
 			{
 				t = MathUtils::PI - t;
 			}
-			return theta;
+			return t;
+		}
+
+		float MathUtils::reduceAngle( float theta )
+		{
+			float t = static_cast< float > ( std::fmod( theta, MathUtils::TWO_PI ) );
+			if ( abs( t ) > MathUtils::PI ) 
+			{
+				t = t - static_cast< float > ( MathUtils::TWO_PI );
+			}
+			if ( abs( t ) > MathUtils::HALF_PI ) 
+			{
+				t = static_cast< float > ( MathUtils::PI ) - t;
+			}
+			return t;
 		}
 
 		double MathUtils::roundTo( double val, double prec )
@@ -388,16 +452,21 @@ namespace toxi
 
 		float MathUtils::roundTo( float val, float prec )
 		{
-			float reval = val / prec + 0.5;
+			float reval = val / prec + 0.5f;
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		double MathUtils::sign( double x )
+		int MathUtils::sign( double x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
 		int MathUtils::sign( int x )
+		{
+			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
+		}
+
+		int MathUtils::sign( float x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
@@ -418,13 +487,16 @@ namespace toxi
 
 		double MathUtils::sqrt( double x )
 		{
-			double _x = MathUtils::fastInverseSqrt(x);
-	
-			return (_x > 0) ? 1.0f / _x : 0.0;
+			return std::sqrt( x );
 		}
 
-		bool MathUtils::isNan( double d )
+		float MathUtils::sqrt( float x )
 		{
+			return static_cast< float > ( std::sqrt( x ) );
+		}
+
+		bool MathUtils::isNan( double d ) {
+			std::cerr << "The untested isNan function has just been called. Handle with care." << std::endl;
 			return (d != d);
 		}
 	}

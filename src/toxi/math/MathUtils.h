@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <math.h>
+#include <time.h>
 
 namespace toxi
 {
@@ -73,47 +74,67 @@ namespace toxi
 				static float degrees( int radians );
 				static float radians( int degrees );
 
+				static long floor( double x );
+				static int floor( float x );
+
+				static bool flipCoin( void );
 				static double dualSign( double a, double b );
+				static float dualSign( float a, float b );
+				static int gcd( int p, int q );
+				static double impulse( double k, double t );
+				static float impulse( float k, float t );
+				static int lcm( int p, int q );
+
+				// TODO: find some faster implementations of those functions
 				static double fastCos( double x);
 				static double fastCos( double* x);
 				static double fastInverseSqrt( double x );
 				static double fastPow( double a, double b );
 				static double fastSin( double x );
-				static bool flipCoin( void );
-				static long floor( double x );
-				static int floor( float x );
-				
-				static int gcd( int p, int q );
-				static double impulse( double k, double t );
-				static int lcm( int p, int q );
+
 				static double max( double a, double b );
-				static double max( float a, float b );
 				static double max( double a, double b, double c );
-				static double max( double values);
+				static float max( float a, float b );
+				static float max( float a, float b, float c );
 				static int max( int a, int b );
 				static int max( int a, int b, int c );
+				static long max( long a, long b );
+				static long max( long a, long b, long c );
+
 				static double min( double a, double b );
 				static double min( float a, float b );
 				static double min( double a, double b, double c );
+				static float min( float a, float b, float c );
 				static int min( int a, int b );
 				static int min( int a, int b, int c );
 				static int min( int values );
+
 				static double normalizedRandom( void );
-				
 				static double random( double max );
 				static double random( double min, double max );
+				static float random( float max );
+				static float random( float min, float max );
 				static double random( int max );
 				static double random( int min, int max );
+
 				static double reduceAngle( double theta );
+				static float reduceAngle( float theta );
+
 				static double roundTo( double val, double prec );
 				static float roundTo( float val, float prec );
 				static int roundTo( int val, int prec );
-				static double sign( double x );
+
+				static int sign( double x );
+				static int sign( float x );
 				static int sign( int x );
 				
 				static double sqrt( double x );
+				static float sqrt( float x );
+
+				//TODO
 				static unsigned floatToBits( float x );
 				static float intBitsToFloat ( unsigned x );
+
 				static bool isNan( double d );
 		};
 	}
