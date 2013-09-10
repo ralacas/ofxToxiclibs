@@ -117,3 +117,13 @@ void DoubleRangeTest::getters( void )
 
 	CPPUNIT_ASSERT( r1 );
 }
+
+void DoubleRangeTest::assignmentOperatorOverloading( void )
+{
+	toxi::util::datatypes::DoubleRange range( 50.0, 100.0 );
+	toxi::util::datatypes::DoubleRange range2 = range;
+
+	bool r1 = ( range2.getMin() == range.getMin() && range2.getMax() == range.getMax() && range2.getCurrent() == range.getCurrent() ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+}

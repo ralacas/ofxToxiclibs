@@ -29,6 +29,7 @@ class DoubleRangeTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( toVector );
 		CPPUNIT_TEST( toString );
 		CPPUNIT_TEST( getters );
+		CPPUNIT_TEST( assignmentOperatorOverloading );
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
@@ -45,6 +46,7 @@ class DoubleRangeTest : public CppUnit::TestFixture
 		void toVector( void );
 		void toString( void );
 		void getters( void );
+		void assignmentOperatorOverloading( void );
 };
 
 #endif
