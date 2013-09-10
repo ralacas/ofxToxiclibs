@@ -87,7 +87,6 @@ namespace toxi
 
 				// TODO: find some faster implementations of those functions
 				static double fastCos( double x);
-				static double fastCos( double* x);
 				static double fastInverseSqrt( double x );
 				static double fastPow( double a, double b );
 				static double fastSin( double x );
