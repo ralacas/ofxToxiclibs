@@ -4,10 +4,6 @@ namespace toxi
 {
 	namespace math
 	{
-		ScaleMap::ScaleMap( void )
-		{
-
-		}
 
 		ScaleMap::ScaleMap( const double minIn, const double maxIn, const double minOut, const double maxOut )
 		{
@@ -31,7 +27,7 @@ namespace toxi
 
 		double ScaleMap::getClippedValueFor( double val )
 		{
-			double cl = ( val - in->getMin() ) / this->interval; 
+			double cl = ( val - in->getMin() ) / *this->interval; 
 			double t = toxi::math::MathUtils::clipNormalized( cl );
 			if ( toxi::math::MathUtils::isNan( t ) ) {
 				t = 0;
@@ -51,7 +47,7 @@ namespace toxi
 
 		double ScaleMap::getMappedValueFor( double val )
 		{
-			double t = ((val - in->getMin()) / this->interval);
+			double t = ((val - in->getMin()) / *this->interval);
 			
 			if ( MathUtils::isNan( t ) ) {
 				t = 0;
@@ -68,7 +64,7 @@ namespace toxi
 		void ScaleMap::setInputRange( const double min, const double max )
 		{
 			this->in = new toxi::util::datatypes::DoubleRange(min, max);
-			this->interval = max - min;
+			*this->interval = max - min;
 		}
 
 		void ScaleMap::setMapFunction( InterpolateStrategy *  func )
@@ -79,7 +75,7 @@ namespace toxi
 		void ScaleMap::setOutputRange( const double min, const double max )
 		{
 			this->out = new toxi::util::datatypes::DoubleRange(min, max);
-			this->mapRange = max - min;
+			*this->mapRange = max - min;
 		}
 
 		ScaleMap& ScaleMap::operator=( const ScaleMap &copyFrom )
@@ -89,6 +85,16 @@ namespace toxi
 			mapRange = copyFrom.mapRange;
 			in = copyFrom.in;
 			out = copyFrom.out;
+		}
+
+		toxi::util::datatypes::DoubleRange * ScaleMap::getOutputRange( void )
+		{
+			return this->out;
+		}
+
+		toxi::util::datatypes::DoubleRange * ScaleMap::getInputRange( void )
+		{
+			return this->in;
 		}
 
 	}

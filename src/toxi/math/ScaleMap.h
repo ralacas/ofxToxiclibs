@@ -18,7 +18,6 @@ namespace toxi
 		class ScaleMap
 		{
 			public:
-				ScaleMap( void );
 				ScaleMap( double minIn, double maxIn, double minOut, double maxOut );
 				ScaleMap(const ScaleMap& copyFrom);
 				~ScaleMap( void );
@@ -27,8 +26,8 @@ namespace toxi
 
 			protected:
 				InterpolateStrategy * mapFunction;
-				double interval;
-				double mapRange;
+				double *interval;
+				double *mapRange;
 				toxi::util::datatypes::DoubleRange * in;
 				toxi::util::datatypes::DoubleRange * out;
 
@@ -42,15 +41,9 @@ namespace toxi
 				void setMapFunction( toxi::math::InterpolateStrategy * func );
 				void setOutputRange( double min, double max );
 				
-				toxi::util::datatypes::DoubleRange * getOutputRange( void ) const
-				{
-					return this->out;
-				}
+				toxi::util::datatypes::DoubleRange * getOutputRange( void );
 				
-				toxi::util::datatypes::DoubleRange * getInputRange( void ) const
-				{
-					return this->in;
-				}
+				toxi::util::datatypes::DoubleRange * getInputRange( void );
 		};
 	}
 }
