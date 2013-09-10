@@ -19,33 +19,28 @@ namespace toxi
 				public:
 					DoubleRange( void );
 					DoubleRange( const double min, const double max );
+					DoubleRange( DoubleRangeVector* samples );
 					DoubleRange( const DoubleRange& copyFrom );
 					~DoubleRange( void );
 					
-					double adjustCurrentBy( double& val );
-					double getMedian( void ) const;
-					double getRange( void ) const;
-					bool isValueInRange( double& val );
+					double adjustCurrentBy( double val );
+					double getMedian( void );
+					double getRange( void );
+					bool isValueInRange( double val );
 					double pickRandom( void );
-					double setCurrent( const double val );
-					double getAt( const double prec ) const;
-					DoubleRangeVector toVector( const double step ) const;
+					double setCurrent( double val );
+					double getAt( double prec );
+					DoubleRangeVector toVector( double step );
 					std::string toString( void ) const;
-
-					static DoubleRange* fromSamples( DoubleRangeVector& samples );
 				
-					double getCurrent( void ) const
-					{
-						return this->curr_value;
-					}
-
-					double getMin( );
-					double getMax( );
+					double getCurrent( void );
+					double getMin( void );
+					double getMax( void );
 				
 				private:
-					double min;
-					double max;
-					double curr_value;
+					double * min;
+					double * max;
+					double * curr_value;
 			};
 		}
 	}

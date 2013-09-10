@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <cfloat>
+#include <iomanip>
 
 namespace toxi
 {
@@ -11,92 +12,112 @@ namespace toxi
 	{
 		namespace datatypes
 		{
-			DoubleRange::DoubleRange( void ) :
-				min(0.0),
-				max(0.0),
-				curr_value(0.0)
+			DoubleRange::DoubleRange( void )
 			{
+				min = new double;
+				max = new double;
+				curr_value = new double;
+
+				*min = 0.0;
+				*max = 0.0;
+				*curr_value = 0.0;
 			}
 
-			DoubleRange::DoubleRange( const double min, const double max ) :
-				min((min > max) ? max : min),
-				max((min > max) ? min : max),
-				curr_value(this->min)
+			DoubleRange::DoubleRange( const double min, const double max )
 			{
-#ifdef DEBUG
-				std::cout << "toxi::util::datatypes::DoubleRange::DoubleRange" << std::endl;
-				std::cout << "min: " << min << " max: " << max << std::endl;
-#endif
-				//this->min = ;
-				/*this->max = ;
-				this->curr_value = this->min;*/
+				this->min = new double;
+				this->max = new double;
+				this->curr_value = new double;
 
-#ifdef DEBUG	
-				std::cout << "min: " << this->min << " max: " << this->max << std::endl;
-#endif
+				*this->min = (min > max) ? max : min;
+				*this->max = (min > max) ? min : max;
+				*this->curr_value = *this->min;
 			}
 
-			DoubleRange::DoubleRange(const DoubleRange& copyFrom ) :
-				min(copyFrom.min),
-				max(copyFrom.max),
-				curr_value(copyFrom.curr_value)
+			DoubleRange::DoubleRange(const DoubleRange& copyFrom )
 			{
+				this->min = new double;
+				this->max = new double;
+				this->curr_value = new double;
+
+				*this->min = *copyFrom.min;
+				*this->max = *copyFrom.max;
+				*this->curr_value = *copyFrom.curr_value;
+			}
+
+			DoubleRange::DoubleRange( DoubleRangeVector* samples )
+			{
+				double _min = DBL_MAX;
+				double _max = DBL_MIN;
+
+				for( auto it = samples->begin(); it < samples->end(); ++it )
+				{
+					_min = math::MathUtils::min(_min, *it);
+					_max = math::MathUtils::max(_max, *it);
+				}
+
+				this->min = new double;
+				this->max = new double;
+				this->curr_value = new double;
+
+				*this->min = _min;
+				*this->max = _max;
+				*this->curr_value = _min;
 			}
 
 			DoubleRange::~DoubleRange(void)
 			{
-				this->min = 0.0;
-				this->max = 0.0;
-				this->curr_value = 0.0;
+				delete min;
+				delete max;
+				delete curr_value;
 			}
 
 			std::string DoubleRange::toString( void ) const
 			{
-				std::stringstream strContent;
+				std::stringstream strContent( std::stringstream::in | std::stringstream::out);
 				
-				strContent << "DoubleRange: " << this->min << " -> " << this->max;
+				strContent  << "DoubleRange: "<< std::setprecision( 10 )  << *this->min << " -> "<< std::setprecision( 10 ) << *this->max;
 				
 				return strContent.str();
 			}
 
-			double DoubleRange::adjustCurrentBy( double& val )
+			double DoubleRange::adjustCurrentBy( double val )
 			{
-				return this->setCurrent(this->curr_value + val);
+				return this->setCurrent( *this->curr_value + val );
+			}
+			
+			double DoubleRange::getMedian( void )
+			{
+				return ( *this->min + *this->max ) * 0.5;
 			}
 
-
-			double DoubleRange::getMedian( void ) const
+			double DoubleRange::getRange( void )
 			{
-				return ( this->min + this->max ) * 0.5;
+				return *this->max - *this->min;
 			}
 
-			double DoubleRange::getRange( void ) const
+			bool DoubleRange::isValueInRange( double val )
 			{
-				return this->max - this->min;
-			}
-
-			bool DoubleRange::isValueInRange( double& val )
-			{
-				return (val >= this->min && val <= this->max);
+				return (val >= *this->min && val <= *this->max);
 			}
 
 			double DoubleRange::pickRandom( void )
 			{
-				this->curr_value = math::MathUtils::random( this->min, this->max );
-				return this->curr_value;
+				*this->curr_value = math::MathUtils::random( *this->min, *this->max );
+				return *this->curr_value;
 			}
 
 			double DoubleRange::setCurrent( const double val )
 			{
-				this->curr_value = math::MathUtils::clip(val, this->min, this->max);
-				return this->curr_value;
+				*this->curr_value = math::MathUtils::clip(val, *this->min, *this->max);
+				return *this->curr_value;
 			}
 
-			std::vector<double> DoubleRange::toVector( const double step ) const
+			std::vector<double> DoubleRange::toVector( const double step )
 			{
 				std::vector<double> range;
 	
-				for(double i=this->min; i < this->max; i+=step )
+				for(double i = *this->min; i < *this->max; i+=step )
 				{
 					range.push_back( i );
 				}
@@ -104,35 +125,25 @@ namespace toxi
 				return range;
 			}
 
-			double DoubleRange::getAt(const double prec ) const
+			double DoubleRange::getAt(const double prec )
 			{
-				return this->min + (this->max - this->min - math::MathUtils::EPS) * prec;
+				std::cerr << "The untested function DoubleRange::getAt( double prec ) has just been called. Handle with care." << std::endl;
+				return *this->min + ( *this->max - *this->min - math::MathUtils::EPS) * prec;
 			}
 
-			DoubleRange* DoubleRange::fromSamples( DoubleRangeVector& samples )
+			double DoubleRange::getCurrent()
 			{
-				// this is a perfect example why u should always use this->min instead of only min => because u can't say which one is your
-				// local variable and which one is the class property ;)
-				double min = DBL_MIN;
-				double max = DBL_MAX;
-
-				for( DoubleRangeVector::iterator it = samples.begin(); it < samples.end(); ++it )
-				{
-					min = math::MathUtils::min(min, *it);
-					max = math::MathUtils::max(max, *it);
-				}
-
-				return new DoubleRange( min, max );
+				return *curr_value;
 			}
 
 			double DoubleRange::getMin()
 			{
-				return min;
+				return *min;
 			}
 
 			double DoubleRange::getMax()
 			{
-				return max;
+				return *max;
 			}
 
 		}
