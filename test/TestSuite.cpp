@@ -42,7 +42,7 @@ int main(void)
 	runner.addTest( DoubleRangeTest::suite() );
 	runner.addTest( LinearInterpolationTest::suite() );
 	runner.addTest( ScaleMapTest::suite() );
-	runner.addTest(Vec2DTest::suite() );
+	runner.addTest( Vec2DTest::suite() );
 	runner.run();
 
 	outputStream.close();
