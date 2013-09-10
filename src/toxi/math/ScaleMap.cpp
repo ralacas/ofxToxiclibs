@@ -7,6 +7,8 @@ namespace toxi
 
 		ScaleMap::ScaleMap( const double minIn, const double maxIn, const double minOut, const double maxOut )
 		{
+			this->interval = new double;
+			this->mapRange = new double;
 			setInputRange( minIn, maxIn );
 			setOutputRange( minOut, maxOut );
 			mapFunction = new toxi::math::LinearInterpolation();
@@ -14,15 +16,20 @@ namespace toxi
 
 		ScaleMap::ScaleMap(const ScaleMap& copyFrom)
 		{
-			mapFunction = copyFrom.mapFunction;
-			interval = copyFrom.interval;
-			mapRange = copyFrom.mapRange;
-			in = copyFrom.in;
-			out = copyFrom.out;
+			this->mapFunction = copyFrom.mapFunction;
+			this->interval = copyFrom.interval;
+			this->mapRange = copyFrom.mapRange;
+			this->in = copyFrom.in;
+			this->out = copyFrom.out;
 		}
 
 		ScaleMap::~ScaleMap(void)
 		{
+			delete mapFunction;
+			delete interval;
+			delete mapRange;
+			delete in;
+			delete out;
 		}
 
 		double ScaleMap::getClippedValueFor( double val )
@@ -58,12 +65,13 @@ namespace toxi
 
 		double ScaleMap::getOutputMedian( void )
 		{
-			return (out->getMin() + out->getMax()) * 0.5;
+			return ( out->getMin() + out->getMax() ) * 0.5;
 		}
 
 		void ScaleMap::setInputRange( const double min, const double max )
 		{
-			this->in = new toxi::util::datatypes::DoubleRange(min, max);
+			
+			this->in = new toxi::util::datatypes::DoubleRange( min, max );
 			*this->interval = max - min;
 		}
 
