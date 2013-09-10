@@ -22,6 +22,8 @@ namespace toxi
 					DoubleRange( DoubleRangeVector* samples );
 					DoubleRange( const DoubleRange& copyFrom );
 					~DoubleRange( void );
+
+					DoubleRange& operator= (const DoubleRange &cSource);
 					
 					double adjustCurrentBy( double val );
 					double getMedian( void );
