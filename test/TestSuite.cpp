@@ -15,6 +15,8 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include "toxi/math/MathUtilsTest.h"
 #include "toxi/util/datatypes/DoubleRangeTest.h"
+#include "toxi/math/LinearInterpolationTest.h"
+#include "toxi/math/ScaleMapTest.h"
 #include "toxi/geom/Vec2DTest.h"
 #include "HtmlOutputter.h"
 #include "../toxi/main/Toxiclibs.h"
@@ -36,8 +38,10 @@ int main(void)
 	//runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
 	runner.setOutputter( hmtlOutputter );
 	Toxiclibs::init();
-	runner.addTest(MathUtilsTest::suite() );
-	runner.addTest(DoubleRangeTest::suite());
+	runner.addTest( MathUtilsTest::suite() );
+	runner.addTest( DoubleRangeTest::suite() );
+	runner.addTest( LinearInterpolationTest::suite() );
+	runner.addTest( ScaleMapTest::suite() );
 	runner.addTest(Vec2DTest::suite() );
 	runner.run();
 
