@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Vec2D.h"
-#include "Shape2D.h"
+//#include "Shape2D.h"
 #include "../util/datatypes/BiasedFloatRange.h"
 #include <vector>
 
@@ -13,9 +13,12 @@ namespace toxi
 	namespace geom
 	{
 		class Vec2D;
+		class Circle;
+		class Rect;
 		class Shape2D;
 		class BiasedFloatRange;
-		class Ellipse  : public toxi::geom::Shape2D//, public toxi::geom::Vec2D
+		class Polygon2D;
+		class Ellipse  : public toxi::geom::Vec2D
 		{
 		public:
 			Ellipse( void );

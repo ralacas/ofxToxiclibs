@@ -1,4 +1,4 @@
-#include <toxi/util/DoubleRange.h>
+#include <toxi/util/datatypes/DoubleRange.h>
 #include <toxi/math/MathUtils.h>
 
 #include <sstream>
