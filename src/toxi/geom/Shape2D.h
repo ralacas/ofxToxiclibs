@@ -3,7 +3,7 @@
 
 #pragma once
 
-//#include "Circle.h"
+#include "Circle.h"
 //#include "Polygon2D.h"
 
 namespace toxi
