@@ -9,7 +9,7 @@ namespace toxi
 {
 	namespace geom
 	{
-		class Vec2D;
+		//class Vec2D;
 		class Ray2D : public toxi::geom::Vec2D
 		{
 		public:
