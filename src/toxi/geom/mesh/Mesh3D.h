@@ -6,7 +6,7 @@
 #include < vector >
 
 //#include "../Sphere.h"
-#include "../Vec2D.h"
+//#include "../Vec2D.h"
 #include "../Vec3D.h"
 
 namespace toxi
