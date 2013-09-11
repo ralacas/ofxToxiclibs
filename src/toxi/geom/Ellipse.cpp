@@ -1,4 +1,9 @@
 #include "Ellipse.h"
+#include "Rect.h"
+#include "Circle.h"
+#include "Polygon2D.h"
+
+int toxi::geom::Ellipse::DEFAULT_RES = 10;
 
 
 toxi::geom::Ellipse::Ellipse(void)
@@ -46,12 +51,12 @@ float toxi::geom::Ellipse::getArea()
 
 toxi::geom::Circle * toxi::geom::Ellipse::getBoundingCircle()
 {
-	return new Circle( x, y, toxi::math::MathUtils::max( radius->x, radius->y ) );
+	return new toxi::geom::Circle( x, y, toxi::math::MathUtils::max( radius->x, radius->y ) );
 }
 
 toxi::geom::Rect * toxi::geom::Ellipse::getBounds()
 {
-	return new Rect( sub( radius ), add( radius ) );
+	return new toxi::geom::Rect( toxi::geom::Vec2D::sub( *radius ), toxi::geom::Vec2D::add( *radius ), Rect::NORMAL );
 }
 
 float toxi::geom::Ellipse::getCircumference()
@@ -64,13 +69,13 @@ std::vector< toxi::geom::Vec2D * > toxi::geom::Ellipse::getFoci()
 	std::vector< Vec2D * > foci;
 	if( radius->x > radius->y )
 	{
-		foci.push_back( sub( focus, 0 ) );
-		foci.push_back( add( focus, 0 ) );
+		foci.push_back( &sub( focus, 0 ) );
+		foci.push_back( &add( focus, 0 ) );
 	}
 	else
 	{
-		foci.push_back( sub( 0, focus ) );
-		foci.push_back( add( 0, focus ) );
+		foci.push_back( &sub( 0, focus ) );
+		foci.push_back( &add( 0, focus ) );
 	}
 	return foci;
 }
@@ -84,7 +89,7 @@ toxi::geom::Vec2D * toxi::geom::Ellipse::getRandomPoint()
 {
 	float theta = toxi::math::MathUtils::random( toxi::math::MathUtils::TWO_PI );
 	toxi::util::datatypes::BiasedFloatRange * rnd = new toxi::util::datatypes::BiasedFloatRange(0.0, 1.0, 1.0, toxi::math::MathUtils::SQRT2);
-	return  Vec2D::fromTheta(theta).scaleSelf(radius->scale(rnd->pickRandom()))
+	return  &Vec2D::fromTheta(theta).scaleSelf(radius->scale(rnd->pickRandom()))
 		.addSelf(this->x, this->y);
 }
 
