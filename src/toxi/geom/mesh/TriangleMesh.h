@@ -9,17 +9,21 @@
 #include <utility>
 
 #include "../IsectData3D.h"
+#include "../Ray3D.h"
+#include "../Triangle3D.h"
 #include "../Matrix4x4.h"
-#include "../Quaternion.h"
-#include "../Sphere.h"
 #include "../TriangleIntersector.h"
+//#include "../Matrix4x4.h"
+//#include "../Quaternion.h"
+//#include "../Sphere.h"
+//#include "../TriangleIntersector.h"
 #include "../Vec3D.h"
-#include "Face.h"
-#include "Mesh3D.h"
-#include "OBJWriter.h"
-#include "STLWriter.h"
-#include "Vertex.h"
-#include "WETriangleMesh.h"
+//#include "Face.h"
+//#include "Mesh3D.h"
+//#include "OBJWriter.h"
+//#include "STLWriter.h"
+//#include "Vertex.h"
+//#include "WETriangleMesh.h"
 
 namespace toxi 
 {

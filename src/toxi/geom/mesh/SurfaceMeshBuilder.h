@@ -3,10 +3,10 @@
 #ifndef __SURFACEMESHBUILDER_H__
 #define __SURFACEMESHBUILDER_H__
 
-#include "../Vec2D.h"
+//#include "../Vec2D.h"
 #include "../Vec3D.h"
-#include "SurfaceFunction.h"
-#include "TriangleMesh.h"
+//#include "SurfaceFunction.h"
+//#include "TriangleMesh.h"
 
 namespace toxi
 {

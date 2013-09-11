@@ -1,4 +1,6 @@
 #include "Matrix4x4.h"
+#include "../math/MathUtils.h"
+#include "Vec3D.h"
 
 //toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::TEMP = toxi::geom::Matrix4x4();
 static const int width;// = 4;

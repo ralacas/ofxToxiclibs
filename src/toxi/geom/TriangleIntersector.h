@@ -4,9 +4,9 @@
 #define __TRIANGLEINTERSECTOR_H__
 
 #include "Intersector3D.h"
-#include "IsectData3D.h"
+//#include "IsectData3D.h"
 //#include "Ray3D.h"
-#include "Triangle3D.h"
+//#include "Triangle3D.h"
 
 namespace toxi
 {

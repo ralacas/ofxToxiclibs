@@ -1,4 +1,9 @@
 #include "Sphere.h"
+#include "mesh/Mesh3D.h"
+#include "mesh/SurfaceMeshBuilder.h"
+#include "Ray3D.h"
+#include "Triangle3D.h"
+#include "Vec2D.h"
 
 double toxi::geom::Sphere::EARTH_RADIUS = (2 * 6378.1370 + 6356.752314245) / 3.0;
 

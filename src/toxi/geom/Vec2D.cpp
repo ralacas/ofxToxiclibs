@@ -1,5 +1,6 @@
 #include "Vec2D.h"
-
+#include "Vec3D.h"
+#include "Rect.h"
 
 toxi::geom::Vec2D::Vec2D( double _x, double _y )
 {

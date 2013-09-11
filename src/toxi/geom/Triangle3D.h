@@ -6,10 +6,10 @@
 #include < vector >
 #include < string >
 
-#include "AABB.h"
-#include "Triangle3D.h"
-#include "Vec3D.h"
-#include "../math/MathUtils.h"
+//#include "AABB.h"
+//#include "Triangle3D.h"
+//#include "Vec3D.h"
+//#include "../math/MathUtils.h"
 
 namespace toxi
 {

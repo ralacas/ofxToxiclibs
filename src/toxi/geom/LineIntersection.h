@@ -7,7 +7,7 @@
 #include < string >
 #include < sstream >
 
-#include "Line3D.h"
+//#include "Line3D.h"
 
 namespace toxi
 {

@@ -8,7 +8,7 @@
 
 #include "../Triangle3D.h"
 #include "../Vec2D.h"
-#include "Vertex.h"
+//#include "Vertex.h"
 
 namespace toxi
 {
@@ -18,7 +18,7 @@ namespace toxi
 		{
 			class Vertex;
 			class Vec2D;
-			class Triangle3D;
+			class toxi::geom::Triangle3D;
 			class Face
 			{
 			public:

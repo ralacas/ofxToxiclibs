@@ -1,5 +1,5 @@
 #include "LineIntersection.h"
-
+#include "Line3D.h"
 
 
 toxi::geom::LineIntersection::LineIntersection( Type type )

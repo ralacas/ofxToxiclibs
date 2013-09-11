@@ -3,11 +3,12 @@
 #ifndef __SPHERE_H__
 #define __SPHERE_H__
 
-#include "Ray3D.h"
-#include "Triangle3D.h"
+//#include "Ray3D.h"
+//#include "Triangle3D.h"
 #include "Vec3D.h"
-#include "mesh/SphereFunction.h"
-#include "mesh/SurfaceMeshBuilder.h"
+//#include "mesh/SphereFunction.h"
+//#include "mesh/SurfaceMeshBuilder.h"
+#include "mesh/Mesh3D.h"
 
 namespace toxi
 {
@@ -17,7 +18,9 @@ namespace toxi
 		class Vec3D;
 		class Ray3D;
 		class Triangle3D;
-		class Mesh3D;
+		class toxi::geom::mesh::Mesh3D;
+		class SphereFunction;
+		class SurfaceMeshBuilder;
 		class Sphere : public Vec3D
 		{
 		public:

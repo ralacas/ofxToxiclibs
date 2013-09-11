@@ -6,9 +6,9 @@
 #include < string >
 #include < sstream >
 
-#include "Matrix4x4.h"
-#include "Vec3D.h"
-#include "../math/MathUtils.h"
+//#include "Matrix4x4.h"
+//#include "Vec3D.h"
+//#include "../math/MathUtils.h"
 #include "../math/InterpolateStrategy.h"
 
 namespace toxi
@@ -17,7 +17,7 @@ namespace toxi
 	{
 		class Matrix4x4;
 		class Vec3D;
-		//class InterpolateStrategy;
+		class InterpolateStrategy;
 		class Quaternion
 		{
 		public:

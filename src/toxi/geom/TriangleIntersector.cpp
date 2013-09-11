@@ -1,4 +1,7 @@
 #include "TriangleIntersector.h"
+#include "IsectData3D.h"
+#include "Triangle3D.h"
+#include "Ray3D.h"
 
 
 toxi::geom::TriangleIntersector::TriangleIntersector(void)

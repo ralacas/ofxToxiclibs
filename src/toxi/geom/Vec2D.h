@@ -4,10 +4,10 @@
 #define __VEC2D_H__
 
 #include <math.h>
-#include "../math/MathUtils.h"
+//#include "../math/MathUtils.h"
 #include "../math/ScaleMap.h"
-#include "Rect.h"
-#include "Vec3D.h"
+//#include "Rect.h"
+//#include "Vec3D.h"
 
 namespace toxi
 {

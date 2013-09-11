@@ -1,4 +1,11 @@
 #include "TriangleMesh.h"
+#include "../AABB.h"
+#include "Vertex.h"
+#include "Face.h"
+#include "../Quaternion.h"
+#include "OBJWriter.h"
+#include "STLWriter.h"
+#include "WETriangleMesh.h"
 
 int toxi::geom::mesh::TriangleMesh::DEFAULT_STRIDE = 0; // TODO
 int toxi::geom::mesh::TriangleMesh::DEFAULT_NUM_VERTICES = 1000;

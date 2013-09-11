@@ -5,8 +5,8 @@
 
 #include < sstream >
 
-#include "../math/MathUtils.h"
-#include "Vec3D.h"
+//#include "../math/MathUtils.h"
+//#include "Vec3D.h"
 
 namespace toxi
 {

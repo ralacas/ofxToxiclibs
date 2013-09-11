@@ -1,5 +1,8 @@
 #include "Face.h"
-
+//#include "../Vec2D.h"
+#include "../Vec3D.h"
+#include "../Triangle3D.h"
+#include "Vertex.h"
 
 toxi::geom::mesh::Face::Face(void)
 {

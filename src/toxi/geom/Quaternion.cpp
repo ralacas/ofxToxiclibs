@@ -1,4 +1,6 @@
 #include "Quaternion.h"
+#include "Vec3D.h"
+#include "Matrix4x4.h"
 
 
 toxi::geom::Quaternion::Quaternion(void)

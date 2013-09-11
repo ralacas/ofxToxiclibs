@@ -4,10 +4,10 @@
 #pragma once
 
 #include "Shape2D.h"
-#include "Vec2D.h"
-#include "Circle.h"
-#include "Polygon2D.h"
-#include "Line2D.h"
+//#include "Vec2D.h"
+//#include "Circle.h"
+//#include "Polygon2D.h"
+//#include "Line2D.h"
 //#include "Ray2D.h"
 #include <string>
 

@@ -1,4 +1,7 @@
 #include "Triangle3D.h"
+#include "Vec3D.h"
+#include "AABB.h"
+#include "Line3D.h"
 
 
 toxi::geom::Triangle3D::Triangle3D(void)
@@ -157,23 +160,23 @@ toxi::geom::AABB toxi::geom::Triangle3D::getBoundingBox()
 toxi::geom::Vec3D toxi::geom::Triangle3D::getClosestPointTo( Vec3D * v )
 {
 	Line3D edge = Line3D( a, b );
-	Vec3D Rab = edge.closestPointTo( *v );
-	Vec3D Rbc = edge.set( *b, *c ).closestPointTo( *v );
-	Vec3D Rca = edge.set( *c, *a ).closestPointTo( *v );
+	Vec3D * Rab = edge.closestPointTo( v );
+	Vec3D * Rbc = edge.set( b, c ).closestPointTo( v );
+	Vec3D * Rca = edge.set( c, a ).closestPointTo( v );
 
-	float dAB = v->sub( &Rab ).magSquared();
-	float dBC = v->sub( &Rbc ).magSquared();
-	float dCA = v->sub( &Rca ).magSquared();
+	float dAB = v->sub( Rab ).magSquared();
+	float dBC = v->sub( Rbc ).magSquared();
+	float dCA = v->sub( Rca ).magSquared();
 
 	float min = dAB;
-	Vec3D result = Rab;
+	Vec3D result = *Rab;
 
 	if (dBC < min) {
 		min = dBC;
-		result = Rbc;
+		result = *Rbc;
 	}
 	if (dCA < min) {
-		result = Rca;
+		result = *Rca;
 	}
 
 	return result;

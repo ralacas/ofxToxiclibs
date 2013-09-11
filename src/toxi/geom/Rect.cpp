@@ -1,5 +1,9 @@
 #include "Rect.h"
-
+#include "Polygon2D.h"
+#include "Line2D.h"
+#include "VecMathUtil.h"
+#include "../math/MathUtils.h"
+#include <sstream>
 
 toxi::geom::Rect::Rect(void)
 {

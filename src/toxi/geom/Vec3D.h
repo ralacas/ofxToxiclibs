@@ -8,13 +8,13 @@
 #include <sstream>
 
 //#include "AABB.h"
-#include "Axis3D.h"
-#include "Vec2D.h"
-#include "Vec4D.h"
-#include "VecMathUtil.h"
+//#include "Axis3D.h"
+//#include "Vec2D.h"
+//#include "Vec4D.h"
+//#include "VecMathUtil.h"
 
-#include "../math/InterpolateStrategy.h"
-#include "../math/MathUtils.h"
+//#include "../math/InterpolateStrategy.h"
+//#include "../math/MathUtils.h"
 #include "../math/ScaleMap.h"
 
 

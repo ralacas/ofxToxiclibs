@@ -1,4 +1,7 @@
 #include "SurfaceMeshBuilder.h"
+#include "SurfaceFunction.h"
+#include "../Vec2D.h"
+#include "Mesh3D.h"
 
 
 toxi::geom::mesh::SurfaceMeshBuilder::SurfaceMeshBuilder( SurfaceFunction * function  )

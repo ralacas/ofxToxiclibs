@@ -1,4 +1,5 @@
 #include "Ray3D.h"
+#include "Line3D.h"
 
 
 toxi::geom::Ray3D::Ray3D(void)

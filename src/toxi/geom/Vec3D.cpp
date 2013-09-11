@@ -1,5 +1,8 @@
 #include "Vec3D.h"
-
+#include "Axis3D.h"
+#include "Vec2D.h"
+#include "Vec4D.h"
+#include "VecMathUtil.h"
 
 toxi::geom::Vec3D::Vec3D(void)
 {
