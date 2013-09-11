@@ -6,7 +6,7 @@
 #include <math.h>
 #include "../math/MathUtils.h"
 #include "../math/ScaleMap.h"
-#include "../util/Rect.h"
+#include "Rect.h"
 #include "Vec3D.h"
 
 namespace toxi
@@ -76,6 +76,8 @@ namespace toxi
 			 double magSquared();
 			 Vec2D max(Vec2D v);
 			 Vec2D min(Vec2D v);
+			 static Vec2D min( Vec2D v1, Vec2D v2 );
+			 static Vec2D max( Vec2D v1, Vec2D v2 );
 			 Vec2D scale(double s);
 			 Vec2D scale(double a, double b);
 			 Vec2D scale(Vec2D s);
@@ -86,6 +88,9 @@ namespace toxi
 			 Vec3D to3DXZ();
 			 Vec3D to3DYZ();
 			 double* toArray(double a);
+
+			 static Vec2D fromTheta( float theta );
+			 Vec2D scaleSelf( float s );
 
 			double x;
 			double y;

@@ -398,9 +398,19 @@ toxi::geom::Vec2D toxi::geom::Vec2D::max( Vec2D v )
 	return Vec2D( toxi::math::MathUtils::max( x, v.x ), toxi::math::MathUtils::max( x, v.x ) );
 }
 
+toxi::geom::Vec2D toxi::geom::Vec2D::max( Vec2D v1, Vec2D v2 )
+{
+	return Vec2D( toxi::math::MathUtils::max( v1.x, v2.x ), toxi::math::MathUtils::max( v1.y, v2.y ) );
+}
+
 toxi::geom::Vec2D toxi::geom::Vec2D::min( Vec2D v )
 {
 	return Vec2D( toxi::math::MathUtils::min( x, v.x ), toxi::math::MathUtils::min( x, v.x ) );
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::min( Vec2D v1, Vec2D v2 )
+{
+	return Vec2D( toxi::math::MathUtils::min( v1.x, v2.x ), toxi::math::MathUtils::min( v1.y, v2.y ) );
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::scale( double s )
@@ -442,6 +452,18 @@ double* toxi::geom::Vec2D::toArray( double a )
 {
 	double arr[2] = { x, y };
 	return arr;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::fromTheta( float theta )
+{
+	return Vec2D( ( float ) std::cos( theta ), ( float ) std::sin( theta ) );
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s )
+{
+	this->x *= s;
+	this->y *= s;
+	return *this;
 }
 
 
