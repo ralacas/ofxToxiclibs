@@ -84,9 +84,9 @@ toxi::geom::Circle * toxi::geom::Rect::getBoundingCircle()
 	return new toxi::geom::Circle( &getCentroid(), Vec2D( width, height).magnitude() / 2 );
 }
 
-toxi::geom::Rect toxi::geom::Rect::getBounds()
+toxi::geom::Rect * toxi::geom::Rect::getBounds()
 {
-	return *this;
+	return this;
 }
 
 float toxi::geom::Rect::getCircumference()
@@ -94,18 +94,18 @@ float toxi::geom::Rect::getCircumference()
 	return 2 * width + 2 * height;
 }
 
-toxi::geom::Vec2D toxi::geom::Rect::getRandomPoint()
+toxi::geom::Vec2D * toxi::geom::Rect::getRandomPoint()
 {
-	return Vec2D( toxi::math::MathUtils::random( x, x + width ), toxi::math::MathUtils::random( y, y + height ) );
+	return new Vec2D( toxi::math::MathUtils::random( x, x + width ), toxi::math::MathUtils::random( y, y + height ) );
 }
 
-toxi::geom::Polygon2D toxi::geom::Rect::toPolygon2D()
+toxi::geom::Polygon2D * toxi::geom::Rect::toPolygon2D()
 {
-	Polygon2D poly = Polygon2D();
-	poly.add(new Vec2D(x, y));
-	poly.add(new Vec2D(x + width, y));
-	poly.add(new Vec2D(x + width, y + height));
-	poly.add(new Vec2D(x, y + height));
+	Polygon2D * poly = new Polygon2D();
+	poly->add(new Vec2D(x, y));
+	poly->add(new Vec2D(x + width, y));
+	poly->add(new Vec2D(x + width, y + height));
+	poly->add(new Vec2D(x, y + height));
 	return poly;
 }
 

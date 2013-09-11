@@ -38,10 +38,10 @@ namespace toxi
 			float getArea( );
 			float getAspect();
 			toxi::geom::Circle * getBoundingCircle();
-			toxi::geom::Rect getBounds();
+			toxi::geom::Rect *getBounds();
 			float getCircumference();
-			toxi::geom::Vec2D getRandomPoint();
-			toxi::geom::Polygon2D toPolygon2D();
+			toxi::geom::Vec2D * getRandomPoint();
+			toxi::geom::Polygon2D * toPolygon2D();
 			toxi::geom::Polygon2D * toPolygon2D( float radius, int res );
 			std::string toString();
 
