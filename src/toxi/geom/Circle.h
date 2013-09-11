@@ -12,11 +12,12 @@ namespace toxi
 	{
 		class Ellipse;
 		class Vec2D;
-		class Circle : toxi::geom::Ellipse
+		class Circle : public toxi::geom::Ellipse
 		{
 		public:
 			Circle(void);
 			Circle( toxi::geom::Vec2D * origin, float radius );
+			Circle( float x, float y, float r );
 			~Circle(void);
 
 			
