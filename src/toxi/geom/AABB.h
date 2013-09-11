@@ -8,17 +8,17 @@
 #include <iostream>
 #include <sstream>
 
-#include "Vec2D.h"
-#include "Vec3D.h"
+//#include "Vec2D.h"
+//#include "Vec3D.h"
+#
 #include "mesh/Mesh3D.h"
-#include "../math/MathUtils.h"
+//#include "../math/MathUtils.h"
 #include "Ray3D.h"
 
 namespace toxi
 {
 	namespace geom
 	{
-		class Vec2D;
 		class Ray3D;
 		class TriangleMesh;
 		class MathUtils;

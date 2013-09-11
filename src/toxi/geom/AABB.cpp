@@ -1,5 +1,5 @@
 #include "AABB.h"
-
+#include "Vec2D.h"
 
 toxi::geom::AABB::AABB(void)
 {
