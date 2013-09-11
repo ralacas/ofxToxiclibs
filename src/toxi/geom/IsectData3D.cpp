@@ -1,4 +1,5 @@
 #include "IsectData3D.h"
+#include "Vec3D.h"
 
 
 toxi::geom::IsectData3D::IsectData3D(void)

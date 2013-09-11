@@ -6,7 +6,7 @@
 #include < string >
 #include < sstream >
 
-#include "Vec3D.h"
+//#include "Vec3D.h"
 
 namespace toxi
 {
