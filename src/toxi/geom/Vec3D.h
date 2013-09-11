@@ -107,9 +107,9 @@ namespace toxi
 			Vec3D scaleSelf( float s );
 			Vec3D sub(float a, float b, float c);
 			Vec3D sub(Vec3D * v);
-			Vec2D to2DXY();
-			Vec2D to2DXZ();
-			Vec2D to2DYZ();
+			Vec2D * to2DXY();
+			Vec2D * to2DXZ();
+			Vec2D * to2DYZ();
 			Vec4D to4D();
 			Vec4D to4D(float w);
 			void toArray(float& arr);

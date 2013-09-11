@@ -420,19 +420,19 @@ toxi::geom::Vec3D toxi::geom::Vec3D::sub( Vec3D * v )
 	return Vec3D(x - v->x, y - v->y, z - v->z);
 }
 
-toxi::geom::Vec2D toxi::geom::Vec3D::to2DXY()
+toxi::geom::Vec2D * toxi::geom::Vec3D::to2DXY()
 {
-	return Vec2D( x, y );
+	return new toxi::geom::Vec2D( x, y );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec3D::to2DXZ()
+toxi::geom::Vec2D * toxi::geom::Vec3D::to2DXZ()
 {
-	return Vec2D( x, z );
+	return new Vec2D( x, z );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec3D::to2DYZ()
+toxi::geom::Vec2D * toxi::geom::Vec3D::to2DYZ()
 {
-	return Vec2D( y, z );
+	return new Vec2D( y, z );
 }
 
 toxi::geom::Vec4D toxi::geom::Vec3D::to4D()
