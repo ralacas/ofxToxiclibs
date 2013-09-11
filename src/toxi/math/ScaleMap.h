@@ -5,7 +5,7 @@
 
 #include "LinearInterpolation.h"
 #include "MathUtils.h"
-#include "../util/DoubleRange.h"
+#include "../util/datatypes/DoubleRange.h"
 
 namespace toxi
 {

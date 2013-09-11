@@ -1,5 +1,5 @@
 #include "DoubleRangeTest.h"
-#include <toxi/util/DoubleRange.h>
+#include <toxi/util/datatypes/DoubleRange.h>
 #include "../../../../src/toxi/math/MathUtils.h"
 
 /**
