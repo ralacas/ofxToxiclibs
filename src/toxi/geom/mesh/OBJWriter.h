@@ -6,7 +6,7 @@
 #include <string>
 
 #include "../Vec3D.h"
-#include "Vertex.h"
+//#include "Vertex.h"
 
 namespace toxi
 {
@@ -14,6 +14,8 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Vertex;
+			class Vec3D;
 			class OBJWriter
 			{
 			public:

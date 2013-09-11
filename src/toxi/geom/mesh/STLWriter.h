@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "../Vec3D.h"
+//#include "../Vec3D.h"
 #include "Vertex.h"
 
 namespace toxi

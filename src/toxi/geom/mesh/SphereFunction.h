@@ -5,10 +5,10 @@
 
 
 
-#include "../Sphere.h"
+//#include "../Sphere.h"
 //#include "SurfaceFunction.h"
 #include "../Vec3D.h"
-#include "../../math/MathUtils.h"
+//#include "../../math/MathUtils.h"
 
 namespace toxi
 {
@@ -20,6 +20,7 @@ namespace toxi
 			//class toxi::geom::Vec3D;
 			class Sphere;
 			class SurfaceFunction;
+			class Vec3D;
 			class SphereFunction //: public SurfaceFunction //TODO FIX THIS INHERITANCE
 			{
 			public:
