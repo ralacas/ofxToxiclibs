@@ -466,5 +466,26 @@ toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s )
 	return *this;
 }
 
+toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( Vec2D v )
+{
+	this->x *= v.x;
+	this->y *= v.y;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( double a, double b )
+{
+	this->x += a;
+	this->y += b;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( Vec2D *v )
+{
+	this->x += v->x;
+	this->y += v->y;
+	return *this;
+}
+
 
 

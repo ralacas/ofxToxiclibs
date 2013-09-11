@@ -47,6 +47,8 @@ namespace toxi
 			 Vec2D getLimited( double lim );
 			 Vec2D getMapped( toxi::math::ScaleMap map );
 			 Vec2D normalize( );
+			 Vec2D addSelf( double a, double b);
+			 Vec2D addSelf( Vec2D *v );
 			 Vec2D subSelf( double a, double b );
 			 Vec2D subSelf( Vec2D *v );
 			 Vec2D set( double x, double y );
@@ -91,6 +93,7 @@ namespace toxi
 
 			 static Vec2D fromTheta( float theta );
 			 Vec2D scaleSelf( float s );
+			 Vec2D scaleSelf( Vec2D v );
 
 			double x;
 			double y;
