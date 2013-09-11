@@ -1,4 +1,7 @@
 #include "Line3D.h"
+#include "Vec3D.h"
+#include "LineIntersection.h"
+#include "AABB.h"
 
 toxi::geom::Line3D::Line3D(void)
 {
@@ -20,15 +23,15 @@ toxi::geom::Line3D::~Line3D(void)
 {
 }
 
-toxi::geom::LineIntersection toxi::geom::Line3D::closestLineTo( toxi::geom::Line3D l )
+toxi::geom::LineIntersection * toxi::geom::Line3D::closestLineTo( toxi::geom::Line3D l )
 {
 	Vec3D p43 = l.a->sub( l.b );
 	if ( p43.isZeroVector() ) {
-		return LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new LineIntersection( LineIntersection::Type::NON_INTERSECTING );
 	}
 	Vec3D p21 = b->sub( a );
 	if ( p21.isZeroVector() ) {
-		return LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new LineIntersection( LineIntersection::Type::NON_INTERSECTING );
 	}
 	Vec3D p13 = a->sub( l.a );
 
@@ -40,7 +43,7 @@ toxi::geom::LineIntersection toxi::geom::Line3D::closestLineTo( toxi::geom::Line
 
 	double denom = d2121 * d4343 - d4321 * d4321;
 	if ( toxi::math::MathUtils::abs( denom ) < toxi::math::MathUtils::EPS ) {
-		return toxi::geom::LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new toxi::geom::LineIntersection( LineIntersection::Type::NON_INTERSECTING );
 	}
 	double numer = d1343 * d4321 - d1321 * d4343;
 	float mua = ( float ) ( numer / denom );
@@ -48,22 +51,22 @@ toxi::geom::LineIntersection toxi::geom::Line3D::closestLineTo( toxi::geom::Line
 
 	Vec3D pa = *a->add( &p21.scaleSelf( mua ) );
 	Vec3D pb = *l.a->add( &p43.scaleSelf( mub ) );
-	return toxi::geom::LineIntersection( toxi::geom::LineIntersection::Type::INTERSECTING, Line3D(&pa, &pb), mua,
+	return new toxi::geom::LineIntersection( toxi::geom::LineIntersection::Type::INTERSECTING, Line3D(&pa, &pb), mua,
 		mub);
 }
 
-toxi::geom::Vec3D toxi::geom::Line3D::closestPointTo( toxi::geom::Vec3D p )
+toxi::geom::Vec3D * toxi::geom::Line3D::closestPointTo( toxi::geom::Vec3D * p )
 {
 	Vec3D v = b->sub( a );
-	float t = p.sub( a ).dot( &v ) / v.magSquared();
+	float t = p->sub( a ).dot( &v ) / v.magSquared();
 	// Check to see if t is beyond the extents of the line segment
 	if ( t < 0.0f ) {
-		return Vec3D( * a );
+		return new Vec3D( * a );
 	} else if ( t > 1.0f ) {
-		return Vec3D( * b );
+		return new Vec3D( * b );
 	}
 	// Return the point between 'a' and 'b'
-	return *a->add( &v.scaleSelf( t ) );
+	return a->add( &v.scaleSelf( t ) );
 }
 
 bool toxi::geom::Line3D::equals( toxi::geom::Line3D _l )
@@ -72,14 +75,14 @@ bool toxi::geom::Line3D::equals( toxi::geom::Line3D _l )
 		&& ( b->equals( _l.b ) || b->equals( _l.a ) );
 }
 
-toxi::geom::AABB toxi::geom::Line3D::getBounds()
+toxi::geom::AABB * toxi::geom::Line3D::getBounds()
 {
-	return AABB( * a, * b );
+	return new AABB( * a, * b );
 }
 
-toxi::geom::Vec3D toxi::geom::Line3D::getDirection()
+toxi::geom::Vec3D * toxi::geom::Line3D::getDirection()
 {
-	return b->sub( a ).normalize();
+	return &b->sub( a ).normalize();
 }
 
 float toxi::geom::Line3D::getLength()
@@ -92,19 +95,19 @@ float toxi::geom::Line3D::getLengthSquared()
 	return a->distanceToSquared( b );
 }
 
-toxi::geom::Vec3D toxi::geom::Line3D::getMidPoint()
+toxi::geom::Vec3D * toxi::geom::Line3D::getMidPoint()
 {
-	return a->add( b )->scaleSelf( 0.5 );
+	return &a->add( b )->scaleSelf( 0.5 );
 }
 
-toxi::geom::Vec3D toxi::geom::Line3D::getNormal()
+toxi::geom::Vec3D * toxi::geom::Line3D::getNormal()
 {
-	return b->cross( a );
+	return &b->cross( a );
 }
 
-bool toxi::geom::Line3D::hasEndPoint( toxi::geom::Vec3D p )
+bool toxi::geom::Line3D::hasEndPoint( toxi::geom::Vec3D * p )
 {
-	return a->equals( &p ) || b->equals( &p );
+	return a->equals( p ) || b->equals( p );
 }
 
 int toxi::geom::Line3D::hashCode()
@@ -120,20 +123,20 @@ int toxi::geom::Line3D::hashCodeWithDirection()
 	return ( int ) ( bits ^ ( bits >> 32 ) );
 }
 
-toxi::geom::Line3D toxi::geom::Line3D::offsetAndGrowBy( float offset, float scale, toxi::geom::Vec3D ref )
+toxi::geom::Line3D toxi::geom::Line3D::offsetAndGrowBy( float offset, float scale, toxi::geom::Vec3D * ref )
 {
-	Vec3D m = getMidPoint();
-	Vec3D d = getDirection();
-	Vec3D n = a->cross( &d ).normalize();
-	if ( m.sub( &ref ).dot( &n ) < 0 ) {
-		n.invert();
+	Vec3D * m = getMidPoint();
+	Vec3D * d = getDirection();
+	Vec3D * n = &a->cross( d ).normalize();
+	if ( m->sub( ref ).dot( n ) < 0 ) {
+		n->invert();
 	}
-	n.normalizeTo( offset );
-	a->addSelf( &n );
-	b->addSelf( &n );
-	d.scaleSelf( scale );
-	a->subSelf( &d );
-	b->addSelf( &d );
+	n->normalizeTo( offset );
+	a->addSelf( n );
+	b->addSelf( n );
+	d->scaleSelf( scale );
+	a->subSelf( d );
+	b->addSelf( d );
 	return *this;
 }
 
@@ -146,18 +149,18 @@ toxi::geom::Line3D toxi::geom::Line3D::scaleLength( float scale )
 	return *this;
 }
 
-toxi::geom::Line3D toxi::geom::Line3D::set( toxi::geom::Vec3D _a, toxi::geom::Vec3D _b )
+toxi::geom::Line3D toxi::geom::Line3D::set( toxi::geom::Vec3D * _a, toxi::geom::Vec3D * _b )
 {
-	a = new toxi::geom::Vec3D ( _a );
-	b = new toxi::geom::Vec3D ( _b );
+	a = new toxi::geom::Vec3D ( * _a );
+	b = new toxi::geom::Vec3D ( * _b );
 	return *this;
 }
 
-std::vector< toxi::geom::Vec3D > toxi::geom::Line3D::splitIntoSegments( float stepLength, bool addFirst )
+std::vector< toxi::geom::Vec3D * > toxi::geom::Line3D::splitIntoSegments( float stepLength, bool addFirst )
 {
-	std::vector< toxi::geom::Vec3D > segments;
+	std::vector< toxi::geom::Vec3D * > segments;
 	if ( addFirst ) {
-		segments.push_back( a->copy() );
+		segments.push_back( &a->copy() );
 	}
 	float dist = a->distanceTo( b );
 	if ( dist > stepLength ) {
@@ -165,17 +168,17 @@ std::vector< toxi::geom::Vec3D > toxi::geom::Line3D::splitIntoSegments( float st
 		Vec3D step = b->sub( a ).limit( stepLength );
 		while ( dist > stepLength ) {
 			pos.addSelf( &step );
-			segments.push_back( pos );
+			segments.push_back( &pos );
 			dist -= stepLength;
 		}
 	}
-	segments.push_back( b->copy() );
+	segments.push_back( &b->copy() );
 	return segments;
 }
 
 toxi::geom::Ray3D toxi::geom::Line3D::toRay3D()
 {
-	return Ray3D( &a->copy(), &getDirection() );
+	return Ray3D( &a->copy(), getDirection() );
 }
 
 std::string toxi::geom::Line3D::toString()
