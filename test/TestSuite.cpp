@@ -9,10 +9,16 @@
 #include <stdlib.h> 
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <sys/types.h>
 #include <windows.h>
 #include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
+#include <cppunit/TestFailure.h>
+#include <cppunit/Test.h>
+#include <cppunit/Outputter.h>
+#include <cppunit/TestResultCollector.h>
 #include "toxi/math/MathUtilsTest.h"
 #include "toxi/util/datatypes/DoubleRangeTest.h"
 #include "toxi/math/LinearInterpolationTest.h"
@@ -20,6 +26,7 @@
 #include "toxi/geom/Vec2DTest.h"
 #include "HtmlOutputter.h"
 #include "../toxi/main/Toxiclibs.h"
+
 
 /**
  * Performs this application as start point.
@@ -48,6 +55,30 @@ int main(void)
 	outputStream.close();
 
 	std::cout << "Test suite were performend and the result were written into 'TestResult.html'!" << std::endl;
+
+	std::ofstream logger( "test/testruns.log", std::ios::app);
+	time_t rawtime;
+	time (&rawtime);
+	std::string currentTime = ctime(&rawtime);
+	currentTime.erase( currentTime.size() - 1 );
+
+	logger << "Testrun from" << currentTime << ": ";
+	std::cout << "failed tests: " << runner.result().failures().size() << std::endl;
+	if( runner.result().failures().size() == 0 )
+	{
+		logger << " 0 failed tests." << std::endl;
+	}
+	else 
+	{
+		CppUnit::TestResultCollector::TestFailures failures = runner.result().failures();
+		for(CppUnit::TestResultCollector::TestFailures::iterator it=failures.begin();it != failures.end();++it)
+		{
+			CppUnit::TestFailure * test = *it;
+			logger << test->failedTestName() << ", ";
+		}
+	}
+
+	logger.close();
 
 	std::cout << "Want to open the result file? y/n" << std::endl;
 
