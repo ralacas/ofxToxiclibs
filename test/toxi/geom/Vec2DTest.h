@@ -19,15 +19,19 @@ class Vec2DTest : public CppUnit::TestFixture
 {
 	public:
 		CPPUNIT_TEST_SUITE(Vec2DTest);
-		CPPUNIT_TEST(normalizeTest);
+		CPPUNIT_TEST( constuctorTest );
+		CPPUNIT_TEST( operatorOverloadingTest );
 		//CPPUNIT_TEST(getRangeTest);
+		CPPUNIT_TEST(failedTest );
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
+		void constuctorTest();
+		void operatorOverloadingTest();
+		void failedTest();
 		/**
 		 * Tests the "getRange" method.
 		 */
-		void normalizeTest(void);
 };
 
 #endif
