@@ -1,11 +1,33 @@
 #include "Vec2D.h"
 #include "Vec3D.h"
 #include "Rect.h"
+#include "Line2D.h"
+#include "Polygon2D.h"
+#include "VecMathUtil.h"
+
+toxi::geom::Vec2D toxi::geom::Vec2D::X_AXIS = toxi::geom::Vec2D( 1, 0 );
+toxi::geom::Vec2D toxi::geom::Vec2D::Y_AXIS = toxi::geom::Vec2D( 0, 1 );
+toxi::geom::Vec2D toxi::geom::Vec2D::ZERO = toxi::geom::Vec2D( 0, 0 );
+toxi::geom::Vec2D toxi::geom::Vec2D::MIN_VALUE( FLT_MIN, FLT_MIN );
+toxi::geom::Vec2D toxi::geom::Vec2D::MAX_VALUE( FLT_MAX, FLT_MAX );
+
 
 toxi::geom::Vec2D::Vec2D( double _x, double _y )
 {
 	this->x = _x;
 	this->y = _y;
+}
+
+toxi::geom::Vec2D::Vec2D( float theta )
+{
+	this->x = toxi::math::MathUtils::cos( theta );
+	this->y = toxi::math::MathUtils::sin( theta );
+}
+
+toxi::geom::Vec2D::Vec2D( const Vec2D & v )
+{
+	this->x = v.x;
+	this->y = v.y;
 }
 
 toxi::geom::Vec2D::Vec2D(  )
@@ -134,12 +156,47 @@ double toxi::geom::Vec2D::getComponent( int id )
 	}
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Rect r )
+double toxi::geom::Vec2D::getComponent( toxi::geom::Vec2D::Axis axis )
+{
+	switch( axis )
+	{
+	case X:
+		return x;
+	case Y:
+		return y;
+	}
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Rect * r )
 {
 	Vec2D v = Vec2D( 0, 0 );
-	v.x = toxi::math::MathUtils::clip( x, r.x, r.x + r.width );
-	v.y = toxi::math::MathUtils::clip( y, r.y, r.y + r.height );
+	v.x = toxi::math::MathUtils::clip( x, r->x, r->x + r->width );
+	v.y = toxi::math::MathUtils::clip( y, r->y, r->y + r->height );
 	return v;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Polygon2D * poly )
+{
+	float minD = FLT_MAX;
+	toxi::geom::Vec2D q;
+	for (toxi::geom::Line2D *l : poly->getEdges()) {
+		toxi::geom::Vec2D * c = l->closestPointTo( * this );
+		float d = c->distanceToSquared(*this);
+		if (d < minD) {
+			q = *c;
+			minD = d;
+		}
+	}
+	this->x = q.x;
+	this->y = q.y;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Vec2D min, Vec2D max )
+{
+	this->x = toxi::math::MathUtils::clip( x, min.x, max.x );
+	this->y = toxi::math::MathUtils::clip( y, min.y, max.y );
+	return *this;
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::floor( void )
@@ -239,7 +296,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::reciprocal()
 
 toxi::geom::Vec2D toxi::geom::Vec2D::reflect( Vec2D normal )
 {
-		return set(normal.scale(dot(normal) * 2).subSelf(this));
+		return set(normal.scale(dot(normal) * 2).subSelf( *this));
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::getReflected( Vec2D normal )
@@ -297,10 +354,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( double a, double b )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( Vec2D *v )
+toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( Vec2D v )
 {
-	x -= v->x;
-	y -= v->y;
+	x -= v.x;
+	y -= v.y;
 	return *this;
 }
 
@@ -449,10 +506,12 @@ toxi::geom::Vec2D toxi::geom::Vec2D::tangentNormalOfEllipse( Vec2D eO, Vec2D eR 
 	return Vec2D(p.x / xr2, p.y / yr2).normalize();
 }
 
-double* toxi::geom::Vec2D::toArray( double a )
+std::vector< float > toxi::geom::Vec2D::toVector()
 {
-	double arr[2] = { x, y };
-	return arr;
+	std::vector < float > vec;
+	vec.push_back( x );
+	vec.push_back( y );
+	return vec;
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::fromTheta( float theta )
@@ -474,6 +533,13 @@ toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( Vec2D v )
 	return *this;
 }
 
+toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s1, float s2 )
+{
+	this->x *= s1;
+	this->y *= s2;
+	return *this;
+}
+
 toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( double a, double b )
 {
 	this->x += a;
@@ -481,12 +547,210 @@ toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( double a, double b )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( Vec2D *v )
+toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( Vec2D v )
 {
-	this->x += v->x;
-	this->y += v->y;
+	this->x += v.x;
+	this->y += v.y;
 	return *this;
 }
 
+toxi::geom::Vec2D toxi::geom::Vec2D::randomVector( void )
+{
+	return Vec2D( toxi::math::MathUtils::random( -1, 1), toxi::math::MathUtils::random( -1, 1 ) );
+}
 
+toxi::geom::Vec2D toxi::geom::Vec2D::abs()
+{
+	this->x = toxi::math::MathUtils::abs( this->x );
+	this->y = toxi::math::MathUtils::abs( this->y );
+}
+
+bool toxi::geom::Vec2D::operator==( const Vec2D v1 )
+{
+	if( this->x == v1.x && this->y == v1.y )
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::getAbs( void )
+{
+	return Vec2D( *this ).abs();
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::getConstrained( toxi::geom::Polygon2D * poly )
+{
+	return Vec2D( *this ).constrain( poly );
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::getConstrained( toxi::geom::Rect * rec )
+{
+	return Vec2D( *this ).constrain( rec );
+}
+
+int toxi::geom::Vec2D::hashCode()
+{
+	long bits = 1L;
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(x);
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(y);
+	return (int) (bits ^ (bits >> 32));
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D v, float f )
+{
+	this->x += ( v.x - this->x ) * f;
+	this->y += ( v.y - this->y ) * f;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D v, float f, toxi::math::InterpolateStrategy s  )
+{
+	this->x = s.interpolate( this->x, v.x, static_cast< double > ( f ) );
+	this->y = s.interpolate(this->y, v.y, static_cast< double > ( f ) );
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::invert()
+{
+	this->x = -this->x;
+	this->y = -this->y;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( float j )
+{
+	return jitter( j, j );
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( float jx, float jy )
+{
+	this->x += toxi::math::MathUtils::normalizedRandom() * jx;
+	this->y += toxi::math::MathUtils::normalizedRandom() * jy;
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( Vec2D jv )
+{
+	return jitter( jv.x, jv.y );
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::limit( float lim )
+{
+	if( magSquared() > lim * lim )
+	{
+		return normalize().scaleSelf( lim );
+	}
+
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::maxSelf( Vec2D v )
+{
+	this->x = toxi::math::MathUtils::max( this->x, v.x );
+	this->y = toxi::math::MathUtils::max( this->y, v.y );
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::minSelf( Vec2D v )
+{
+	this->x = toxi::math::MathUtils::min( this->x, v.x );
+	this->y = toxi::math::MathUtils::max( this->y, v.y );
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::normalizeTo( float len )
+{
+	float mag = (float) toxi::math::MathUtils::sqrt(x * x + y * y);
+	if (mag > 0) {
+		mag = len / mag;
+		x *= mag;
+		y *= mag;
+	}
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::perpendicular()
+{
+	float t = x;
+	x = -y;
+	y = t;
+	return *this;
+}
+
+float toxi::geom::Vec2D::positiveHeading()
+{
+	double dist = toxi::math::MathUtils::sqrt( x * x + y * y );
+	if( y >= 0 )
+	{
+		return std::acosf( x / dist );
+	}
+	else 
+	{
+		return std::acosf( -x / dist ) + toxi::math::MathUtils::PI;
+	}
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( Axis id, float val )
+{
+	switch( id )
+	{
+	case X:
+		this->x = val;
+		break;
+	case Y:
+		this->y = val;
+		break;
+	}
+
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( int id, float val )
+{
+	switch( id )
+	{
+	case 0:
+		this->x = val;
+		break;
+	case 1:
+		this->y = val;
+		break;
+	}
+
+	return *this;
+}
+
+toxi::geom::Vec2D toxi::geom::Vec2D::snapToAxis()
+{
+	if( toxi::math::MathUtils::abs( this->x ) < 0.5 )
+	{
+		this->x = 0;
+	} else 
+	{
+		this->x = this->x < 0 ? -1 : 1;
+		this->y = 0;
+	}
+
+	if( toxi::math::MathUtils::abs( y ) < 0.5 )
+	{
+		this->y  = 0;
+	} else
+	{
+		this->y = this->y < 0 ? -1 : 1;
+		this->x = 0;
+	}
+
+	return *this;
+}
+
+std::string toxi::geom::Vec2D::toString()
+{
+	std::stringstream ss;
+	ss << "{x:" << this->x << ", y:" << this->y << "}";
+	return ss.str();
+}
 
