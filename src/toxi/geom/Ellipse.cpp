@@ -41,22 +41,22 @@ toxi::geom::Ellipse::~Ellipse(void)
 bool toxi::geom::Ellipse::containsPoint( toxi::geom::Vec2D * p )
 {
 	std::vector< Vec2D * > foci = getFoci();
-	return p->distanceTo( * foci[ 0 ] ) + p->distanceTo( * foci[ 1 ] ) < 2 * toxi::math::MathUtils::max( radius->x, radius->y );
+	return p->distanceTo( foci[ 0 ] ) + p->distanceTo(  foci[ 1 ] ) < 2 * toxi::math::MathUtils::max( radius->getX(), radius->getY() );
 }
 
 float toxi::geom::Ellipse::getArea()
 {
-	return toxi::math::MathUtils::PI * radius->x * radius->y;
+	return toxi::math::MathUtils::PI * radius->getX() * radius->getY();
 }
 
 toxi::geom::Circle * toxi::geom::Ellipse::getBoundingCircle()
 {
-	return new toxi::geom::Circle( x, y, toxi::math::MathUtils::max( radius->x, radius->y ) );
+	return new toxi::geom::Circle( getX(), getY(), toxi::math::MathUtils::max( radius->getX(), radius->getY() ) );
 }
 
 toxi::geom::Rect * toxi::geom::Ellipse::getBounds()
 {
-	return new toxi::geom::Rect( toxi::geom::Vec2D::sub( *radius ), toxi::geom::Vec2D::add( *radius ), Rect::NORMAL );
+	return new toxi::geom::Rect( *toxi::geom::Vec2D::sub( radius ), *toxi::geom::Vec2D::add( radius ), Rect::NORMAL );
 }
 
 float toxi::geom::Ellipse::getCircumference()
@@ -67,15 +67,15 @@ float toxi::geom::Ellipse::getCircumference()
 std::vector< toxi::geom::Vec2D * > toxi::geom::Ellipse::getFoci()
 {
 	std::vector< Vec2D * > foci;
-	if( radius->x > radius->y )
+	if( radius->getX() > radius->getY() )
 	{
-		foci.push_back( &sub( focus, 0 ) );
-		foci.push_back( &add( focus, 0 ) );
+		foci.push_back( sub( focus, 0 ) );
+		foci.push_back( add( focus, 0 ) );
 	}
 	else
 	{
-		foci.push_back( &sub( 0, focus ) );
-		foci.push_back( &add( 0, focus ) );
+		foci.push_back( sub( 0, focus ) );
+		foci.push_back( add( 0, focus ) );
 	}
 	return foci;
 }
@@ -89,8 +89,8 @@ toxi::geom::Vec2D * toxi::geom::Ellipse::getRandomPoint()
 {
 	float theta = toxi::math::MathUtils::random( toxi::math::MathUtils::TWO_PI );
 	toxi::util::datatypes::BiasedFloatRange * rnd = new toxi::util::datatypes::BiasedFloatRange(0.0, 1.0, 1.0, toxi::math::MathUtils::SQRT2);
-	return  &Vec2D::fromTheta(theta).scaleSelf(radius->scale(rnd->pickRandom()))
-		.addSelf(this->x, this->y);
+	return toxi::geom::Vec2D(theta).scaleSelf( radius->scale(rnd->pickRandom()) )
+		->addSelf( this->getX(), this->getY());
 }
 
 toxi::geom::Ellipse * toxi::geom::Ellipse::setRadii( float rx, float ry )
@@ -102,7 +102,7 @@ toxi::geom::Ellipse * toxi::geom::Ellipse::setRadii( float rx, float ry )
 
 toxi::geom::Ellipse * toxi::geom::Ellipse::setRadii( toxi::geom::Vec2D * v )
 {
-	return setRadii( v->x, v->y );
+	return setRadii( v->getX(), v->getY() );
 }
 
 toxi::geom::Polygon2D * toxi::geom::Ellipse::toPolygon2D()
@@ -115,7 +115,7 @@ toxi::geom::Polygon2D * toxi::geom::Ellipse::toPolygon2D( int res )
 	Polygon2D * poly = new Polygon2D();
 	float step = toxi::math::MathUtils::TWO_PI / res;
 	for (int i = 0; i < res; i++) {
-		poly->add( &Vec2D::fromTheta(i * step).scaleSelf( *radius).addSelf( this->x, this->y) );
+		poly->add( Vec2D(i * step).scaleSelf( radius)->addSelf( this->getX(), this->getY()) );
 	}
 	return poly;
 }

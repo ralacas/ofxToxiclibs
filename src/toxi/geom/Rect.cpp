@@ -27,24 +27,24 @@ toxi::geom::Rect::Rect( Vec2D p1, Vec2D p2, CreationType type )
 	{
 	case NORMAL:
 		{
-			Vec2D tl = toxi::geom::Vec2D::min(p1, p2);
-			Vec2D br = toxi::geom::Vec2D::max(p1, p2);
-			this->x = tl.x;
-			this->y = tl.y;
-			this->width = br.x - x;
-			this->height = br.y - y;
+			Vec2D * tl = toxi::geom::Vec2D::min(&p1, &p2);
+			Vec2D * br = toxi::geom::Vec2D::max(&p1, &p2);
+			this->x = tl->getX();
+			this->y = tl->getY();
+			this->width = br->getX() - x;
+			this->height = br->getY() - y;
 		}
 		break;
 	case CENTER:
 		{
-			Vec2D _p1 = p1.sub( p2 );
-			Vec2D _p2 = p1.add( p2 );
-			Vec2D tl = toxi::geom::Vec2D::min(_p1, _p2);
-			Vec2D br = toxi::geom::Vec2D::max(_p1, _p2);
-			this->x = tl.x;
-			this->y = tl.y;
-			this->width = br.x - x;
-			this->height = br.y - y;
+			Vec2D * _p1 = p1.sub( &p2 );
+			Vec2D * _p2 = p1.add( &p2 );
+			Vec2D * tl = toxi::geom::Vec2D::min(_p1, _p2);
+			Vec2D * br = toxi::geom::Vec2D::max(_p1, _p2);
+			this->x = tl->getX();
+			this->y = tl->getY();
+			this->width = br->getX() - x;
+			this->height = br->getY() - y;
 		}
 		break;
 	default:
@@ -67,8 +67,8 @@ toxi::geom::Rect::~Rect(void)
 
 bool toxi::geom::Rect::containsPoint( toxi::geom::Vec2D * p )
 {
-	float px = p->x;
-	float py = p->y;
+	float px = p->getX();
+	float py = p->getY();
 	if (px < x || px >= x + width) {
 		return false;
 	}
@@ -161,7 +161,7 @@ float toxi::geom::Rect::getTop()
 
 toxi::geom::Vec2D toxi::geom::Rect::getMappedPointInRect( Vec2D p )
 {
-	return Vec2D( ( p.x - x ) / width, ( p.y - y ) / height );
+	return Vec2D( ( p.getX() - x ) / width, ( p.getY() - y ) / height );
 }
 
 toxi::geom::Vec2D toxi::geom::Rect::getBottomLeft()
@@ -218,17 +218,17 @@ toxi::geom::Line2D * toxi::geom::Rect::getEdge( EdgeType edgeType )
 toxi::geom::Rect toxi::geom::Rect::growToContainPoint( Vec2D p )
 {
 	if (!containsPoint( &p )) {
-		if (p.x < x) {
-			width = getRight() - p.x;
-			x = p.x;
-		} else if (p.x > getRight()) {
-			width = p.x - x;
+		if (p.getX() < x) {
+			width = getRight() - p.getX();
+			x = p.getX();
+		} else if (p.getX() > getRight()) {
+			width = p.getX() - x;
 		}
-		if (p.y < y) {
-			height = getBottom() - p.y;
-			y = p.y;
-		} else if (p.y > getBottom()) {
-			height = p.y - y;
+		if (p.getY() < y) {
+			height = getBottom() - p.getY();
+			y = p.getY();
+		} else if (p.getY() > getBottom()) {
+			height = p.getY() - y;
 		}
 	}
 	return *this;
@@ -300,8 +300,8 @@ toxi::geom::Rect toxi::geom::Rect::scale( float s )
 	Vec2D c = getCentroid();
 	width *= s;
 	height *= s;
-	x = c.x - width * 0.5f;
-	y = c.y - height * 0.5f;
+	x = c.getX() - width * 0.5f;
+	y = c.getY() - height * 0.5f;
 	return *this;
 }
 
@@ -325,15 +325,15 @@ toxi::geom::Rect toxi::geom::Rect::set( Rect r )
 
 toxi::geom::Rect toxi::geom::Rect::setDimension( Vec2D dim )
 {
-	this->width = dim.x;
-	this->height = dim.y;
+	this->width = dim.getX();
+	this->height = dim.getY();
 	return *this;
 }
 
 toxi::geom::Rect toxi::geom::Rect::setPosition( Vec2D pos )
 {
-	this->x = pos.x;
-	this->y = pos.y;
+	this->x = pos.getX();
+	this->y = pos.getY();
 	return *this;
 }
 
@@ -346,8 +346,8 @@ toxi::geom::Rect toxi::geom::Rect::translate( float dx, float dy )
 
 toxi::geom::Rect toxi::geom::Rect::translate( Vec2D offset )
 {
-	this->x += offset.x;
-	this->y += offset.y;
+	this->x += offset.getX();
+	this->y += offset.getY();
 	return *this;
 }
 
@@ -365,7 +365,7 @@ toxi::geom::Rect toxi::geom::Rect::unionRectWith( Rect r )
 void toxi::geom::Rect::toPolyArc( Polygon2D * poly, Vec2D o, float radius, float theta, int res )
 {
 	for (int i = 0; i <= res; i++) {
-		poly->add( &o.add(toxi::geom::Vec2D::fromTheta(theta + i * toxi::math::MathUtils::HALF_PI / res)
+		poly->add( o.add(Vec2D(theta + i * toxi::math::MathUtils::HALF_PI / res)
 			.scaleSelf(radius)));
 	}
 }

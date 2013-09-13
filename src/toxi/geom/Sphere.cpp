@@ -79,9 +79,9 @@ bool toxi::geom::Sphere::intersectSphereTriangle( Triangle3D * t, Vec3D * result
 
 double toxi::geom::Sphere::surfaceDistanceBetween( Vec2D * p, Vec2D * q )
 {
-	double t1 = toxi::math::MathUtils::sin(p->y) * toxi::math::MathUtils::sin(q->y);
-	double t2 = toxi::math::MathUtils::cos(p->y) * toxi::math::MathUtils::cos(q->y);
-	double t3 = toxi::math::MathUtils::cos(p->x - q->x);
+	double t1 = toxi::math::MathUtils::sin(p->getY()) * toxi::math::MathUtils::sin(q->getY());
+	double t2 = toxi::math::MathUtils::cos(p->getY()) * toxi::math::MathUtils::cos(q->getY());
+	double t3 = toxi::math::MathUtils::cos(p->getX() - q->getX());
 	double t4 = t2 * t3;
 	double t5 = t1 + t4;
 	double dist = std::atan(-t5 / toxi::math::MathUtils::sqrt(-t5 * t5 + 1)) + 2

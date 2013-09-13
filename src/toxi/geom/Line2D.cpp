@@ -23,8 +23,8 @@ toxi::geom::Line2D::~Line2D(void)
 
 toxi::geom::Vec2D * toxi::geom::Line2D::closestPointTo( toxi::geom::Vec2D p )
 {
-	toxi::geom::Vec2D v = b->sub( *a );
-	float t = p.sub( *a ).dot( v ) / v.magSquared();
+	toxi::geom::Vec2D * v = b->sub( a );
+	float t = p.sub( a )->dot( v ) / v->magSquared();
 	if( t < 0.0 )
 	{
 		return new toxi::geom::Vec2D( *a );
@@ -34,5 +34,5 @@ toxi::geom::Vec2D * toxi::geom::Line2D::closestPointTo( toxi::geom::Vec2D p )
 		return new toxi::geom::Vec2D( *b );
 	}
 
-	return &a->add( v.scaleSelf( t ) );
+	return a->add( v->scaleSelf( t ) );
 }

@@ -81,8 +81,8 @@ toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( Mes
 			}
 			pa.set(&a);
 			pb.set(&b);
-			pauv.set(auv);
-			pbuv.set(buv);
+			pauv.set(&auv);
+			pbuv.set(&buv);
 		}
 	}
 	return mesh;
