@@ -14,10 +14,13 @@ namespace toxi
 		{
 		public:
 			Line2D(void);
+			Line2D( Vec2D * v1, Vec2D * v2 );
 			Line2D( float x1, float y1, float x2, float y2 );
 			~Line2D(void);
 
 			toxi::geom::Vec2D * a, * b;
+
+			Vec2D * closestPointTo( Vec2D v );
 		};
 
 
