@@ -490,7 +490,7 @@ namespace toxi
 		}
 
 		bool MathUtils::isNan( const double d ) {
-			std::cerr << "The untested isNan function has just been called. Handle with care." << std::endl;
+			//std::cerr << "The untested isNan function has just been called. Handle with care." << std::endl;
 			return (d != d);
 		}
 	}
