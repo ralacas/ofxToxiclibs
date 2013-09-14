@@ -22,7 +22,6 @@ void Vec2DTest::constuctorTest()
 	Vec2D v3 = Vec2D( toxi::math::MathUtils::QUARTER_PI );
 	bool r3 = ( v3.getX() == toxi::math::MathUtils::cos( toxi::math::MathUtils::QUARTER_PI) && v3.getY() == toxi::math::MathUtils::sin( toxi::math::MathUtils::QUARTER_PI ) ) ? true : false;
 
-	std::cout << r1 << r2 << r3 << std::endl;
 	CPPUNIT_ASSERT( r1 && r2 && r3 );
 }
 
@@ -36,6 +35,80 @@ void Vec2DTest::operatorOverloadingTest()
 void Vec2DTest::failedTest()
 {
 	CPPUNIT_ASSERT( false );
+}
+
+void Vec2DTest::angleBetweenTest( void )
+{
+	Vec2D * v1 = new Vec2D( 5, 15 );
+	Vec2D * v2 = new Vec2D( 10, -20 );
+
+	double angle = v1->angleBetween( v2 );
+	bool r1 = toxi::math::MathUtils::isNan( angle );
+
+	double angle2 = v1->angleBetween( v2, true );
+
+
+	delete v1;
+	delete v2;
+
+
+	CPPUNIT_ASSERT( false );
+}
+
+void Vec2DTest::crossTest( void )
+{
+	Vec2D * v = new Vec2D( 10, 10 );
+	Vec2D * toCross = new Vec2D( 5, 10 );
+	double cross = v->cross( toCross );
+
+	CPPUNIT_ASSERT( cross == 50.0 ? true : false );
+
+	delete v;
+	delete toCross;
+}
+
+void Vec2DTest::distanceToTest( void )
+{
+	Vec2D * v1 = new Vec2D( 10, 10 );
+	Vec2D * v2 = new Vec2D( 5, 10 );
+
+	double dist = v1->distanceTo( v2 );
+	bool r1 = dist == 5.0 ? true : false;
+
+	double distSquared = v1->distanceToSquared( v2 );
+	bool r2 = distSquared == 25.0 ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+
+	delete v1;
+	delete v2;
+}
+
+void Vec2DTest::dotTest( void )
+{
+	Vec2D * v1 = new Vec2D( 10, 10 );
+	Vec2D * v2 = new Vec2D( 5, 10 );
+	double dot = v1->dot( v2 );
+
+	CPPUNIT_ASSERT( dot == 150.0 ? true : false );
+
+	delete v1;
+	delete v2;
+}
+
+void Vec2DTest::equalsTest( void )
+{
+	Vec2D v1 = Vec2D( 123.45, 678.12 );
+	Vec2D v2 = Vec2D( 123.45, 678.12 );
+	bool r1 = v1 == v2;
+
+	v2.addSelf( 0.4, 0.4 );
+	bool r2 = v1.equalsWithTolerance( &v2, 0.5 );
+
+	v2.subSelf( 1.0, 1.0 );
+	bool r3 = v1.equalsWithTolerance( &v2, 0.7 );
+
+	CPPUNIT_ASSERT( r1 && r2 && r3 );
 }
 
 

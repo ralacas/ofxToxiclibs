@@ -22,13 +22,23 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( constuctorTest );
 		CPPUNIT_TEST( operatorOverloadingTest );
 		//CPPUNIT_TEST(getRangeTest);
-		CPPUNIT_TEST(failedTest );
+		CPPUNIT_TEST( failedTest );
+		CPPUNIT_TEST( angleBetweenTest );
+		CPPUNIT_TEST( crossTest );
+		CPPUNIT_TEST( distanceToTest );
+		CPPUNIT_TEST( dotTest );
+		CPPUNIT_TEST( equalsTest );
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
-		void constuctorTest();
-		void operatorOverloadingTest();
-		void failedTest();
+		void constuctorTest( void );
+		void operatorOverloadingTest( void );
+		void failedTest( void );
+		void angleBetweenTest( void );
+		void crossTest( void );
+		void distanceToTest( void );
+		void dotTest( void );
+		void equalsTest( void );
 		/**
 		 * Tests the "getRange" method.
 		 */
