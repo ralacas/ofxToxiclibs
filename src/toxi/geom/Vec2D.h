@@ -18,7 +18,7 @@ namespace toxi
 		class VecMathUtil;
 		class Vec2D
 		{
-
+			
 		public:
 			Vec2D();
 			Vec2D( double _x, double _y );
@@ -26,9 +26,19 @@ namespace toxi
 			Vec2D( const Vec2D & v );
 			~Vec2D(void);
 			
-			bool operator==( const Vec2D v1 );
+			//bool operator==( const Vec2D & v1 ) const;
+			inline bool operator == (const Vec2D & lhs)
+			{
+				return ( *lhs.x == *this->x && *lhs.y == *this->y );
+			}
+
+			inline bool operator == (const Vec2D * lhs)
+			{
+				return ( *lhs->x == *this->x && *lhs->y == *this->y );
+			}
 
 			static enum Axis{ X, Y };
+
 			static Vec2D X_AXIS;
 			static Vec2D Y_AXIS;
 			static Vec2D ZERO;

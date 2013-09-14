@@ -56,7 +56,7 @@ toxi::geom::Vec2D::~Vec2D(void)
 
 double toxi::geom::Vec2D::angleBetween( Vec2D * v )
 {
-	return ( double ) std::acos( dot( v ) );
+	return std::acos( dot( v ) );
 }
 
 double toxi::geom::Vec2D::angleBetween( Vec2D * v, bool forceNormalize )
@@ -97,37 +97,42 @@ double toxi::geom::Vec2D::cross( Vec2D * v )
 
 double toxi::geom::Vec2D::distanceTo( Vec2D * v )
 {
-	double dx = x - v->x;
-	double dy = y - v->y;
-	return (double) std::sqrt(dx * dx + dy * dy);
+	double dx = getX() - v->getX();
+	double dy = getY() - v->getY();
+	return std::sqrt(dx * dx + dy * dy);
 }
 
 double toxi::geom::Vec2D::distanceToSquared( Vec2D * v )
 {
-	double dx = x - v->x;
-	double dy = y - v->y;
+	double dx = getX() - v->getX();
+	double dy = getY() - v->getY();
 	return dx * dx + dy * dy;
 }
 
 double toxi::geom::Vec2D::dot( Vec2D * v )
 {
-	return *x * *v->x + *y * *v->y;
+	return getX() * v->getX() + getY() * v->getY();
 }
 
 bool toxi::geom::Vec2D::equalsWithTolerance( Vec2D * v, double tolerance )
 {
-	double diff = x - v->x;
+	double diff = getX() - v->getX();
+	std::cout << diff << std::endl;
 	if (toxi::math::MathUtils::isNan( diff )) {
+		std::cout << "1" << std::endl;
 		return false;
 	}
 	if ((diff < 0 ? -diff : diff) > tolerance) {
+		std::cout << "2" << std::endl;
 		return false;
 	}
-	diff = y - v->y;
+	diff = getY() - v->getY();
 	if (toxi::math::MathUtils::isNan(diff)) {
+		std::cout << "3" << std::endl;
 		return false;
 	}
 	if ((diff < 0 ? -diff : diff) > tolerance) {
+		std::cout << "4" << std::endl;
 		return false;
 	}
 	return true;
@@ -555,9 +560,10 @@ toxi::geom::Vec2D*  toxi::geom::Vec2D::abs()
 	return this;
 }
 
-bool toxi::geom::Vec2D::operator==( const Vec2D v1 )
+/*bool toxi::geom::Vec2D::operator==( const Vec2D & v1 ) const
 {
-	if( this->x == v1.x && this->y == v1.y )
+	std::cout << " this: " << this->toString() << " v1: " << v1.toString() << std::endl;
+	if( *this->x == *v1.x && *this->y == *v1.y )
 	{
 		return true;
 	}
@@ -565,7 +571,8 @@ bool toxi::geom::Vec2D::operator==( const Vec2D v1 )
 	{
 		return false;
 	}
-}
+}*/
+
 
 toxi::geom::Vec2D * toxi::geom::Vec2D::getAbs( void )
 {
@@ -731,7 +738,7 @@ toxi::geom::Vec2D * toxi::geom::Vec2D::snapToAxis()
 	} else
 	{
 		*this->y = this->y < 0 ? -1 : 1;
-		*this->x = 0;
+		*this->x = 0;	
 	}
 
 	return this;
@@ -740,7 +747,7 @@ toxi::geom::Vec2D * toxi::geom::Vec2D::snapToAxis()
 std::string toxi::geom::Vec2D::toString()
 {
 	std::stringstream ss;
-	ss << "{x:" << this->x << ", y:" << this->y << "}";
+	ss << "{x:" << this->getX() << ", y:" << this->getY() << "}";
 	return ss.str();
 }
 
