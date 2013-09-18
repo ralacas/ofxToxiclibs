@@ -3,19 +3,18 @@
 #include <typeinfo>
 
 
-void ScaleMapTest::constructorTest( void )
+void ScaleMapTest::constructorTesting( void )
 {
-	toxi::math::ScaleMap * map = new toxi::math::ScaleMap( 0.0, 10.0, 50.0, 100.0 );
-	bool r1 = ( *map->interval == 10.0 ) ? true : false;
-	bool r2 = ( *map->mapRange == 50.0 ) ? true : false;
-	bool r3 = ( map->mapFunction != nullptr ) ? true : false;
-	bool r4 = ( map->in != nullptr && map->out != nullptr ) ? true : false;
 
-	toxi::math::ScaleMap map2 ( *map );
+	toxi::math::ScaleMap map = toxi::math::ScaleMap( 0.0, 10.0, 50.0, 100.0 );
+	bool r1 = ( *map.interval == 10.0 ) ? true : false;
+	bool r2 = ( *map.mapRange == 50.0 ) ? true : false;
+	bool r3 = ( map.mapFunction != nullptr ) ? true : false;
+	bool r4 = ( map.in != nullptr && map.out != nullptr ) ? true : false;
+	
+	toxi::math::ScaleMap map2 ( map );
 	bool r5 = ( *map2.interval == 10.0 ) ? true : false;
 	bool r6 = ( *map2.mapRange == 50.0 ) ? true : false;
-
-	delete map;
 
 	CPPUNIT_ASSERT( r1 && r2 && r3 && r4 && r5 && r6 );
 }
