@@ -53,7 +53,7 @@ namespace toxi
 			double dot( Vec2D * v );
 			bool equalsWithTolerance(Vec2D * v, double tolerance);
 			double getComponent(int id);
-			double getComponent( toxi::geom::Vec2D::Axis * axis );
+			double getComponent( toxi::geom::Vec2D::Axis axis );
 			double heading();
 			int hashCode();
 			bool isInCircle(Vec2D * sO, double sR);
