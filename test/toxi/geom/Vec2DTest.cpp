@@ -13,6 +13,7 @@ using namespace toxi::geom;
 
 void Vec2DTest::constuctorTest()
 {
+
 	Vec2D v = Vec2D( 10, 20 );
 	bool r1 = ( v.getX() == 10.0 && v.getY() == 20.0 ) ? true : false;
 
@@ -107,8 +108,27 @@ void Vec2DTest::equalsTest( void )
 
 	v2.subSelf( 1.0, 1.0 );
 	bool r3 = v1.equalsWithTolerance( &v2, 0.7 );
-
 	CPPUNIT_ASSERT( r1 && r2 && r3 );
+}
+
+void Vec2DTest::getComponentTest( void )
+{
+	Vec2D v1 = Vec2D( 10.5, 100.1 );
+	double comp1 = v1.getComponent( toxi::geom::Vec2D::Axis::X );
+	double comp2 = v1.getComponent( 1 );
+	bool r1 = comp1 == 10.5 ? true : false;
+	bool r2 = comp2 == 100.1 ? true : false;
+
+	CPPUNIT_ASSERT(  r1 && r2 );
+}
+
+void Vec2DTest::headingTest( void )
+{
+	Vec2D v1 = Vec2D( 1, 1 );
+	double heading = v1.heading();
+	double to_comp = 0.785398;
+	bool r1 = ( heading >= to_comp - 0.00001 && heading <= to_comp + 0.00001 ) ? true : false;
+	CPPUNIT_ASSERT( r1 );
 }
 
 

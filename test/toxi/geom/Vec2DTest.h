@@ -19,6 +19,7 @@ class Vec2DTest : public CppUnit::TestFixture
 {
 	public:
 		CPPUNIT_TEST_SUITE(Vec2DTest);
+
 		CPPUNIT_TEST( constuctorTest );
 		CPPUNIT_TEST( operatorOverloadingTest );
 		//CPPUNIT_TEST(getRangeTest);
@@ -28,6 +29,9 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( distanceToTest );
 		CPPUNIT_TEST( dotTest );
 		CPPUNIT_TEST( equalsTest );
+		CPPUNIT_TEST( getComponentTest );
+		CPPUNIT_TEST( headingTest );
+
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
@@ -39,9 +43,8 @@ class Vec2DTest : public CppUnit::TestFixture
 		void distanceToTest( void );
 		void dotTest( void );
 		void equalsTest( void );
-		/**
-		 * Tests the "getRange" method.
-		 */
+		void getComponentTest( void );
+		void headingTest( void );
 };
 
 #endif
