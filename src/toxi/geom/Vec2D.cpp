@@ -35,8 +35,8 @@ toxi::geom::Vec2D::Vec2D( const Vec2D & v )
 	this->x = new double;
 	this->y = new double;
 
-	this->x = v.x;
-	this->y = v.y;
+	*this->x = *v.x;
+	*this->y = *v.y;
 }
 
 toxi::geom::Vec2D::Vec2D(  )
@@ -117,18 +117,18 @@ double toxi::geom::Vec2D::dot( Vec2D * v )
 bool toxi::geom::Vec2D::equalsWithTolerance( Vec2D * v, double tolerance )
 {
 	double diff = getX() - v->getX();
-	std::cout << diff << std::endl;
+	//std::cout << diff << std::endl;
 	if (toxi::math::MathUtils::isNan( diff )) {
-		std::cout << "1" << std::endl;
+		//std::cout << "1" << std::endl;
 		return false;
 	}
 	if ((diff < 0 ? -diff : diff) > tolerance) {
-		std::cout << "2" << std::endl;
+		//std::cout << "2" << std::endl;
 		return false;
 	}
 	diff = getY() - v->getY();
 	if (toxi::math::MathUtils::isNan(diff)) {
-		std::cout << "3" << std::endl;
+		//std::cout << "3" << std::endl;
 		return false;
 	}
 	if ((diff < 0 ? -diff : diff) > tolerance) {
@@ -497,7 +497,7 @@ toxi::geom::Vec2D * toxi::geom::Vec2D::sub( double a, double b )
 
 toxi::geom::Vec2D * toxi::geom::Vec2D::sub( Vec2D * v )
 {
-	return new Vec2D(this->x - v->x, this->y - v->y);
+	return new Vec2D(this->getX() - v->getX(), this->getY() - v->getY());
 }
 
 toxi::geom::Vec2D * toxi::geom::Vec2D::tangentNormalOfEllipse( Vec2D * eO, Vec2D * eR )
