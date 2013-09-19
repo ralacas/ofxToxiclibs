@@ -151,6 +151,7 @@ namespace toxi
 				*this->min = *cSource.min;
 				*this->max = *cSource.max;
 				*this->curr_value = *cSource.curr_value;
+				return *this;
 			}
 
 		}
