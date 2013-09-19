@@ -22,6 +22,7 @@
 #include "toxi/math/MathUtilsTest.h"
 #include "toxi/util/datatypes/DoubleRangeTest.h"
 #include "toxi/math/LinearInterpolationTest.h"
+#include "toxi/geom/VecMathUtilTest.h"
 #include "toxi/math/ScaleMapTest.h"
 #include "toxi/geom/Vec2DTest.h"
 #include "HtmlOutputter.h"
@@ -49,7 +50,9 @@ int main(void)
 	runner.addTest( DoubleRangeTest::suite() );
 	runner.addTest( LinearInterpolationTest::suite() );
 	runner.addTest( ScaleMapTest::suite() );
+	runner.addTest( VecMathUtilTest::suite() );
 	runner.addTest( Vec2DTest::suite() );
+
 	runner.run();
 
 	outputStream.close();
