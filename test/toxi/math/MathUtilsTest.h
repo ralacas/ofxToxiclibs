@@ -7,10 +7,6 @@
 #include <cppunit/TestCase.h>
 #include < cmath >
 
-
-/**
- * Test Suite for the MathUtils module.
- */
 class MathUtilsTest : public CppUnit::TestFixture
 {
 	public:
