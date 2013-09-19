@@ -37,6 +37,14 @@ namespace toxi
 				return ( *lhs->x == *this->x && *lhs->y == *this->y );
 			}
 
+			inline Vec2D operator=( const Vec2D & lhs )
+			{
+				std::cout << ".operator=" << std::endl;
+				*this->x = *lhs.x;
+				*this->y = *lhs.y;
+				return *this;
+			}
+
 			static enum Axis{ X, Y };
 
 			static Vec2D X_AXIS;
