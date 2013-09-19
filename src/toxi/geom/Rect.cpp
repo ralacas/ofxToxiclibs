@@ -17,8 +17,8 @@ toxi::geom::Rect::Rect( float x, float y, float w, float h )
 {
 	this->x = x;
 	this->y = y;
-	this->width = width;
-	this->height = height;
+	this->width = w;
+	this->height = h;
 }
 
 toxi::geom::Rect::Rect( Vec2D p1, Vec2D p2, CreationType type )
