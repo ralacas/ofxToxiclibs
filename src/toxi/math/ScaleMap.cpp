@@ -1,4 +1,5 @@
 #include "ScaleMap.h"
+#include "../util/datatypes/DoubleRange.h"
 
 namespace toxi
 {
@@ -16,11 +17,14 @@ namespace toxi
 
 		ScaleMap::ScaleMap(const ScaleMap& copyFrom)
 		{
-			this->mapFunction = copyFrom.mapFunction;
-			this->interval = copyFrom.interval;
-			this->mapRange = copyFrom.mapRange;
-			this->in = copyFrom.in;
-			this->out = copyFrom.out;
+			this->interval = new double;
+			this->mapRange = new double;
+
+			*this->mapFunction = *copyFrom.mapFunction;
+			*this->interval = *copyFrom.interval;
+			*this->mapRange = *copyFrom.mapRange;
+			this->in = new toxi::util::datatypes::DoubleRange( *copyFrom.in );
+			this->out = new toxi::util::datatypes::DoubleRange( *copyFrom.out );
 		}
 
 		ScaleMap::~ScaleMap(void)
@@ -88,11 +92,11 @@ namespace toxi
 
 		ScaleMap& ScaleMap::operator=( const ScaleMap &copyFrom )
 		{
-			mapFunction = copyFrom.mapFunction;
-			interval = copyFrom.interval;
-			mapRange = copyFrom.mapRange;
-			in = copyFrom.in;
-			out = copyFrom.out;
+			*mapFunction = *copyFrom.mapFunction;
+			*interval = *copyFrom.interval;
+			*mapRange = *copyFrom.mapRange;
+			*in = *copyFrom.in;
+			*out = *copyFrom.out;
 		}
 
 		toxi::util::datatypes::DoubleRange * ScaleMap::getOutputRange( void )
