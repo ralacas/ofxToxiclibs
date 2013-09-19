@@ -10,6 +10,7 @@ class ScaleMapTest : public CppUnit::TestFixture
 {
 public:
 	CPPUNIT_TEST_SUITE( ScaleMapTest );
+
 	CPPUNIT_TEST( constructorTesting );
 	CPPUNIT_TEST( assignmentOperatorOverloading );
 	CPPUNIT_TEST( clippedValue );
@@ -17,6 +18,7 @@ public:
 	CPPUNIT_TEST( getMappedValueFor );
 	CPPUNIT_TEST( getMappedMedian );
 	CPPUNIT_TEST( gettersAndSetters );
+
 	CPPUNIT_TEST_SUITE_END();
 
 	void constructorTesting( void );

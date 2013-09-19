@@ -12,7 +12,7 @@ void ScaleMapTest::constructorTesting( void )
 	bool r3 = ( map.mapFunction != nullptr ) ? true : false;
 	bool r4 = ( map.in != nullptr && map.out != nullptr ) ? true : false;
 	
-	toxi::math::ScaleMap map2 ( map );
+	toxi::math::ScaleMap map2 = toxi::math::ScaleMap( map );
 	bool r5 = ( *map2.interval == 10.0 ) ? true : false;
 	bool r6 = ( *map2.mapRange == 50.0 ) ? true : false;
 
