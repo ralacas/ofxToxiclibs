@@ -22,7 +22,6 @@ class Vec2DTest : public CppUnit::TestFixture
 
 		CPPUNIT_TEST( constuctorTest );
 		CPPUNIT_TEST( operatorOverloadingTest );
-		//CPPUNIT_TEST(getRangeTest);
 		CPPUNIT_TEST( failedTest );
 		CPPUNIT_TEST( angleBetweenTest );
 		CPPUNIT_TEST( crossTest );
@@ -31,6 +30,12 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( equalsTest );
 		CPPUNIT_TEST( getComponentTest );
 		CPPUNIT_TEST( headingTest );
+		CPPUNIT_TEST( hashCodeTest );
+		CPPUNIT_TEST( isInCircle );
+		CPPUNIT_TEST( isInRectangle );
+		CPPUNIT_TEST( isInTriangle );
+		CPPUNIT_TEST( isMajorAxis );
+		CPPUNIT_TEST( isZeroVector );
 
 		CPPUNIT_TEST_SUITE_END();
 		
@@ -45,6 +50,12 @@ class Vec2DTest : public CppUnit::TestFixture
 		void equalsTest( void );
 		void getComponentTest( void );
 		void headingTest( void );
+		void hashCodeTest( void );
+		void isInCircle( void );
+		void isInRectangle( void );
+		void isInTriangle( void );
+		void isMajorAxis( void );
+		void isZeroVector( void );
 };
 
 #endif

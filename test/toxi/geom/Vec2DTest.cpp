@@ -1,13 +1,6 @@
-/**
- * ofxToxicLibsTestCases - Test Suite for Vec2D Module.
- *
- * @author		Marcel Schwittlick<lzrm@mrzl.net>
- * @file		Source/Vec2DTest.h
- * @version 	1.0.0 11-Jul-13
- * @copyright	Copyright (c) 2013 by Marcel Schwittlick. All rights reserved. (http://www.mrzl.net)
- */
 #include "Vec2DTest.h"
 #include <toxi/geom/Vec2D.h>
+#include <toxi/geom/Rect.h>
 
 using namespace toxi::geom;
 
@@ -28,9 +21,11 @@ void Vec2DTest::constuctorTest()
 
 void Vec2DTest::operatorOverloadingTest()
 {
-	Vec2D v1 = Vec2D( 40.0, 50.0 );
-	Vec2D v2 = v1;
+	Vec2D * v1 = new Vec2D( 40.0, 50.0 );
+	Vec2D v2 = *v1;
+	delete v1;
 	bool r1 = ( v2.getX() == 40.0 && v2.getY() == 50.0 ) ? true : false;
+	CPPUNIT_ASSERT( r1 );
 }
 
 void Vec2DTest::failedTest()
@@ -129,6 +124,64 @@ void Vec2DTest::headingTest( void )
 	double to_comp = 0.785398;
 	bool r1 = ( heading >= to_comp - 0.00001 && heading <= to_comp + 0.00001 ) ? true : false;
 	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::hashCodeTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	int hashCode = v.hashCode();
+	bool r1 = hashCode == 603980737 ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::isInCircle( void )
+{
+	Vec2D v = Vec2D( 1, 1 );
+	bool isInCircle1 = v.isInCircle( new Vec2D( 1, 1), 0.1 );
+	bool isInCircle2 = !v.isInCircle( new Vec2D( 3, 3), 1.5 );
+
+	CPPUNIT_ASSERT( isInCircle1 && isInCircle2 );
+}
+
+void Vec2DTest::isInRectangle( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	bool isInRect1 = v.isInRectangle( new toxi::geom::Rect( 0, 0, 11, 11) );
+	bool isInRect2 = !v.isInRectangle( new toxi::geom::Rect( 0, 0, 9, 9 ) );
+
+	CPPUNIT_ASSERT( isInRect1 && isInRect2 );
+}
+
+void Vec2DTest::isInTriangle( void )
+{
+	Vec2D v = Vec2D( 5, 5 );
+	bool isInTriangle1 = v.isInTriangle( new Vec2D( 0, 0 ), new Vec2D( 10, 0), new Vec2D( 0, 10 ) );
+	bool isInTriangle2 = !v.isInTriangle( new Vec2D( 10, 10 ), new Vec2D( 20, 10 ), new Vec2D( 10, 20 ) );
+
+	CPPUNIT_ASSERT( isInTriangle1 && isInTriangle2 );
+}
+
+void Vec2DTest::isMajorAxis( void )
+{
+	Vec2D v = Vec2D( 11, 0 );
+	bool r1 = v.isMajorAxis( 0.2 );
+	
+	v.setComponent( toxi::geom::Vec2D::Axis::Y, 1 );
+	bool r2 = !v.isMajorAxis( 0.2 );
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::isZeroVector( void )
+{
+	Vec2D v = Vec2D(0, 0 );
+	bool r1 = v.isZeroVector();
+	v.setComponent( toxi::geom::Vec2D::Axis::Y, 1 );
+
+	bool r2 = !v.isZeroVector();
+
+	CPPUNIT_ASSERT( r1 && r2 );
 }
 
 
