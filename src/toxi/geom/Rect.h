@@ -10,6 +10,7 @@
 //#include "Line2D.h"
 //#include "Ray2D.h"
 #include <string>
+#include <vector>
 
 
 namespace toxi
@@ -32,6 +33,8 @@ namespace toxi
 			Rect( Vec2D p1, Vec2D p2, CreationType type );
 			Rect( const Rect & toCopy );
 	
+			static Rect * getBoundingRect( std::vector< Vec2D > * vertices );
+
 			~Rect(void);
 
 			bool containsPoint( toxi::geom::Vec2D * p );

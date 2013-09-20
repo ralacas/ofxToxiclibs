@@ -106,10 +106,10 @@ toxi::geom::Vec2D * toxi::geom::Rect::getRandomPoint()
 toxi::geom::Polygon2D * toxi::geom::Rect::toPolygon2D()
 {
 	Polygon2D * poly = new Polygon2D();
-	poly->add(new Vec2D(x, y));
-	poly->add(new Vec2D(x + width, y));
-	poly->add(new Vec2D(x + width, y + height));
-	poly->add(new Vec2D(x, y + height));
+	poly->add(Vec2D(x, y));
+	poly->add(Vec2D(x + width, y));
+	poly->add(Vec2D(x + width, y + height));
+	poly->add(Vec2D(x, y + height));
 	return poly;
 }
 
@@ -365,7 +365,17 @@ toxi::geom::Rect toxi::geom::Rect::unionRectWith( Rect r )
 void toxi::geom::Rect::toPolyArc( Polygon2D * poly, Vec2D o, float radius, float theta, int res )
 {
 	for (int i = 0; i <= res; i++) {
-		poly->add( o.add(Vec2D(theta + i * toxi::math::MathUtils::HALF_PI / res)
+		poly->add( *o.add(Vec2D(theta + i * toxi::math::MathUtils::HALF_PI / res)
 			.scaleSelf(radius)));
 	}
+}
+
+toxi::geom::Rect * toxi::geom::Rect::getBoundingRect( std::vector< Vec2D > * vertices )
+{
+	Vec2D first = vertices->at(0);
+	Rect * bounds = new toxi::geom::Rect(first.getX(), first.getY(), 0, 0);
+	for (int i = 1, num = vertices->size(); i < num; i++) {
+		bounds->growToContainPoint(vertices->at(i));
+	}
+	return bounds;
 }
