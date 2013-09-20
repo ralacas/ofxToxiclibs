@@ -115,7 +115,7 @@ toxi::geom::Polygon2D * toxi::geom::Ellipse::toPolygon2D( int res )
 	Polygon2D * poly = new Polygon2D();
 	float step = toxi::math::MathUtils::TWO_PI / res;
 	for (int i = 0; i < res; i++) {
-		poly->add( Vec2D(i * step).scaleSelf( radius)->addSelf( this->getX(), this->getY()) );
+		poly->add( *Vec2D(i * step).scaleSelf( radius)->addSelf( this->getX(), this->getY()) );
 	}
 	return poly;
 }
