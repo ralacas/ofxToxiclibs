@@ -72,18 +72,18 @@ toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::addFace( toxi::g
 	return this;
 }
 
-toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::addMesh( Mesh3D& m )
+toxi::geom::mesh::Mesh3D* toxi::geom::mesh::TriangleMesh::addMesh( Mesh3D * m )
 {
-	for (Face f : m.getFaces()) {
+	for (Face f : m->getFaces()) {
 		addFace(f.a, f.b, f.c, f.uvA, f.uvB, f.uvC);
 	}
 	return this;
 }
 
-toxi::geom::AABB * toxi::geom::mesh::TriangleMesh::center( toxi::geom::Vec3D * origin )
+toxi::geom::AABB toxi::geom::mesh::TriangleMesh::center( toxi::geom::Vec3D  origin )
 {
 	computeCentroid();
-	toxi::geom::Vec3D delta = origin != nullptr ? origin->sub(centroid) : centroid
+	toxi::geom::Vec3D delta = !origin.isZeroVector() ? origin.sub(centroid) : centroid
 		->getInverted();
 
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
@@ -92,7 +92,7 @@ toxi::geom::AABB * toxi::geom::mesh::TriangleMesh::center( toxi::geom::Vec3D * o
 	}
 
 	getBoundingBox();
-	return bounds;
+	return *bounds;
 }
 
 toxi::geom::mesh::Vertex toxi::geom::mesh::TriangleMesh::checkVertex( toxi::geom::Vec3D *v )
@@ -118,7 +118,7 @@ toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::clear()
 	return this;
 }
 
-toxi::geom::Vec3D toxi::geom::mesh::TriangleMesh::computeCentroid()
+toxi::geom::Vec3D * toxi::geom::mesh::TriangleMesh::computeCentroid()
 {
 	centroid->clear();
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
@@ -126,7 +126,7 @@ toxi::geom::Vec3D toxi::geom::mesh::TriangleMesh::computeCentroid()
 		centroid->addSelf( &it->second );
 	}
 
-	return centroid->scaleSelf(1.0 / numVertices).copy();
+	return &centroid->scaleSelf(1.0 / numVertices);
 }
 
 toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::computeFaceNormals()
@@ -229,20 +229,20 @@ toxi::geom::AABB * toxi::geom::mesh::TriangleMesh::getBoundingBox()
 	return new toxi::geom::Sphere( *centroid, toxi::math::MathUtils::sqrt( radius ) );
 }*/
 
-toxi::geom::mesh::Vertex toxi::geom::mesh::TriangleMesh::getClosestVertexToPoint( toxi::geom::Vec3D p )
+toxi::geom::mesh::Vertex * toxi::geom::mesh::TriangleMesh::getClosestVertexToPoint( toxi::geom::Vec3D * p )
 {
 	Vertex * closest = nullptr;
 	float minDist = FLT_MAX;
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
 	{
-		float d = it->second.distanceToSquared( &p );
+		float d = it->second.distanceToSquared( p );
 		if ( d < minDist )
 		{
-			closest = new Vertex( p, 1 ); // TODO whats the 1?
+			closest = new Vertex( *p, 1 ); // TODO whats the 1?
 			minDist = d;
 		}
 	}
-	return *closest;
+	return closest;
 }
 
 std::vector< float> * toxi::geom::mesh::TriangleMesh::getFaceNormalsAsArray()
@@ -608,6 +608,7 @@ toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::scale( float _x,
 toxi::geom::mesh::TriangleMesh* toxi::geom::mesh::TriangleMesh::setName( std::string name )
 {
 	this->name = name;
+	return this;
 }
 
 std::string toxi::geom::mesh::TriangleMesh::toString()

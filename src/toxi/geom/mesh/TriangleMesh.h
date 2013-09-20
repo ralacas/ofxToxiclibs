@@ -19,7 +19,7 @@
 //#include "../TriangleIntersector.h"
 #include "../Vec3D.h"
 //#include "Face.h"
-//#include "Mesh3D.h"
+#include "Mesh3D.h"
 //#include "OBJWriter.h"
 //#include "STLWriter.h"
 //#include "Vertex.h"
@@ -46,7 +46,7 @@ namespace toxi
 			class WETriangleMesh;
 			class STLWriter;
 			class TriangleIntersector;
-			class TriangleMesh// : public Mesh3D
+			class TriangleMesh : public Mesh3D
 			{
 			public:
 				TriangleMesh( void );
@@ -69,11 +69,10 @@ namespace toxi
 				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n );
 				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n, toxi::geom::Vec2D * uvA,
 					toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC );
-				TriangleMesh* addMesh( Mesh3D& m );
-				toxi::geom::AABB * center( toxi::geom::Vec3D * origin );
+				toxi::geom::AABB center( toxi::geom::Vec3D origin );
 				Vertex checkVertex( toxi::geom::Vec3D * v );
 				TriangleMesh* clear();
-				toxi::geom::Vec3D computeCentroid();
+				toxi::geom::Vec3D * computeCentroid();
 				TriangleMesh* computeFaceNormals();
 				TriangleMesh* computeVertexNormals();
 				Vertex createVertex( toxi::geom::Vec3D v, int id );
@@ -81,8 +80,8 @@ namespace toxi
 				TriangleMesh* flipVertexOrder();
 				TriangleMesh* flipYAxis();
 				toxi::geom::AABB * getBoundingBox();
-				//toxi::geom::Sphere * getBoundingSphere();
-				Vertex getClosestVertexToPoint( toxi::geom::Vec3D p );
+				//toxi::geom::Sphere *  getBoundingSphere();
+				Vertex * getClosestVertexToPoint( toxi::geom::Vec3D * p );
 				std::vector< float> * getFaceNormalsAsArray();
 				std::vector< float> * getFaceNormalsAsArray( int offset, int stride );
 				std::vector< Face > getFaces();
@@ -147,6 +146,8 @@ namespace toxi
 				toxi::geom::TriangleIntersector * intersector;
 				int uniqueVertexID;
 
+				toxi::geom::mesh::Mesh3D * addMesh( toxi::geom::mesh::Mesh3D * m );
+				Vertex * getClosestVertexToPoint( Vec3D * p );
 
 			private:
 
