@@ -1,6 +1,8 @@
 #include "Vec2DTest.h"
 #include <toxi/geom/Vec2D.h>
+#include <toxi/geom/Vec3D.h>
 #include <toxi/geom/Rect.h>
+#include <toxi/geom/Polygon2D.h>
 
 using namespace toxi::geom;
 
@@ -182,6 +184,67 @@ void Vec2DTest::isZeroVector( void )
 	bool r2 = !v.isZeroVector();
 
 	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::magnitudeTest( void )
+{
+	Vec2D v = Vec2D( 10, 20 );
+	double mag = v.magnitude();
+	double resMag = 22.360679626464844;
+	bool r1 = ( mag <= resMag + 0.000001 ) ? true : false;
+	bool r2 = ( mag >= resMag - 0.000001 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::magSquaredTest( void )
+{
+	Vec2D v = Vec2D( 10, 20 );
+	double mag = v.magSquared();
+	double resMag = 500.0;
+	bool r1 = ( mag <= resMag + 0.000001 ) ? true : false;
+	bool r2 = ( mag >= resMag - 0.000001 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::positiveHeadingTest( void )
+{
+	Vec2D v = Vec2D( 2, 2 );
+	float pos = v.positiveHeading();
+
+	v.set( 20, 20 );
+	float pos2 = v.positiveHeading();
+
+	bool r1 = pos == pos2 ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::bisectTest( void )
+{
+	Vec2D v1 = Vec2D( 10, 20 );
+	Vec2D v2 = Vec2D( 3, 2 );
+	Vec3D *bis = v1.bisect( &v2 );
+	bool r1 = ( bis->x == 7.0 && bis->y == 18.0 && bis->z == -243.5 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+	delete bis;
+}
+
+void Vec2DTest::absTest( void )
+{
+	Vec2D v = Vec2D( -10, 10 );
+	v.abs();
+	bool r1 = ( v.getX() > 0.0 && v.getY() > 0.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::constrainTest( void )
+{
+	Vec2D v = Vec2D( 100, 100 );
+	Polygon2D poly = Polygon2D( );
 }
 
 

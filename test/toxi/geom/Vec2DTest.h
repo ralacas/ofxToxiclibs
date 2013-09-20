@@ -36,6 +36,14 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( isInTriangle );
 		CPPUNIT_TEST( isMajorAxis );
 		CPPUNIT_TEST( isZeroVector );
+		CPPUNIT_TEST( magnitudeTest );
+		CPPUNIT_TEST( magSquaredTest );
+		CPPUNIT_TEST( positiveHeadingTest );
+
+		CPPUNIT_TEST( bisectTest );
+
+		CPPUNIT_TEST( absTest );
+		CPPUNIT_TEST( constrainTest );
 
 		CPPUNIT_TEST_SUITE_END();
 		
@@ -56,6 +64,14 @@ class Vec2DTest : public CppUnit::TestFixture
 		void isInTriangle( void );
 		void isMajorAxis( void );
 		void isZeroVector( void );
+		void magnitudeTest( void );
+		void magSquaredTest( void );
+		void positiveHeadingTest( void );
+
+		void bisectTest( void );
+
+		void absTest( void );
+		void constrainTest( void );
 };
 
 #endif
