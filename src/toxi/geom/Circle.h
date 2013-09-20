@@ -5,6 +5,7 @@
 
 //#include "Vec2D.h"
 #include "Ellipse.h"
+#include <vector>
 
 namespace toxi
 {
@@ -16,10 +17,12 @@ namespace toxi
 		{
 		public:
 			Circle(void);
+			Circle( float radius );
 			Circle( toxi::geom::Vec2D * origin, float radius );
 			Circle( float x, float y, float r );
 			~Circle(void);
 
+			static Circle * newBoundingCircle( std::vector< Vec2D > * vertices );
 			
 		};
 	}
