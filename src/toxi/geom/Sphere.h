@@ -8,7 +8,7 @@
 #include "Vec3D.h"
 //#include "mesh/SphereFunction.h"
 //#include "mesh/SurfaceMeshBuilder.h"
-#include "mesh/Mesh3D.h"
+//#include "mesh/Mesh3D.h"
 
 namespace toxi
 {
@@ -18,7 +18,7 @@ namespace toxi
 		class Vec3D;
 		class Ray3D;
 		class Triangle3D;
-		class toxi::geom::mesh::Mesh3D;
+		//class toxi::geom::mesh::Mesh3D;
 		class SphereFunction;
 		class SurfaceMeshBuilder;
 		class Sphere : public Vec3D
@@ -38,7 +38,7 @@ namespace toxi
 			double surfaceDistanceBetween( toxi::geom::Vec2D * p,  toxi::geom::Vec2D * q );
 			Vec3D tangentPlaneNormalAt( Vec3D * q );
 			//toxi::geom::mesh::Mesh3D * toMesh( int res ); // TODO: change implementation in Sphere.cpp
-			toxi::geom::mesh::Mesh3D * toMesh( toxi::geom::mesh::Mesh3D * mesh, int res );
+			//toxi::geom::mesh::Mesh3D * toMesh( toxi::geom::mesh::Mesh3D * mesh, int res );
 		};
 	}
 }
