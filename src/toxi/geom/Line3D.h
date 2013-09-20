@@ -22,6 +22,7 @@ namespace toxi
 	namespace geom
 	{
 		class LineIntersection;
+		class LineIntersection3D;
 		class Ray3D;
 		class Vec3D;
 		class AABB;
@@ -36,7 +37,7 @@ namespace toxi
 
 			toxi::geom::Vec3D * a, * b;
 			
-			toxi::geom::LineIntersection * closestLineTo( toxi::geom::Line3D l );
+			toxi::geom::LineIntersection3D * closestLineTo( toxi::geom::Line3D l );
 			toxi::geom::Vec3D * closestPointTo( toxi::geom::Vec3D * p );
 			bool equals(Line3D _l);
 			toxi::geom::AABB * getBounds();

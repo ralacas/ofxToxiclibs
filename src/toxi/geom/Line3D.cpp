@@ -1,6 +1,7 @@
 #include "Line3D.h"
 #include "Vec3D.h"
 #include "LineIntersection.h"
+#include "LineIntersection3D.h"
 #include "AABB.h"
 
 toxi::geom::Line3D::Line3D(void)
@@ -23,15 +24,15 @@ toxi::geom::Line3D::~Line3D(void)
 {
 }
 
-toxi::geom::LineIntersection * toxi::geom::Line3D::closestLineTo( toxi::geom::Line3D l )
+toxi::geom::LineIntersection3D * toxi::geom::Line3D::closestLineTo( toxi::geom::Line3D l )
 {
 	Vec3D p43 = l.a->sub( l.b );
 	if ( p43.isZeroVector() ) {
-		return new LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new LineIntersection3D( LineIntersection3D::Type::NON_INTERSECTING );
 	}
 	Vec3D p21 = b->sub( a );
 	if ( p21.isZeroVector() ) {
-		return new LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new LineIntersection3D( LineIntersection3D::Type::NON_INTERSECTING );
 	}
 	Vec3D p13 = a->sub( l.a );
 
@@ -43,7 +44,7 @@ toxi::geom::LineIntersection * toxi::geom::Line3D::closestLineTo( toxi::geom::Li
 
 	double denom = d2121 * d4343 - d4321 * d4321;
 	if ( toxi::math::MathUtils::abs( denom ) < toxi::math::MathUtils::EPS ) {
-		return new toxi::geom::LineIntersection( LineIntersection::Type::NON_INTERSECTING );
+		return new toxi::geom::LineIntersection3D( LineIntersection3D::Type::NON_INTERSECTING );
 	}
 	double numer = d1343 * d4321 - d1321 * d4343;
 	float mua = ( float ) ( numer / denom );
@@ -51,7 +52,7 @@ toxi::geom::LineIntersection * toxi::geom::Line3D::closestLineTo( toxi::geom::Li
 
 	Vec3D pa = *a->add( &p21.scaleSelf( mua ) );
 	Vec3D pb = *l.a->add( &p43.scaleSelf( mub ) );
-	return new toxi::geom::LineIntersection( toxi::geom::LineIntersection::Type::INTERSECTING, Line3D(&pa, &pb), mua,
+	return new toxi::geom::LineIntersection3D( toxi::geom::LineIntersection3D::Type::INTERSECTING, Line3D(&pa, &pb), mua,
 		mub);
 }
 
