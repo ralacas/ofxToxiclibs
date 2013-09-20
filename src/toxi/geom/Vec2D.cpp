@@ -765,3 +765,18 @@ double toxi::geom::Vec2D::getY()
 {
 	return *y;
 }
+
+toxi::geom::Vec3D * toxi::geom::Vec2D::to3DXY()
+{
+	return new toxi::geom::Vec3D();
+}
+
+toxi::geom::Vec3D * toxi::geom::Vec2D::to3DXZ()
+{
+	return new toxi::geom::Vec3D();
+}
+
+toxi::geom::Vec3D * toxi::geom::Vec2D::to3DYZ()
+{
+	return new toxi::geom::Vec3D();
+}

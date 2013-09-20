@@ -39,6 +39,7 @@ namespace toxi
 
 			inline Vec2D operator=( const Vec2D & lhs )
 			{
+				// TODO this isnt right yet
 				std::cout << ".operator=" << std::endl;
 				*this->x = *lhs.x;
 				*this->y = *lhs.y;
@@ -78,7 +79,7 @@ namespace toxi
 			
 			Vec2D * abs();
 			Vec2D * constrain( toxi::geom::Polygon2D * poly );
-			Vec2D * constrain(Rect * r);
+			Vec2D * constrain( Rect * r );
 			Vec2D * constrain( Vec2D * min, Vec2D * max );
 			Vec2D * floor( void );
 			Vec2D * frac( );
