@@ -1,18 +1,23 @@
 #include "LineIntersection.h"
-#include "Line3D.h"
+#include "Line2D.h"
 
 
-toxi::geom::LineIntersection::LineIntersection( Type type )
+toxi::geom::LineIntersection::LineIntersection( Type type, Vec2D*  pos )
 {
-	LineIntersection( type, Line3D(), 0, 0 );
+	LineIntersection( type, *pos, 0, 0 );
 }
 
-toxi::geom::LineIntersection::LineIntersection( Type type, Line3D line, float mua, float mub )
+toxi::geom::LineIntersection::LineIntersection( Type type, Vec2D line, float mua, float mub )
 {
 	this->type = type;
 	this->line = & line;
 	this->coeff.push_back( mua );
 	this->coeff.push_back( mub );
+}
+
+toxi::geom::LineIntersection::LineIntersection( enum Type type )
+{
+	LineIntersection( type, Vec2D(), 0, 0 );
 }
 
 toxi::geom::LineIntersection::~LineIntersection(void)
@@ -26,10 +31,11 @@ std::vector< float > toxi::geom::LineIntersection::getCoefficients()
 
 float toxi::geom::LineIntersection::getLength()
 {
-	return line->getLength();
+	//return line->getLength();
+	return 0;
 }
 
-toxi::geom::Line3D * toxi::geom::LineIntersection::getLine()
+toxi::geom::Vec2D * toxi::geom::LineIntersection::getLine()
 {
 	return line;
 }
@@ -50,4 +56,9 @@ std::string toxi::geom::LineIntersection::toString()
 	std::stringstream ss;
 	ss << "type: " << type << " line: " << line->toString();
 	return ss.str();
+}
+
+toxi::geom::Vec2D toxi::geom::LineIntersection::getPos()
+{
+	return line != nullptr ? *line : Vec2D();
 }
