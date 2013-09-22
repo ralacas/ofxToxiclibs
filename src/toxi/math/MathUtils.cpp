@@ -1,5 +1,6 @@
 #include <cstring>
 #include <cmath>
+#include "../util/Random.h"
 #include "MathUtils.h"
 
 namespace toxi
@@ -353,8 +354,11 @@ namespace toxi
 
 		double MathUtils::normalizedRandom( void )
 		{
-			
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * 2 - 1;
+			double rnd = toxi::util::Random::getRandom( 0.0, 1.0 );
+			return rnd;
+			 
+			// ditched cause of c++11
+			//return ( static_cast<double>( std::rand() ) / RAND_MAX ) * 2 - 1;
 		}
 
 		double MathUtils::radians( const double & degrees )
@@ -374,34 +378,38 @@ namespace toxi
 
 		double MathUtils::random( const double & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * max;
+			double rnd = toxi::util::Random::getRandom( 0.0, max );
+			return rnd;
 		}
 
 		double MathUtils::random( const double & min, const double & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			double rnd = toxi::util::Random::getRandom( min, max );
+			return rnd;
 		}
 
 		double MathUtils::random( const int & max )
 		{
-			double f = std::rand()  / (double)RAND_MAX;
-			double r = (  f ) * max;
-			return r;
+			double rnd = toxi::util::Random::getRandom( 0.0, static_cast< double > ( max ) );
+			return rnd;
 		}
 
 		double MathUtils::random( const int & min, const int & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			double rnd = toxi::util::Random::getRandom( static_cast< long > ( min ), static_cast< long > ( max ) );
+			return rnd;
 		}
 
 		float MathUtils::random( const float & max )
 		{
-			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * max;
+			float rnd = toxi::util::Random::getRandom( 0.0, max );
+			return rnd;
 		}
 
 		float MathUtils::random( const float & min, const float & max )
 		{
-			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			float rnd = toxi::util::Random::getRandom( min, max );
+			return rnd;
 		}
 
 		double MathUtils::reduceAngle( const double & theta )
