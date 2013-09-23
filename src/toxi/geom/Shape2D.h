@@ -17,13 +17,13 @@ namespace toxi
 		class Shape2D
 		{
 		public:
-			virtual bool containsPoint( toxi::geom::Vec2D * p ) = 0;
+			virtual bool containsPoint( toxi::geom::Vec2D & p ) = 0;
 			virtual float getArea( ) = 0;
-			virtual toxi::geom::Circle * getBoundingCircle() = 0;
-			virtual toxi::geom::Rect * getBounds() = 0;
+			virtual toxi::geom::Circle getBoundingCircle() = 0;
+			virtual toxi::geom::Rect getBounds() = 0;
 			virtual float getCircumference() = 0;
-			virtual toxi::geom::Vec2D * getRandomPoint() = 0;
-			virtual toxi::geom::Polygon2D * toPolygon2D() = 0;
+			virtual toxi::geom::Vec2D getRandomPoint() = 0;
+			virtual toxi::geom::Polygon2D toPolygon2D() = 0;
 		};
 	}
 }

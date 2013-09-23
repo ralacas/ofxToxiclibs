@@ -16,22 +16,26 @@ namespace toxi
 		{
 		public:
 			Line2D(void);
-			Line2D( Vec2D * v1, Vec2D * v2 );
+			Line2D( const Vec2D & v1, const Vec2D & v2 );
 			Line2D( float x1, float y1, float x2, float y2 );	
 			~Line2D(void);
 
-			inline bool operator == (const Line2D & lhs)
+			inline bool operator == (Line2D & lhs)
 			{
-				return ( *lhs.a == *this->a && *lhs.b == *this->b );
+				return ( lhs.a == this->a && lhs.b == this->b );
 			}
 
-			toxi::geom::Vec2D * a, * b;
-
-			Vec2D * closestPointTo( Vec2D v );
-			toxi::geom::LineIntersection * intersectLine( Line2D * l );
-			float distanceToPoint( Vec2D * p );
+			Vec2D closestPointTo( Vec2D & v );
+			toxi::geom::LineIntersection intersectLine( Line2D & l );
+			float distanceToPoint( Vec2D & p );
 			std::string toString();
 			float getLength();
+
+			Vec2D getA();
+			Vec2D getB();
+
+		private:
+			toxi::geom::Vec2D a, b;
 		};
 
 

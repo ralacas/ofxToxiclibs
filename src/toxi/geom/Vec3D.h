@@ -6,18 +6,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-
-//#include "AABB.h"
-//#include "Axis3D.h"
-//#include "Vec2D.h"
-//#include "Vec4D.h"
-//#include "VecMathUtil.h"
-
-//#include "../math/InterpolateStrategy.h"
-//#include "../math/MathUtils.h"
 #include "../math/ScaleMap.h"
-
-
 
 namespace toxi
 {
@@ -34,25 +23,25 @@ namespace toxi
 		{
 		public:
 			Vec3D(void);
-			Vec3D( int x, int y, int z );
-			Vec3D( float x, float y, float z );
-			Vec3D( double x, double y, double z );
+			Vec3D( const int & x, const int & y, const int & z );
+			Vec3D( const float & x, const float & y, const float & z );
+			Vec3D( const double & x, const double & y, const double & z );
 			~Vec3D(void);
 
-			Vec3D add(double a, double b, double c);
+			Vec3D add(const double & a, const double & b, const double & c);
 
-			Vec3D * add(Vec3D * v);
-			Vec3D addSelf( float a, float b, float c );
-			Vec3D addSelf( Vec3D * v );
+			Vec3D add(const Vec3D & v);
+			Vec3D addSelf( const float & a, const float & b, const float & c );
+			Vec3D addSelf( const Vec3D & v );
 			float angleBetween(Vec3D * v);
 			float angleBetween(Vec3D * v, bool forceNormalize);
 			int compareTo(Vec3D * v);
 			Vec3D copy();
-			Vec3D cross(Vec3D * v);
+			Vec3D cross( const Vec3D & v);
 			Vec3D crossInto(Vec3D * v);
-			float distanceTo(Vec3D * v);
-			float distanceToSquared(Vec3D * v);
-			float dot(Vec3D * v);
+			float distanceTo( const Vec3D & v);
+			float distanceToSquared(const Vec3D & v);
+			float dot( const Vec3D & v );
 			bool equals(Vec3D * obj);
 			bool equalsWithTolerance(Vec3D *v, float tolerance);
 			Vec3D getAbs();
@@ -93,9 +82,9 @@ namespace toxi
 			float headingXY();
 			float headingXZ();
 			float headingYZ();
-			Vec3D interpolateTo(Vec3D * v, float f);
-			Vec3D interpolateTo(toxi::geom::Vec3D * v, float f, toxi::math::InterpolateStrategy * s);
-			bool isInAABB( AABB * box );
+			Vec3D interpolateTo(const Vec3D & v, const float & f);
+			Vec3D interpolateTo(const toxi::geom::Vec3D & v, const float & f, const toxi::math::InterpolateStrategy & s);
+			bool isInAABB( const AABB & box );
 			bool isInAABB(Vec3D * boxOrigin, Vec3D * boxExtent);
 			bool isMajorAxis(float tolerance);
 			bool isZeroVector();
@@ -106,7 +95,7 @@ namespace toxi
 			Vec3D scale(Vec3D * s);
 			Vec3D scaleSelf( float s );
 			Vec3D sub(float a, float b, float c);
-			Vec3D sub(Vec3D * v);
+			Vec3D sub(const Vec3D & v);
 			Vec2D * to2DXY();
 			Vec2D * to2DXZ();
 			Vec2D * to2DYZ();
@@ -115,16 +104,16 @@ namespace toxi
 			void toArray(float& arr);
 			void toArray4(float& arr, float w);
 
-			static Vec3D * min( Vec3D * a, Vec3D * b );
-			static Vec3D * max( Vec3D * a, Vec3D * b );
+			static Vec3D min( const Vec3D & a, const Vec3D & b );
+			static Vec3D max( const Vec3D & a, const Vec3D & b );
 			static Vec3D max_value( );
 			static Vec3D min_value( );
-			Vec3D minSelf( Vec3D * v );
-			Vec3D maxSelf( Vec3D * v );
+			Vec3D minSelf( const Vec3D & v );
+			Vec3D maxSelf( const Vec3D & v );
 
-			Vec3D set( Vec3D * v );
-			Vec3D set( float x, float y, float z );
-			Vec3D set( double x, double y, double z );
+			Vec3D set( const Vec3D & v );
+			Vec3D set( const float & x, const float & y, const float & z );
+			Vec3D set( const double & x, const double & y, const double & z );
 
 			static Vec3D X_AXIS( );
 			static Vec3D Y_AXIS( );
@@ -132,12 +121,12 @@ namespace toxi
 
 			std::string toString( );
 			Vec3D clear();
-			Vec3D crossSelf( Vec3D * v );
-			Vec3D subSelf( float a, float b, float c);
-			Vec3D subSelf( Vec3D * _v );
+			Vec3D crossSelf( const Vec3D & v );
+			Vec3D subSelf( const float & a, const float & b, const float & c);
+			Vec3D subSelf( const Vec3D & _v );
 			int hashCode();
 			Vec3D invert();
-			Vec3D interpolateToSelf( Vec3D * v, float f );
+			Vec3D interpolateToSelf( const Vec3D & v, const float & f );
 			Vec3D limit( float lim );
 
 			//TODO

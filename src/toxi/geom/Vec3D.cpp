@@ -3,6 +3,7 @@
 #include "Vec2D.h"
 #include "Vec4D.h"
 #include "VecMathUtil.h"
+#include "AABB.h"
 
 toxi::geom::Vec3D::Vec3D(void)
 {
@@ -33,7 +34,7 @@ toxi::geom::Vec3D::~Vec3D(void)
 {
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::add( double _a, double _b, double _c )
+toxi::geom::Vec3D toxi::geom::Vec3D::add( const double & _a, const double & _b, const double & _c )
 {
 	this->x += _a;
 	this->y += _b;
@@ -41,12 +42,12 @@ toxi::geom::Vec3D toxi::geom::Vec3D::add( double _a, double _b, double _c )
 	return *this;
 }
 
-toxi::geom::Vec3D * toxi::geom::Vec3D::add( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::add( const Vec3D & v )
 {
-	this->x += v->x;
-	this->y += v->y;
-	this->z += v->z;
-	return this;
+	this->x += v.x;
+	this->y += v.y;
+	this->z += v.z;
+	return *this;
 }
 
 float toxi::geom::Vec3D::angleBetween( Vec3D * v )
@@ -83,10 +84,10 @@ toxi::geom::Vec3D toxi::geom::Vec3D::copy()
 	return Vec3D( this->x, this->y, this->z );
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::cross( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::cross( const  Vec3D & v )
 {
-	return Vec3D(y * v->z - v->y * z, z * v->x - v->z * x, x
-		* v->y - v->x * y);
+	return Vec3D(y * v.z - v.y * z, z * v.x - v.z * x, x
+		* v.y - v.x * y);
 }
 
 toxi::geom::Vec3D toxi::geom::Vec3D::crossInto( Vec3D * v)
@@ -101,25 +102,25 @@ toxi::geom::Vec3D toxi::geom::Vec3D::crossInto( Vec3D * v)
 	return result;
 }
 
-float toxi::geom::Vec3D::distanceTo( Vec3D * v )
+float toxi::geom::Vec3D::distanceTo( const Vec3D & v )
 {
-	float dx = this->x - v->x;
-	float dy = this->y - v->y;
-	float dz = this->z - v->z;
+	float dx = this->x - v.x;
+	float dy = this->y - v.y;
+	float dz = this->z - v.z;
 	return (float) toxi::math::MathUtils::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-float toxi::geom::Vec3D::distanceToSquared( Vec3D * v )
+float toxi::geom::Vec3D::distanceToSquared( const Vec3D & v )
 {
-	float dx = this->x - v->x;
-	float dy = this->y - v->y;
-	float dz = this->z - v->z;
+	float dx = this->x - v.x;
+	float dy = this->y - v.y;
+	float dz = this->z - v.z;
 	return dx * dx + dy * dy + dz * dz;
 }
 
-float toxi::geom::Vec3D::dot( Vec3D * v )
+float toxi::geom::Vec3D::dot( const toxi::geom::Vec3D & v )
 {
-	return this->x * v->x + this->y * v->y + this->z * v->z;
+	return this->x * v.x + this->y * v.y + this->z * v.z;
 }
 
 bool toxi::geom::Vec3D::equals( Vec3D * vv )
@@ -313,19 +314,19 @@ float toxi::geom::Vec3D::headingYZ()
 	return (float) std::atan2(y, z);
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( Vec3D * v, float f )
+toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( const Vec3D & v, const float & f )
 {
-	return Vec3D(x + (v->x - x) * f, y + (v->y - y) * f, z
-		+ (v->z - z) * f);
+	return Vec3D(x + (v.x - x) * f, y + (v.y - y) * f, z
+		+ (v.z - z) * f);
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( toxi::geom::Vec3D * v, float f, toxi::math::InterpolateStrategy * s )
+toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( const toxi::geom::Vec3D & v, const float & f, const toxi::math::InterpolateStrategy & s )
 {
-	return Vec3D(s->interpolate(x, v->x, f),
-		s->interpolate(y, v->y, f), s->interpolate(z, v->z, f));
+	return Vec3D(s.interpolate(x, v.x, f),
+		s.interpolate(y, v.y, f), s.interpolate(z, v.z, f));
 }
 
-bool toxi::geom::Vec3D::isInAABB( toxi::geom::AABB * box )
+bool toxi::geom::Vec3D::isInAABB( const  toxi::geom::AABB & box )
 {
 	//TODO
 	Vec3D min = Vec3D(); //box->getMin();
@@ -418,9 +419,9 @@ toxi::geom::Vec3D toxi::geom::Vec3D::sub( float a, float b, float c )
 	return Vec3D(x - a, y - b, z - c);
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::sub( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::sub( const Vec3D & v )
 {
-	return Vec3D(x - v->x, y - v->y, z - v->z);
+	return Vec3D(x - v.x, y - v.y, z - v.z);
 }
 
 toxi::geom::Vec2D * toxi::geom::Vec3D::to2DXY()
@@ -496,16 +497,16 @@ toxi::geom::Vec3D toxi::geom::Vec3D::normalizeTo( double len )
 	return *this;
 }
 
-toxi::geom::Vec3D * toxi::geom::Vec3D::min( Vec3D * a, Vec3D * b )
+toxi::geom::Vec3D toxi::geom::Vec3D::min( const Vec3D & a, const Vec3D & b )
 {
-	return new Vec3D( toxi::math::MathUtils::min( a->x, b->x ), toxi::math::MathUtils::min( a->y,
-		b->y ), toxi::math::MathUtils::min( a->z, b->z ) );
+	return Vec3D( toxi::math::MathUtils::min( a.x, b.x ), toxi::math::MathUtils::min( a.y,
+		b.y ), toxi::math::MathUtils::min( a.z, b.z ) );
 }
 
-toxi::geom::Vec3D * toxi::geom::Vec3D::max( Vec3D * a, Vec3D * b )
+toxi::geom::Vec3D toxi::geom::Vec3D::max( const Vec3D & a, const Vec3D & b )
 {
-	return new Vec3D( toxi::math::MathUtils::max( a->x, b->x ), toxi::math::MathUtils::max( a->y,
-		b->y ), toxi::math::MathUtils::max( a->z, b->z ) );
+	return Vec3D( toxi::math::MathUtils::max( a.x, b.x ), toxi::math::MathUtils::max( a.y,
+		b.y ), toxi::math::MathUtils::max( a.z, b.z ) );
 }
 
 toxi::geom::Vec3D toxi::geom::Vec3D::scaleSelf( float s )
@@ -526,7 +527,7 @@ toxi::geom::Vec3D toxi::geom::Vec3D::min_value()
 	return Vec3D(FLT_MIN, FLT_MIN, FLT_MIN);
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::maxSelf( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::maxSelf( const Vec3D & v )
 {
 	this->x = toxi::math::MathUtils::max( this->x, v->x );
 	this->y = toxi::math::MathUtils::max( this->y, v->y );
@@ -534,11 +535,11 @@ toxi::geom::Vec3D toxi::geom::Vec3D::maxSelf( Vec3D * v )
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::minSelf( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::minSelf( const Vec3D & v )
 {
-	this->x = toxi::math::MathUtils::min( this->x, v->x );
-	this->y = toxi::math::MathUtils::min( this->y, v->y );
-	this->z = toxi::math::MathUtils::min( this->z, v->z );
+	this->x = toxi::math::MathUtils::min( this->x, v.x );
+	this->y = toxi::math::MathUtils::min( this->y, v.y );
+	this->z = toxi::math::MathUtils::min( this->z, v.z );
 	return *this;
 }
 
@@ -557,15 +558,15 @@ toxi::geom::Vec3D toxi::geom::Vec3D::Z_AXIS()
 	return Vec3D( 0, 0, 1 );
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::set( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::set( const Vec3D & v )
 {
-	this->x = v->x;
-	this->y = v->y;
-	this->z = v->z;
+	this->x = v.x;
+	this->y = v.y;
+	this->z = v.z;
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::set( float x, float y, float z )
+toxi::geom::Vec3D toxi::geom::Vec3D::set( const float & x, const float & y, const float & z )
 {
 	this->x = x;
 	this->y = y;
@@ -573,7 +574,7 @@ toxi::geom::Vec3D toxi::geom::Vec3D::set( float x, float y, float z )
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::set( double x, double y, double z )
+toxi::geom::Vec3D toxi::geom::Vec3D::set( const double & x, const double & y, const double & z )
 {
 	this->x = x;
 	this->y = y;
@@ -588,15 +589,15 @@ std::string toxi::geom::Vec3D::toString()
 	return ss.str( );
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( const Vec3D & v )
 {
-	this->x += v->x;
-	this->y += v->y;
-	this->z += v->z;
+	this->x += v.x;
+	this->y += v.y;
+	this->z += v.z;
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( float a, float b, float c )
+toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( const float & a, const float & b, const float & c )
 {
 	this->x += a;
 	this->y += b;
@@ -612,17 +613,17 @@ toxi::geom::Vec3D toxi::geom::Vec3D::clear()
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::crossSelf( Vec3D * v )
+toxi::geom::Vec3D toxi::geom::Vec3D::crossSelf( const Vec3D & v )
 {
-	float cx = y * v->z - v->y * z;
-	float cy = z * v->x - v->z * x;
-	this->z = x * v->y - v->x * y;
+	float cx = y * v.z - v.y * z;
+	float cy = z * v.x - v.z * x;
+	this->z = x * v.y - v.x * y;
 	this->y = cy;
 	this->x = cx;
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( float a, float b, float c )
+toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( const float & a, const float & b, const float & c )
 {
 	this->x -= a;
 	this->y -= b;
@@ -630,11 +631,11 @@ toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( float a, float b, float c )
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( Vec3D * _v )
+toxi::geom::Vec3D toxi::geom::Vec3D::subSelf( const Vec3D & _v )
 {
-	this->x -= _v->x;
-	this->y -= _v->y;
-	this->z -= _v->z;
+	this->x -= _v.x;
+	this->y -= _v.y;
+	this->z -= _v.z;
 	return *this;
 }
 
@@ -655,11 +656,11 @@ toxi::geom::Vec3D toxi::geom::Vec3D::invert()
 	return *this;
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::interpolateToSelf( Vec3D * v, float f )
+toxi::geom::Vec3D toxi::geom::Vec3D::interpolateToSelf( const Vec3D & v, cons float & f )
 {
-	this->x += (v->x - this->x) * f;
-	this->y += (v->y - this->y) * f;
-	this->z += (v->z - this->z) * f;
+	this->x += (v.x - this->x) * f;
+	this->y += (v.y - this->y) * f;
+	this->z += (v.z - this->z) * f;
 	return *this;
 }
 

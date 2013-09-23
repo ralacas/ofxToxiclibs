@@ -15,18 +15,17 @@ namespace toxi
 		{
 		public:
 			Axis2D( void );
-			//Axis2D( Vec2D v );
 			~Axis2D( void );
 
-			toxi::geom::Vec2D * getVector( void );
-			static Vec2D * X_AXIS( void );
-			static Vec2D * Y_AXIS( void );;
-			static Vec2D * ZERO( void );
-			static Vec2D * MIN_VALUE( void );
-			static Vec2D * MAX_VALUE( void );
+			toxi::geom::Vec2D  getVector( void );
+			static Vec2D X_AXIS( void );
+			static Vec2D Y_AXIS( void );;
+			static Vec2D ZERO( void );
+			static Vec2D MIN_VALUE( void );
+			static Vec2D MAX_VALUE( void );
 
 		private:
-			Vec2D * vector;
+			toxi::geom::Vec2D vector;
 		};
 
 

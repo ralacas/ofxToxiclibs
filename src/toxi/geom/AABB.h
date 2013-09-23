@@ -26,9 +26,9 @@ namespace toxi
 			AABB( void );
 			static AABB fromMinMax( const Vec3D & min, const Vec3D & max ) 
 			{
-				toxi::geom::Vec3D * a = toxi::geom::Vec3D::min( min, max );
-				Vec3D * b = Vec3D::max( min , max );
-				return AABB( a->interpolateTo( b, 0.5 ), b->sub( a ).scaleSelf( 0.5 ) );
+				toxi::geom::Vec3D a = toxi::geom::Vec3D::min( min, max );
+				toxi::geom::Vec3D b = toxi::geom::Vec3D::max( min , max );
+				return AABB( a.interpolateTo( b, 0.5 ), b.sub( a ).scaleSelf( 0.5 ) );
 			}
 
 			static AABB getBoundingBox( std::vector<Vec3D> points  )
@@ -40,9 +40,9 @@ namespace toxi
 				Vec3D max = Vec3D::min_value();
 				for (Vec3D p : points) {
 					min.minSelf( p );
-					max.maxSelf( &p );
+					max.maxSelf( p );
 				}
-				return fromMinMax(&min, &max);
+				return fromMinMax(min, max);
 			}
 
 			AABB( AABB &box );

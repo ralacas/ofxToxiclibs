@@ -13,7 +13,7 @@ toxi::geom::Polygon2D::Polygon2D(void)
 {
 }
 
-toxi::geom::Polygon2D::Polygon2D( std::vector< Vec2D > points )
+toxi::geom::Polygon2D::Polygon2D( const std::vector< Vec2D > & points )
 {
 	for( auto it = points.begin(); it != points.end(); ++it ) 
 	{
@@ -22,21 +22,21 @@ toxi::geom::Polygon2D::Polygon2D( std::vector< Vec2D > points )
 	}
 }
 
-toxi::geom::Polygon2D::Polygon2D( Vec2D baseA, Vec2D baseB, int res )
+toxi::geom::Polygon2D::Polygon2D( const Vec2D & baseA, const Vec2D & baseB, const int & res )
 {
-	float theta = -(toxi::math::MathUtils::PI - (toxi::math::MathUtils::PI * (res - 2) / res));
-	Vec2D dir = *baseB.sub( &baseA);
+	double theta = -(toxi::math::MathUtils::PI - (toxi::math::MathUtils::PI * (res - 2) / res));
+	Vec2D dir = baseB.sub( baseA);
 	Vec2D prev = baseB;
 	add( baseA );
 	add( baseB );
 	for (int i = 1; i < res - 1; i++) {
-		Vec2D p = *prev.add(dir.getRotated(theta * i));
+		Vec2D p = prev.add(dir.getRotated(theta * i));
 		add(p);
 		prev = p;
 	}
 }
 
-toxi::geom::Polygon2D::Polygon2D( Vec2D v1, Vec2D v2 )
+toxi::geom::Polygon2D::Polygon2D( const Vec2D & v1, const Vec2D & v2 )
 {
 	add( v1 );
 	add( v2 );
@@ -56,31 +56,32 @@ toxi::geom::Polygon2D::~Polygon2D(void)
 
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::add( float x, float y )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::add( const float & x, const float & y )
 {
-	return add(Vec2D( x, y ) );
+	return add( Vec2D( x, y ) );
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::add( toxi::geom::Vec2D v )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::add( const toxi::geom::Vec2D & v )
 {
 	vertices.push_back( v );
 	return this;
 }
 
-std::vector< toxi::geom::Line2D * > toxi::geom::Polygon2D::getEdges()
+std::vector< toxi::geom::Line2D > toxi::geom::Polygon2D::getEdges()
 {
 	int num = vertices.size();
 	std::vector< Line2D * > edges;
 	for( int i = 0; i < num; i++ )
 	{
-		int i2 = std::fmod( ( i + 1 ), num );
-		edges.push_back( new Line2D( &vertices[i], &vertices[ i2 ] ) );
+		int i2 = (i + 1 ) % num;
+		//int i2 = std::fmod( ( i + 1 ), num );
+		edges.push_back( new Line2D( vertices[i], vertices[ i2 ] ) );
 	}
 }
 
-float toxi::geom::Polygon2D::getRadiusForEdgeLength( float len, int res )
+float toxi::geom::Polygon2D::getRadiusForEdgeLength( const float & len, const int & res )
 {
-	return len / (2 * toxi::math::MathUtils::sin(toxi::math::MathUtils::PI / res));
+	return static_cast< float > ( len / (2 * toxi::math::MathUtils::sin(toxi::math::MathUtils::PI / res ) ) );
 }
 
 toxi::geom::Polygon2D * toxi::geom::Polygon2D::center()
@@ -88,24 +89,24 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::center()
 	return center( Vec2D( 0, 0 ) );
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::center( Vec2D origin )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::center( Vec2D & origin )
 {
 	Vec2D centroid = getCentroid();
-	Vec2D delta = ( !origin.isZeroVector() ) ? *origin.sub( &centroid ) : *centroid.invert();
+	Vec2D delta = ( !origin.isZeroVector() ) ? origin.sub( centroid ) : centroid.invert();
 	for( Vec2D v : vertices )
 	{
-		v.addSelf( &delta );
+		v.addSelf( delta );
 	}
 	return this;
 }
 
-bool toxi::geom::Polygon2D::containsPoint( Vec2D * p )
+bool toxi::geom::Polygon2D::containsPoint( Vec2D & p )
 {
 	int num = vertices.size();
 	int i, j = num - 1;
 	bool oddNodes = false;
-	float px = p->getX();
-	float py = p->getY();
+	double px = p.getX();
+	double py = p.getY();
 	for (i = 0; i < num; i++) 
 	{
 		
@@ -123,11 +124,11 @@ bool toxi::geom::Polygon2D::containsPoint( Vec2D * p )
 	return oddNodes;
 }
 
-bool toxi::geom::Polygon2D::containsPolygon( Polygon2D * pol )
+bool toxi::geom::Polygon2D::containsPolygon( const Polygon2D & pol )
 {
-	for (Vec2D p : pol->vertices) 
+	for (Vec2D p : pol.vertices) 
 	{
-		if (!containsPoint( &p ) ) 
+		if (!containsPoint( p ) ) 
 		{
 			return false;
 		}
@@ -142,43 +143,44 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::flipVertexOrder()
 	// find a way to reverse the order of a std::vector
 }
 
-toxi::geom::Vec2D toxi::geom::Polygon2D::get( int i )
+toxi::geom::Vec2D toxi::geom::Polygon2D::get( const int & i )
 {
-	if( i < 0 )
+	int counter = i;
+	if( counter < 0 )
 	{
-		i += vertices.size();
+		counter += vertices.size();
 	}
 
-	return vertices.at( i );
+	return vertices.at( counter );
 }
 
 float toxi::geom::Polygon2D::getApothem()
 {
-	return vertices.at( 0 ).interpolateTo( &vertices.at( 1 ), 0.5 )->distanceTo( &getCentroid() );
+	return static_cast< float > ( vertices.at( 0 ).interpolateTo( vertices.at( 1 ), 0.5 ).distanceTo( getCentroid() ) );
 }
 
 float toxi::geom::Polygon2D::getArea()
 {
-	float area = 0;
+	double area = 0;
 	for (int i = 0, num = vertices.size(); i < num; i++) 
 	{
-		Vec2D a = vertices.at(i);
-		Vec2D b = vertices.at(std::fmod( i + 1, num) );
+		Vec2D a = vertices.at( i );
+		Vec2D b = vertices.at( ( i + 1 ) % num  );
 		area += a.getX() * b.getY();
 		area -= a.getY() * b.getX();
 	}
 	area *= 0.5f;
-	return area;
+	return static_cast< float > ( area );
 }
 
-toxi::geom::Circle * toxi::geom::Polygon2D::getBoundingCircle()
+toxi::geom::Circle toxi::geom::Polygon2D::getBoundingCircle()
 {
-	return toxi::geom::Circle::newBoundingCircle( &vertices );
+	return toxi::geom::Circle::newBoundingCircle( vertices );
 }
 
-toxi::geom::Rect * toxi::geom::Polygon2D::getBounds()
+toxi::geom::Rect toxi::geom::Polygon2D::getBounds()
 {
-	return toxi::geom::Rect::getBoundingRect( &vertices );
+	return toxi::geom::Rect::getBoundingRect( vertices );
 }
 
 toxi::geom::Vec2D toxi::geom::Polygon2D::getCentroid()
@@ -187,31 +189,31 @@ toxi::geom::Vec2D toxi::geom::Polygon2D::getCentroid()
 	for (int i = 0, num = vertices.size(); i < num; i++) 
 	{
 		Vec2D a = vertices.at(i);
-		Vec2D b = vertices.at(std::fmod( i + 1, num ));
-		float crossP = a.getX() * b.getY() - b.getX() * a.getY();
+		Vec2D b = vertices.at( ( i + 1 ) % num );
+		double crossP = a.getX() * b.getY() - b.getX() * a.getY();
 		res.set( res.getX() +  (a.getX() + b.getX()) * crossP, res.getY() + (a.getY() + b.getY()) * crossP );
 	}
-	return *res.scale(1 / (6 * getArea()));
+	return res.scale(1 / (6 * getArea()));
 }
 
 float toxi::geom::Polygon2D::getCircumference()
 {
-	float circ = 0;
+	double circ = 0;
 	for (int i = 0, num = vertices.size(); i < num; i++)
 	{
-		circ += vertices.at(i).distanceTo(&vertices.at(std::fmod( i + 1, num ) ) );
+		circ += vertices.at(i).distanceTo(vertices.at( ( i + 1 ) % num ) );
 	}
-	return circ;
+	return static_cast< float > ( circ );
 }
 
-toxi::geom::Vec2D toxi::geom::Polygon2D::getClosestPointTo( Vec2D p )
+toxi::geom::Vec2D toxi::geom::Polygon2D::getClosestPointTo( Vec2D & p )
 {
 	float minD = FLT_MAX;
 	Vec2D q = Vec2D();
-	for (Line2D * l : getEdges()) 
+	for (Line2D l : getEdges()) 
 	{
-		Vec2D c = *l->closestPointTo(p);
-		float d = c.distanceToSquared( &p);
+		Vec2D c = l.closestPointTo(p);
+		float d = static_cast< float > ( c.distanceToSquared( p ) );
 		if (d < minD) 
 		{
 			q = c;
@@ -221,13 +223,13 @@ toxi::geom::Vec2D toxi::geom::Polygon2D::getClosestPointTo( Vec2D p )
 	return q;
 }
 
-toxi::geom::Vec2D toxi::geom::Polygon2D::getClosestVertexTo( Vec2D p )
+toxi::geom::Vec2D toxi::geom::Polygon2D::getClosestVertexTo( Vec2D & p )
 {
 	float minD = FLT_MAX;
 	Vec2D q = Vec2D();
 	for (Vec2D v : vertices) 
 	{
-		float d = v.distanceToSquared( &p );
+		float d = static_cast< float > ( v.distanceToSquared( p ) );
 		if (d < minD) 
 		{
 			q = v;
@@ -247,26 +249,28 @@ int toxi::geom::Polygon2D::getNumVertices()
 	return vertices.size();
 }
 
-toxi::geom::Vec2D * toxi::geom::Polygon2D::getRandomPoint()
+toxi::geom::Vec2D toxi::geom::Polygon2D::getRandomPoint()
 {
-	std::vector< Line2D *> edges = getEdges();
+	std::vector< Line2D > edges = getEdges();
 	int numEdges = edges.size();
-	Line2D * ea = edges.at(toxi::math::MathUtils::random(numEdges));
+	Line2D ea = edges.at( static_cast< int > ( toxi::math::MathUtils::random( numEdges ) ) );
 	Line2D * eb = nullptr;
 	// and another one, making sure it's different
-	while (eb == nullptr || *eb == *ea) 
+	while (eb == nullptr || *eb == ea) 
 	{
-		eb = edges.at(toxi::math::MathUtils::random(numEdges));
+		eb = &edges.at( static_cast< int > ( toxi::math::MathUtils::random( numEdges ) ) );
 	}
 	// pick a random point on edge A
-	Vec2D p = *ea->a->interpolateTo(ea->b, toxi::math::MathUtils::random( 1 ) );
+	Vec2D p = ea.getA().interpolateTo(ea.getB(), toxi::math::MathUtils::random( 1.0 ) );
 	// then randomly interpolate to another random point on edge B
-	return p.interpolateToSelf(
-		eb->a->interpolateTo(eb->b, toxi::math::MathUtils::random( 1 ) ),
-		toxi::math::MathUtils::random( 1 ) );
+	Vec2D ret = p.interpolateToSelf(
+		eb->getA().interpolateTo(eb->getB(), toxi::math::MathUtils::random( 1.0 ) ),
+		static_cast< float > ( toxi::math::MathUtils::random( 1.0 ) ) );
+	delete eb;
+	return ret;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::increaseVertexCount( int count )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::increaseVertexCount( const int & count )
 {
 	int num = vertices.size();
 	while (num < count) 
@@ -275,8 +279,8 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::increaseVertexCount( int count )
 		int longestID = 0;
 		float maxD = 0;
 		for (int i = 0; i < num; i++) {
-			float d = vertices.at(i).distanceToSquared(
-				&vertices.at(std::fmod( i + 1, num ) ) );
+			float d = static_cast < float > ( vertices.at(i).distanceToSquared(
+				vertices.at( static_cast< int > ( ( i + 1 ) % num ) ) ) );
 			if (d > maxD) 
 			{
 				longestID = i;
@@ -284,21 +288,21 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::increaseVertexCount( int count )
 			}
 		}
 		// insert mid point of longest segment in vertex list
-		Vec2D m = *vertices.at(longestID)
-			.add(&vertices.at(std::fmod( longestID + 1, num ) ) )->scaleSelf(0.5f);
+		Vec2D m = vertices.at(longestID)
+			.add(vertices.at( static_cast< int > ( ( (longestID + 1 ) % num ) ) ) ).scaleSelf(0.5f);
 		vertices.assign(longestID + 1, m);
 		num++;
 	}
 	return this;
 }
 
-bool toxi::geom::Polygon2D::intersectsPolygon( Polygon2D * p )
+bool toxi::geom::Polygon2D::intersectsPolygon( Polygon2D & p )
 {
-	for (Line2D * ea : getEdges()) 
+	for (Line2D ea : getEdges()) 
 	{
-		for (Line2D * eb : p->getEdges()) 
+		for (Line2D eb : p.getEdges()) 
 		{
-			toxi::geom::LineIntersection::Type isec = ea->intersectLine(eb)->getType();
+			toxi::geom::LineIntersection::Type isec = ea.intersectLine(eb).getType();
 			if (isec == toxi::geom::LineIntersection::Type::INTERSECTING || isec == toxi::geom::LineIntersection::Type::COINCIDENT) 
 			{
 				return true;
@@ -321,9 +325,9 @@ bool toxi::geom::Polygon2D::isConvex()
 	{
 		int prev = (i == 0) ? num - 1 : i - 1;
 		int next = (i == num - 1) ? 0 : i + 1;
-		Vec2D d0 = *vertices.at(i).sub( &vertices.at(prev));
-		Vec2D d1 = *vertices.at(next).sub(&vertices.at(i));
-		bool newIsP = (d0.cross( &d1 ) > 0);
+		Vec2D d0 = vertices.at(i).sub( vertices.at(prev));
+		Vec2D d1 = vertices.at(next).sub(vertices.at(i));
+		bool newIsP = (d0.cross( d1 ) > 0);
 		if (i == 0) 
 		{
 			isPositive = newIsP;
@@ -336,15 +340,15 @@ bool toxi::geom::Polygon2D::isConvex()
 	return true;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::offsetShape( float distance )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::offsetShape( const float & distance )
 {
 	int num = vertices.size() - 1;
 	if (num > 1) 
 	{
-		float startX = vertices.at(0).getX();
-		float startY = vertices.at(0).getY();
-		float c = vertices.at(num).getX();
-		float d = vertices.at(num).getY();
+		float startX = static_cast< float > ( vertices.at(0).getX() );
+		float startY = static_cast< float > ( vertices.at(0).getY() );
+		float c = static_cast< float > ( vertices.at(num).getX() );
+		float d = static_cast< float > ( vertices.at(num).getY() );
 		float e = startX;
 		float f = startY;
 		for (int i = 0; i < num; i++) 
@@ -353,8 +357,8 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::offsetShape( float distance )
 			float b = d;
 			c = e;
 			d = f;
-			e = vertices.at(i + 1).getX();
-			f = vertices.at(i + 1).getY();
+			e = static_cast< float > ( vertices.at(i + 1).getX() );
+			f = static_cast< float > ( vertices.at(i + 1).getY() );
 			offsetCorner(a, b, c, d, e, f, distance, &vertices.at(i));
 		}
 		offsetCorner(c, d, e, f, startX, startY, distance,
@@ -363,9 +367,9 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::offsetShape( float distance )
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::reduceVertices( float minEdgeLength )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::reduceVertices( const float & mel )
 {
-	minEdgeLength *= minEdgeLength;
+	float minEdgeLength = mel * mel;
 	std::vector<Vec2D> reduced;
 	Vec2D prev = vertices.at(0);
 	reduced.push_back(prev);
@@ -373,13 +377,13 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::reduceVertices( float minEdgeLeng
 	for (int i = 1; i < num; i++) 
 	{
 		Vec2D v = vertices.at(i);
-		if (prev.distanceToSquared( &v ) >= minEdgeLength) 
+		if (prev.distanceToSquared( v ) >= minEdgeLength) 
 		{
 			reduced.push_back(v);
 			prev = v;
 		}
 	}
-	if (vertices.at(0).distanceToSquared( &vertices.at(num)) >= minEdgeLength) 
+	if (vertices.at(0).distanceToSquared( vertices.at(num)) >= minEdgeLength) 
 	{
 		reduced.push_back(vertices.at(num));
 	}
@@ -387,13 +391,13 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::reduceVertices( float minEdgeLeng
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::removeDuplicates( float tolerance )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::removeDuplicates( const float & tolerance )
 {
 	Vec2D prev;
 	for (auto it = vertices.begin(); it != vertices.end(); ++it ) 
 	{
 		Vec2D p = *it;
-		if (p.equalsWithTolerance(&prev, tolerance)) 
+		if (p.equalsWithTolerance(prev, tolerance)) 
 		{
 			vertices.erase( it );
 			//iv.remove();
@@ -404,7 +408,7 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::removeDuplicates( float tolerance
 	int num = vertices.size();
 	if (num > 0) {
 		Vec2D last = vertices.at(num - 1);
-		if (last.equalsWithTolerance(&vertices.at(0), tolerance)) {
+		if (last.equalsWithTolerance(vertices.at(0), tolerance)) {
 			//TODO: how to nicely remove things from a vector ffs?
 			//vertices.remove(last);
 		}
@@ -412,7 +416,7 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::removeDuplicates( float tolerance
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::rotate( float theta )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::rotate( const float & theta )
 {
 	for (Vec2D v : vertices) {
 		v.rotate(theta);
@@ -420,12 +424,12 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::rotate( float theta )
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( float scale )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( const float & scale )
 {
 	return this->scale(scale, scale);
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( float x, float y )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( const float & x, const float & y )
 {
 	for (Vec2D v : vertices) {
 		v.scaleSelf(x, y);
@@ -433,40 +437,40 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( float x, float y )
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( Vec2D v )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scale( const Vec2D & v )
 {
-	return this->scale(v.getX(), v.getY() );
+	return this->scale(static_cast< float > ( v.getX() ), static_cast< float > ( v.getY() ) );
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( float scale )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( const float & scale )
 {
 	return scaleSize(scale, scale);
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( float x, float y )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( const float & x, const float & y )
 {
 	Vec2D centroid = getCentroid();
 	for (Vec2D v : vertices) {
-		v.subSelf(&centroid)->scaleSelf(x, y)->addSelf( &centroid );
+		v.subSelf(centroid).scaleSelf(x, y).addSelf( centroid );
 	}
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( Vec2D p )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::scaleSize( const Vec2D & p )
 {
-	return scaleSize(p.getX(), p.getY());
+	return scaleSize(static_cast< float > ( p.getX() ), static_cast< float > ( p.getY() ) );
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::smooth( float amount, float baseWeight )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::smooth( const float & amount, const float & baseWeight )
 {
 	Vec2D centroid = getCentroid();
 	int num = vertices.size();
 	std::vector<Vec2D> filtered;
 	for (int i = 0, j = num - 1, k = 1; i < num; i++) {
 		Vec2D a = vertices.at(i);
-		Vec2D dir = *vertices.at(j).sub( &a )->addSelf( vertices.at(k).sub( &a ))
-			->addSelf(a.sub(&centroid)->scaleSelf(baseWeight));
-		filtered.push_back(*a.add(dir.scaleSelf(amount)));
+		Vec2D dir = vertices.at(j).sub( a ).addSelf( vertices.at(k).sub( a ))
+			.addSelf(a.sub( centroid).scaleSelf(baseWeight));
+		filtered.push_back(a.add(dir.scaleSelf(amount)));
 		j++;
 		if (j == num) {
 			j = 0;
@@ -486,12 +490,12 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::smooth( float amount, float baseW
 	return this;
 }
 
-toxi::geom::mesh::Mesh3D * toxi::geom::Polygon2D::toMesh( toxi::geom::mesh::Mesh3D * mesh  )
+/*toxi::geom::mesh::Mesh3D toxi::geom::Polygon2D::toMesh( toxi::geom::mesh::Mesh3D * mesh  )
 {
 	return toMesh( mesh, nullptr, 0 );
 }
 
-toxi::geom::mesh::Mesh3D * toxi::geom::Polygon2D::toMesh(  toxi::geom::mesh::Mesh3D * mesh, Vec2D * centroid2D, float extrude ) 
+toxi::geom::mesh::Mesh3D toxi::geom::Polygon2D::toMesh(  toxi::geom::mesh::Mesh3D * mesh, const Vec2D & centroid2D, const float & extrude ) 
 {
 	if (mesh == nullptr) {
 		mesh = new toxi::geom::mesh::TriangleMesh();
@@ -514,6 +518,7 @@ toxi::geom::mesh::Mesh3D * toxi::geom::Polygon2D::toMesh(  toxi::geom::mesh::Mes
 	}
 	return mesh;
 }
+*/
 
 bool toxi::geom::Polygon2D::toOutLine()
 {
@@ -531,7 +536,7 @@ bool toxi::geom::Polygon2D::toOutLine()
 	//Vec2D[] segEnds = new Vec2D[maxSegs];
 	//float[] segAngles = new float[maxSegs];
 	Vec2D start = vertices.at(0);
-	float lastAngle = toxi::math::MathUtils::PI;
+	double lastAngle = toxi::math::MathUtils::PI;
 	float a, b, c, d, e, f;
 	double angleDif, bestAngleDif;
 	int i, j = corners - 1, segs = 0;
@@ -551,7 +556,7 @@ bool toxi::geom::Polygon2D::toOutLine()
 		}
 		j = i;
 		if (pi.getY() > start.getY() || (pi.getY() == start.getY() && pi.getX() < start.getX())) {
-			start.set( &pi);
+			start.set( pi);
 		}
 	}
 	if (segs == 0) {
@@ -561,9 +566,9 @@ bool toxi::geom::Polygon2D::toOutLine()
 	// 2. Break the segments up at their intersection points.
 	for (i = 0; i < segs - 1; i++) {
 		for (j = i + 1; j < segs; j++) {
-			Line2D li = toxi::geom::Line2D( &segments[i], &segEnds[i]);
-			Line2D lj = toxi::geom::Line2D( &segments[j], &segEnds[j]);
-			LineIntersection isec = *li.intersectLine( &lj);
+			Line2D li = toxi::geom::Line2D( segments[i], segEnds[i]);
+			Line2D lj = toxi::geom::Line2D( segments[j], segEnds[j]);
+			LineIntersection isec = li.intersectLine( lj );
 			if (isec.getType() == toxi::geom::LineIntersection::Type::INTERSECTING) {
 				Vec2D ipos = isec.getPos();
 				if (!( ipos == segments[i] ) && !( ipos == segEnds[i])) {
@@ -588,12 +593,12 @@ bool toxi::geom::Polygon2D::toOutLine()
 
 	// Calculate the angle of each segment.
 	for (i = 0; i < segs; i++) {
-		segAngles[i] = segEnds[i].sub( &segments[i])->positiveHeading();
+		segAngles[i] = segEnds[i].sub( segments[i] ).positiveHeading();
 	}
 
 	// 4. Build the perimeter polygon.
-	c = start.getX();
-	d = start.getY();
+	c = static_cast< float > ( start.getX() );
+	d = static_cast< float > ( start.getY() );
 	a = c - 1;
 	b = d;
 	e = 0;
@@ -614,8 +619,8 @@ bool toxi::geom::Polygon2D::toOutLine()
 					}
 					if (angleDif < bestAngleDif) {
 						bestAngleDif = angleDif;
-						e = segEnds[i].getX();
-						f = segEnds[i].getY();
+						e =  static_cast< float > ( segEnds[i].getX() );
+						f = static_cast< float > ( segEnds[i].getY() );
 					}
 			}
 			if (segEnds[i].getX() == c && segEnds[i].getY() == d
@@ -629,8 +634,8 @@ bool toxi::geom::Polygon2D::toOutLine()
 					}
 					if (angleDif < bestAngleDif) {
 						bestAngleDif = angleDif;
-						e = segments[i].getX();
-						f = segments[i].getY();
+						e = static_cast< float > ( segments[i].getX() );
+						f = static_cast< float > ( segments[i].getY() );
 					}
 			}
 		}
@@ -653,9 +658,9 @@ bool toxi::geom::Polygon2D::toOutLine()
 	}
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::toPolygon2D()
+toxi::geom::Polygon2D toxi::geom::Polygon2D::toPolygon2D()
 {
-	return this;
+	return * this;
 }
 
 std::string toxi::geom::Polygon2D::toString()
@@ -668,7 +673,7 @@ std::string toxi::geom::Polygon2D::toString()
 	return ss.str();
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::translate( float x, float y )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::translate( const float & x, const float & y )
 {
 	for (Vec2D v : vertices) {
 		v.addSelf(x, y);
@@ -676,12 +681,12 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::translate( float x, float y )
 	return this;
 }
 
-toxi::geom::Polygon2D * toxi::geom::Polygon2D::translate( Vec2D v )
+toxi::geom::Polygon2D * toxi::geom::Polygon2D::translate( const Vec2D & v )
 {
-	return translate(v.getX(), v.getY());
+	return translate(static_cast< float > ( v.getX() ), static_cast< float > ( v.getY() ) );
 }
 
-void toxi::geom::Polygon2D::offsetCorner( float x1, float y1, float x2, float y2, float x3, float y3, float distance, Vec2D * out )
+void toxi::geom::Polygon2D::offsetCorner( const float & x1, const float & y1, const float & x2, const float & y2, const float & x3, const float & y3, const float & distance, Vec2D * out )
 {
 	float c1 = x2, d1 = y2, c2 = x2, d2 = y2;
 	float dx1, dy1, dist1, dx2, dy2, dist2, insetX, insetY;
@@ -701,15 +706,15 @@ void toxi::geom::Polygon2D::offsetCorner( float x1, float y1, float x2, float y2
 
 	insetX = dy1 * dist1;
 	insetY = -dx1 * dist1;
-	x1 += insetX;
+	float _x1 = x1 +insetX;
 	c1 += insetX;
-	y1 += insetY;
+	float _y1 = y1 + insetY;
 	d1 += insetY;
 	insetX = dy2 * dist2;
 	insetY = -dx2 * dist2;
-	x3 += insetX;
+	float _x3 = x3 + insetX;
 	c2 += insetX;
-	y3 += insetY;
+	float _y3 = y3 + insetY;
 	d2 += insetY;
 
 	if (c1 == c2 && d1 == d2) {
@@ -717,16 +722,16 @@ void toxi::geom::Polygon2D::offsetCorner( float x1, float y1, float x2, float y2
 		return;
 	}
 
-	Line2D l1 = toxi::geom::Line2D( new Vec2D(x1, y1), new Vec2D(c1, d1));
-	Line2D l2 = toxi::geom::Line2D( new Vec2D(c2, d2), new Vec2D(x3, y3));
-	LineIntersection isec = *l1.intersectLine( &l2);
+	Line2D l1 = toxi::geom::Line2D( Vec2D(_x1, _y1), Vec2D(c1, d1));
+	Line2D l2 = toxi::geom::Line2D( Vec2D(c2, d2), Vec2D(_x3, _y3));
+	LineIntersection isec = l1.intersectLine( l2);
 	Vec2D ipos = isec.getPos();
 	if (ipos.isZeroVector()) {
-		out->set(&ipos);
+		out->set(ipos);
 	}
 }
 
-toxi::geom::Polygon2D toxi::geom::Polygon2D::fromEdgeLength( float len, int res )
+toxi::geom::Polygon2D toxi::geom::Polygon2D::fromEdgeLength( const float & len, const int & res )
 {
-	return *toxi::geom::Circle( getRadiusForEdgeLength( len, res ) ).toPolygon2D();
+	return toxi::geom::Circle( getRadiusForEdgeLength( len, res ) ).toPolygon2D();
 }

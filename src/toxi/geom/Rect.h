@@ -33,19 +33,19 @@ namespace toxi
 			Rect( Vec2D p1, Vec2D p2, CreationType type );
 			Rect( const Rect & toCopy );
 	
-			static Rect * getBoundingRect( std::vector< Vec2D > * vertices );
+			static Rect getBoundingRect( std::vector< Vec2D > vertices );
 
 			~Rect(void);
 
-			bool containsPoint( toxi::geom::Vec2D * p );
+			bool containsPoint( toxi::geom::Vec2D & p );
 			float getArea( );
 			float getAspect();
-			toxi::geom::Circle * getBoundingCircle();
-			toxi::geom::Rect *getBounds();
+			toxi::geom::Circle getBoundingCircle();
+			toxi::geom::Rect getBounds();
 			float getCircumference();
-			toxi::geom::Vec2D * getRandomPoint();
-			toxi::geom::Polygon2D * toPolygon2D();
-			toxi::geom::Polygon2D * toPolygon2D( float radius, int res );
+			toxi::geom::Vec2D getRandomPoint();
+			toxi::geom::Polygon2D toPolygon2D();
+			toxi::geom::Polygon2D toPolygon2D( float radius, int res );
 			std::string toString();
 
 			float getBottom();
@@ -60,7 +60,7 @@ namespace toxi
 			Vec2D getCentroid();
 			Vec2D getDimensions();
 			Line2D * getEdge( EdgeType edgeType );
-			Rect growToContainPoint( Vec2D p );
+			Rect growToContainPoint( const Vec2D & p );
 			int hashCode();
 			Rect intersectionRectWith( Rect r );
 			//TODO

@@ -17,12 +17,12 @@ namespace toxi
 		{
 		public:
 			Circle(void);
-			Circle( float radius );
-			Circle( toxi::geom::Vec2D * origin, float radius );
-			Circle( float x, float y, float r );
+			Circle( const float & radius );
+			Circle( const toxi::geom::Vec2D & origin, const float & radius );
+			Circle( const float & x, const float & y, const float & r );
 			~Circle(void);
 
-			static Circle * newBoundingCircle( std::vector< Vec2D > * vertices );
+			static Circle newBoundingCircle( const std::vector< Vec2D > & vertices );
 			
 		};
 	}

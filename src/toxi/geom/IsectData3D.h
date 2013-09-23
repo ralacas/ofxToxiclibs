@@ -6,7 +6,7 @@
 #include < string >
 #include < sstream >
 
-//#include "Vec3D.h"
+#include "Vec3D.h"
 
 namespace toxi
 {
@@ -24,9 +24,9 @@ namespace toxi
 
 			bool isIntersection;
 			float dist;
-			toxi::geom::Vec3D * pos; // TODO: every pointer needs to be deleted.
-			toxi::geom::Vec3D * dir;
-			toxi::geom::Vec3D * normal;
+			toxi::geom::Vec3D pos;
+			toxi::geom::Vec3D dir;
+			toxi::geom::Vec3D normal;
 		};
 	}
 }

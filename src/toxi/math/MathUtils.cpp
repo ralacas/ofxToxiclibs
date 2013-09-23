@@ -402,14 +402,14 @@ namespace toxi
 
 		float MathUtils::random( const float & max )
 		{
-			float rnd = toxi::util::Random::getRandom( 0.0, max );
-			return rnd;
+			double rnd = toxi::util::Random::getRandom( 0.0, max );
+			return static_cast< float > ( rnd );
 		}
 
 		float MathUtils::random( const float & min, const float & max )
 		{
-			float rnd = toxi::util::Random::getRandom( min, max );
-			return rnd;
+			double rnd = toxi::util::Random::getRandom( min, max );
+			return static_cast< float > ( rnd );
 		}
 
 		double MathUtils::reduceAngle( const double & theta )

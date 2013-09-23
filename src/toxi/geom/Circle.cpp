@@ -6,17 +6,17 @@ toxi::geom::Circle::Circle(void)
 
 }
 
-toxi::geom::Circle::Circle( float radius )
+toxi::geom::Circle::Circle( const float & radius )
 {
 
 }
 
-toxi::geom::Circle::Circle( Vec2D * origin, float radius )
+toxi::geom::Circle::Circle( const Vec2D & origin, const float & radius )
 {
 
 }
 
-toxi::geom::Circle::Circle( float x, float y, float r )
+toxi::geom::Circle::Circle( const float & x, const float & y, const float & r )
 {
 
 }
@@ -25,19 +25,19 @@ toxi::geom::Circle::~Circle(void)
 {
 }
 
-toxi::geom::Circle * toxi::geom::Circle::newBoundingCircle( std::vector< Vec2D > * vertices )
+toxi::geom::Circle toxi::geom::Circle::newBoundingCircle( const std::vector< Vec2D > & vertices )
 {
 	Vec2D origin = Vec2D();
-	float maxD = 0;
-	for (Vec2D v : *vertices) {
-		origin.addSelf( &v );
+	double maxD = 0;
+	for (Vec2D v : vertices) {
+		origin.addSelf( v );
 	}
-	origin.scaleSelf(1 / vertices->size());
-	for (Vec2D v : *vertices) {
-		float d = origin.distanceToSquared( &v);
+	origin.scaleSelf(1.0f / vertices.size());
+	for (Vec2D v : vertices) {
+		double d = origin.distanceToSquared( v );
 		if (d > maxD) {
 			maxD = d;
 		}
 	}
-	return new Circle( &origin, (float) toxi::math::MathUtils::sqrt(maxD));
+	return Circle( origin, (float) toxi::math::MathUtils::sqrt( maxD ) );
 }

@@ -83,9 +83,9 @@ float toxi::geom::Rect::getArea()
 	return width * height;
 }
 
-toxi::geom::Circle * toxi::geom::Rect::getBoundingCircle()
+toxi::geom::Circle toxi::geom::Rect::getBoundingCircle()
 {
-	return new toxi::geom::Circle( &getCentroid(), Vec2D( width, height).magnitude() / 2 );
+	return toxi::geom::Circle( getCentroid(), Vec2D( width, height).magnitude() / 2 );
 }
 
 toxi::geom::Rect * toxi::geom::Rect::getBounds()
@@ -370,12 +370,12 @@ void toxi::geom::Rect::toPolyArc( Polygon2D * poly, Vec2D o, float radius, float
 	}
 }
 
-toxi::geom::Rect * toxi::geom::Rect::getBoundingRect( std::vector< Vec2D > * vertices )
+toxi::geom::Rect toxi::geom::Rect::getBoundingRect( std::vector< Vec2D > vertices )
 {
-	Vec2D first = vertices->at(0);
-	Rect * bounds = new toxi::geom::Rect(first.getX(), first.getY(), 0, 0);
-	for (int i = 1, num = vertices->size(); i < num; i++) {
-		bounds->growToContainPoint(vertices->at(i));
+	Vec2D first = vertices.at(0);
+	Rect bounds = toxi::geom::Rect(first.getX(), first.getY(), 0, 0);
+	for (int i = 1, num = vertices.size(); i < num; i++) {
+		bounds.growToContainPoint(vertices.at(i));
 	}
 	return bounds;
 }
