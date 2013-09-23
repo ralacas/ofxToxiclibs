@@ -11,6 +11,12 @@ toxi::geom::Line2D::Line2D(float x1, float y1, float x2, float y2)
 	this->b = toxi::geom::Vec2D( x2, y2 );
 }
 
+toxi::geom::Line2D::Line2D(double x1, double y1, double x2, double y2)
+{
+	this->a = toxi::geom::Vec2D( x1, y1 );
+	this->b = toxi::geom::Vec2D( x2, y2 );
+}
+
 toxi::geom::Line2D::Line2D( const Vec2D & v1, const Vec2D & v2 )
 {
 	this->a = v1;

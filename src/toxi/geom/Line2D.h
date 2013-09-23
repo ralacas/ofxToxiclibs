@@ -18,6 +18,7 @@ namespace toxi
 			Line2D(void);
 			Line2D( const Vec2D & v1, const Vec2D & v2 );
 			Line2D( float x1, float y1, float x2, float y2 );	
+			Line2D( double x1, double y1, double x2, double y2 );
 			~Line2D(void);
 
 			inline bool operator == (Line2D & lhs)

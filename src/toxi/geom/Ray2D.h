@@ -16,8 +16,8 @@ namespace toxi
 			Ray2D(void);
 			~Ray2D(void);
 
-			toxi::geom::Vec2D * getDirection();
-			toxi::geom::Vec2D * getPointAtDistance( float tmin );
+			toxi::geom::Vec2D getDirection();
+			toxi::geom::Vec2D getPointAtDistance( const float & tmin );
 		};
 
 

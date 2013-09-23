@@ -29,11 +29,12 @@ namespace toxi
 			enum EdgeType { TOP, RIGHT, BOTTOM, LEFT };
 
 			Rect( void );
-			Rect( float x, float y, float w, float h );
-			Rect( Vec2D p1, Vec2D p2, CreationType type );
+			Rect( const float & x, const float & y, const float & w, const float & h );
+			Rect( const double & x, const double & y, const double & w, const double & h );
+			Rect( Vec2D & p1, Vec2D & p2, const CreationType & type );
 			Rect( const Rect & toCopy );
 	
-			static Rect getBoundingRect( std::vector< Vec2D > vertices );
+			static Rect getBoundingRect( const std::vector< Vec2D > & vertices );
 
 			~Rect(void);
 
@@ -45,36 +46,36 @@ namespace toxi
 			float getCircumference();
 			toxi::geom::Vec2D getRandomPoint();
 			toxi::geom::Polygon2D toPolygon2D();
-			toxi::geom::Polygon2D toPolygon2D( float radius, int res );
+			toxi::geom::Polygon2D toPolygon2D( const float & radius, const int & res );
 			std::string toString();
 
 			float getBottom();
 			float getLeft();
 			float getRight();
 			float getTop();
-			Vec2D getMappedPointInRect( Vec2D p );
+			Vec2D getMappedPointInRect( const Vec2D & p );
 			Vec2D getBottomLeft();
 			Vec2D getBottomRight();
 			Vec2D getTopLeft();
 			Vec2D getTopRight();
 			Vec2D getCentroid();
 			Vec2D getDimensions();
-			Line2D * getEdge( EdgeType edgeType );
-			Rect growToContainPoint( const Vec2D & p );
+			Line2D getEdge( const EdgeType & edgeType );
+			Rect growToContainPoint( Vec2D & p );
 			int hashCode();
-			Rect intersectionRectWith( Rect r );
+			Rect intersectionRectWith( Rect & r );
 			//TODO
 			/*Vec2D * intersectsRay( toxi::geom::Ray2D * ray, float minDist, float maxDist ); */
-			bool intersectsRect( Rect rect );
-			Rect scale( float s );
-			Rect set( float x, float y, float w, float h );
-			Rect set( Rect r );
-			Rect setDimension( Vec2D dim );
-			Rect setPosition( Vec2D pos );
-			Rect translate( float dx, float dy );
-			Rect translate( Vec2D offset );
-			Rect unionRectWith( Rect r );
-			void toPolyArc( Polygon2D * poly, Vec2D o, float radius, float theta, int res );
+			bool intersectsRect( Rect & rect );
+			Rect scale( const float & s );
+			Rect set( const float & x, const float & y, const float & w, const float & h );
+			Rect set( const Rect & r );
+			Rect setDimension( const Vec2D & dim );
+			Rect setPosition( const Vec2D & pos );
+			Rect translate( const float & dx, const float & dy );
+			Rect translate( const Vec2D & offset );
+			Rect unionRectWith( const Rect & r );
+			void toPolyArc( Polygon2D & poly, Vec2D & o, const double & radius, const double & theta, const int &res );
 
 			double x, y, width, height;
 		};

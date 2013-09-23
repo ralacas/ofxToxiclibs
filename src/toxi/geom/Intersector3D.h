@@ -16,7 +16,7 @@ namespace toxi
 			~Intersector3D(void);
 
 			virtual IsectData3D getIntersectionData() = 0;
-			virtual bool intersectsRay( Ray3D ray ) = 0;
+			virtual bool intersectsRay( Ray3D & ray ) = 0;
 		};
 	}
 }
