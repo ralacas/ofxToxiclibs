@@ -23,9 +23,8 @@ void Vec2DTest::constuctorTest()
 
 void Vec2DTest::operatorOverloadingTest()
 {
-	Vec2D * v1 = new Vec2D( 40.0, 50.0 );
-	Vec2D v2 = *v1;
-	delete v1;
+	Vec2D v1 = Vec2D( 40.0, 50.0 );
+	Vec2D v2 = v1;
 	bool r1 = ( v2.getX() == 40.0 && v2.getY() == 50.0 ) ? true : false;
 	CPPUNIT_ASSERT( r1 );
 }
@@ -37,61 +36,47 @@ void Vec2DTest::failedTest()
 
 void Vec2DTest::angleBetweenTest( void )
 {
-	Vec2D * v1 = new Vec2D( 5, 15 );
-	Vec2D * v2 = new Vec2D( 10, -20 );
+	Vec2D v1 = Vec2D( 5, 15 );
+	Vec2D v2 = Vec2D( 10, -20 );
 
-	double angle = v1->angleBetween( v2 );
+	double angle = v1.angleBetween( v2 );
 	bool r1 = toxi::math::MathUtils::isNan( angle );
 
-	double angle2 = v1->angleBetween( v2, true );
-
-
-	delete v1;
-	delete v2;
-
+	double angle2 = v1.angleBetween( v2, true );
 
 	CPPUNIT_ASSERT( false );
 }
 
 void Vec2DTest::crossTest( void )
 {
-	Vec2D * v = new Vec2D( 10, 10 );
-	Vec2D * toCross = new Vec2D( 5, 10 );
-	double cross = v->cross( toCross );
+	Vec2D v = Vec2D( 10, 10 );
+	Vec2D toCross = Vec2D( 5, 10 );
+	double cross = v.cross( toCross );
 
 	CPPUNIT_ASSERT( cross == 50.0 ? true : false );
-
-	delete v;
-	delete toCross;
 }
 
 void Vec2DTest::distanceToTest( void )
 {
-	Vec2D * v1 = new Vec2D( 10, 10 );
-	Vec2D * v2 = new Vec2D( 5, 10 );
+	Vec2D v1 = Vec2D( 10, 10 );
+	Vec2D v2 = Vec2D( 5, 10 );
 
-	double dist = v1->distanceTo( v2 );
+	double dist = v1.distanceTo( v2 );
 	bool r1 = dist == 5.0 ? true : false;
 
-	double distSquared = v1->distanceToSquared( v2 );
+	double distSquared = v1.distanceToSquared( v2 );
 	bool r2 = distSquared == 25.0 ? true : false;
 
 	CPPUNIT_ASSERT( r1 && r2 );
-
-	delete v1;
-	delete v2;
 }
 
 void Vec2DTest::dotTest( void )
 {
-	Vec2D * v1 = new Vec2D( 10, 10 );
-	Vec2D * v2 = new Vec2D( 5, 10 );
-	double dot = v1->dot( v2 );
+	Vec2D v1 = Vec2D( 10, 10 );
+	Vec2D v2 =  Vec2D( 5, 10 );
+	double dot = v1.dot( v2 );
 
 	CPPUNIT_ASSERT( dot == 150.0 ? true : false );
-
-	delete v1;
-	delete v2;
 }
 
 void Vec2DTest::equalsTest( void )
@@ -140,8 +125,8 @@ void Vec2DTest::hashCodeTest( void )
 void Vec2DTest::isInCircle( void )
 {
 	Vec2D v = Vec2D( 1, 1 );
-	bool isInCircle1 = v.isInCircle( new Vec2D( 1, 1), 0.1 );
-	bool isInCircle2 = !v.isInCircle( new Vec2D( 3, 3), 1.5 );
+	bool isInCircle1 = v.isInCircle( Vec2D( 1, 1), 0.1 );
+	bool isInCircle2 = !v.isInCircle( Vec2D( 3, 3), 1.5 );
 
 	CPPUNIT_ASSERT( isInCircle1 && isInCircle2 );
 }
@@ -149,8 +134,8 @@ void Vec2DTest::isInCircle( void )
 void Vec2DTest::isInRectangle( void )
 {
 	Vec2D v = Vec2D( 10, 10 );
-	bool isInRect1 = v.isInRectangle( new toxi::geom::Rect( 0, 0, 11, 11) );
-	bool isInRect2 = !v.isInRectangle( new toxi::geom::Rect( 0, 0, 9, 9 ) );
+	bool isInRect1 = v.isInRectangle( toxi::geom::Rect( 0, 0, 11, 11) );
+	bool isInRect2 = !v.isInRectangle( toxi::geom::Rect( 0, 0, 9, 9 ) );
 
 	CPPUNIT_ASSERT( isInRect1 && isInRect2 );
 }
@@ -158,8 +143,8 @@ void Vec2DTest::isInRectangle( void )
 void Vec2DTest::isInTriangle( void )
 {
 	Vec2D v = Vec2D( 5, 5 );
-	bool isInTriangle1 = v.isInTriangle( new Vec2D( 0, 0 ), new Vec2D( 10, 0), new Vec2D( 0, 10 ) );
-	bool isInTriangle2 = !v.isInTriangle( new Vec2D( 10, 10 ), new Vec2D( 20, 10 ), new Vec2D( 10, 20 ) );
+	bool isInTriangle1 = v.isInTriangle( Vec2D( 0, 0 ), Vec2D( 10, 0), Vec2D( 0, 10 ) );
+	bool isInTriangle2 = !v.isInTriangle( Vec2D( 10, 10 ), Vec2D( 20, 10 ), Vec2D( 10, 20 ) );
 
 	CPPUNIT_ASSERT( isInTriangle1 && isInTriangle2 );
 }
