@@ -15,10 +15,10 @@ toxi::geom::Matrix4x4::Matrix4x4(void)
 	matrix[ 3 ][ 3 ] = 1;
 }
 
-toxi::geom::Matrix4x4::Matrix4x4( double v11, double v12, double v13, double v14,
-								 double v21, double v22, double v23, double v24, double v31,
-								 double v32, double v33, double v34, double v41, double v42,
-								 double v43, double v44 )
+toxi::geom::Matrix4x4::Matrix4x4( const double & v11, const double & v12, const double & v13, const double & v14,
+								 const double & v21, const double & v22, const double & v23, const double & v24, const double & v31,
+								 const double & v32, const double & v33, const double & v34, const double & v41, const double & v42,
+								 const double & v43, const double & v44 )
 {
 	init();
 	matrix[ 0 ][ 0 ] = v11;
@@ -42,7 +42,7 @@ toxi::geom::Matrix4x4::Matrix4x4( double v11, double v12, double v13, double v14
 	matrix[ 3 ][ 3 ] = v44;
 }
 
-toxi::geom::Matrix4x4::Matrix4x4( double* array, bool isLength16 )
+toxi::geom::Matrix4x4::Matrix4x4( const double* & array, const bool & isLength16 )
 {
 	init();
 	if( isLength16 )
@@ -93,7 +93,11 @@ toxi::geom::Matrix4x4::Matrix4x4( Matrix4x4 &m )
 	init();
 	for( size_t i = 0; i < 4; i++ )
 	{
-		matrix[ i ] = m.matrix[ i ];
+		for( size_t j = 0; j < 4 ; j++ ) 
+		{
+			matrix[ i ][ j ] = m.matrix[ i ][ j ];
+		}
+		
 	}
 }
 
@@ -103,15 +107,28 @@ toxi::geom::Matrix4x4::~Matrix4x4(void)
 
 void toxi::geom::Matrix4x4::init()
 {
+	this->TEMP = new Matrix4x4();
 	this->matrix = new double*[width];
-	for( size_t i = 0; i < height; i++ ) 
+	for( int i = 0; i < height; i++ ) 
 	{
 		matrix[ i ] = new double[ width ];
 	}
 }
 
-bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int width )
+bool toxi::geom::Matrix4x4::LUDecomposition( const double* & matrix0, const int* & row_perm, const int & width )
 {
+	double m[16];
+
+	for( int i = 0; i < 16; ++i )
+	{
+		m[i] = matrix0[i];
+	}
+
+	int rw_prm[16]; // guess
+	for( int i = 0; i < 16; i++ )
+	{
+		rw_prm[i] = row_perm[i];
+	}
 	double row_scale[ 4 ];
 	{
 		int i, j;
@@ -171,7 +188,7 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 					p1++;
 					p2 += width;
 				}
-				matrix0[ target ] = sum;
+				m[ target ] = sum;
 			}
 
 			// Search for largest pivot element and calculate
@@ -191,7 +208,7 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 					p1++;
 					p2 += width;
 				}
-				matrix0[ target ] = sum;
+				m[ target ] = sum;
 
 				// Is this the best pivot so far?
 				if ( ( temp = row_scale[ i ] * toxi::math::MathUtils::abs( sum ) ) >= big ) 
@@ -216,8 +233,8 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 				while ( k-- != 0 ) 
 				{
 					temp = matrix0[ p1 ];
-					matrix0[ p1++ ] = matrix0[ p2 ];
-					matrix0[ p2++ ] = temp;
+					m[ p1++ ] = matrix0[ p2 ];
+					m[ p2++ ] = temp;
 				}
 
 				// Record change in scale factor
@@ -225,7 +242,7 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 			}
 
 			// Record row permutation
-			row_perm[ j ] = imax;
+			rw_prm[ j ] = imax;
 
 			// Is the matrix singular
 			if ( matrix0[ ( mtx + ( width * j ) + j ) ] == 0.0 ) 
@@ -241,7 +258,7 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 				i = ( width - 1 ) - j;
 				while ( i-- != 0 ) 
 				{
-					matrix0[ target ] *= temp;
+					m[ target ] *= temp;
 					target += width;
 				}
 			}
@@ -250,26 +267,29 @@ bool toxi::geom::Matrix4x4::LUDecomposition( double* matrix0, int* row_perm, int
 	return true;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::add( Matrix4x4 rhs )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::add( const Matrix4x4 & rhs )
 {
 	Matrix4x4 result = Matrix4x4(*this);
 	return result.addSelf( rhs );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::addSelf( Matrix4x4 m )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::addSelf( const Matrix4x4 & m )
 {
 	for( size_t i = 0; i < 4; i++ )
 	{
-		matrix[ i ] = m.matrix[ i ];
+		for( size_t j = 0; j < 4 ; j++ ) 
+		{
+			this->matrix[ i ][ j ] += m.matrix[ i ][ j ];
+		}
 	}
 }
 
-toxi::geom::Vec3D toxi::geom::Matrix4x4::applyTo( Vec3D v )
+toxi::geom::Vec3D toxi::geom::Matrix4x4::applyTo( const Vec3D & v )
 {
 	return applyToSelf( Vec3D( v ) );
 }
 
-toxi::geom::Vec3D toxi::geom::Matrix4x4::applyToSelf( Vec3D v )
+toxi::geom::Vec3D toxi::geom::Matrix4x4::applyToSelf( Vec3D & v )
 {
 	for ( int i = 0; i < 4; i++ ) {
 		double* m = matrix[ i ];
@@ -285,22 +305,22 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getInverted()
 	return Matrix4x4( *this ).invert();
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedAroundAxis( Vec3D axis, double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedAroundAxis( const Vec3D & axis, const double & theta )
 {
 	return Matrix4x4( *this ).rotateAroundAxis( axis, theta );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedX( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedX( const double & theta )
 {
 	return Matrix4x4( *this ).rotateX( theta );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedY( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedY( const double & theta )
 {
 	return Matrix4x4( *this ).rotateY( theta );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedZ( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getRotatedZ( const double & theta )
 {
 	return Matrix4x4( *this ).rotateZ( theta );
 }
@@ -313,9 +333,9 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::getTransposed()
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::identity()
 {
 
-	for( size_t i = 0; i < width; i++ )
+	for( int i = 0; i < width; i++ )
 	{
-		for( size_t j = 0; j < height; j++ )
+		for( int j = 0; j < height; j++ )
 		{
 			this->matrix[ i ][ j ] = 0;
 		}
@@ -435,30 +455,30 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::invert()
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::lookAt( Vec3D eye, Vec3D target, Vec3D up )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::lookAt(  Vec3D & eye, Vec3D & target, Vec3D & up )
 {
-	Vec3D f = eye.sub( &target ).normalize();
-	Vec3D s = up.cross( &f ).normalize();
-	Vec3D t = f.cross( &s ).normalize();
-	return set( s.x, s.y, s.z, -s.dot( &eye ), t.x, t.y, t.z, -t.dot( &eye ), f.x,
-		f.y, f.z, -f.dot( &eye ), 0, 0, 0, 1 );
+	Vec3D f = eye.sub( target ).normalize();
+	Vec3D s = up.cross( f ).normalize();
+	Vec3D t = f.cross( s ).normalize();
+	return set( s.x, s.y, s.z, -s.dot( eye ), t.x, t.y, t.z, -t.dot( eye ), f.x,
+		f.y, f.z, -f.dot( eye ), 0, 0, 0, 1 );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( double factor )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( const double & factor )
 {
 	return Matrix4x4( *this ).multiply( factor );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( Matrix4x4 mat )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( const Matrix4x4 & mat )
 {
 	return Matrix4x4( *this ).multiplySelf( mat );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( double factor )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( const double & factor )
 {
-	for( size_t i = 0; i < width; i++ )
+	for( int i = 0; i < width; i++ )
 	{
-		for( size_t j = 0; j < height; j++ )
+		for( int j = 0; j < height; j++ )
 		{
 			this->matrix[ i ][ j ] *= factor;
 		}
@@ -467,7 +487,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( double factor )
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( Matrix4x4 mat )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( const Matrix4x4 & mat )
 {
 	for ( int i = 0; i < 4; i++ ) 
 	{
@@ -484,7 +504,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( Matrix4x4 mat )
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( Vec3D axis, double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( const Vec3D & axis, const double & theta )
 {
 	double x, y, z, s, c, t, tx, ty;
 	x = axis.x;
@@ -501,7 +521,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( Vec3D axis, doubl
 	return this->multiplySelf( *TEMP );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateX( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateX( const double & theta )
 {
 	TEMP->identity();
 	TEMP->matrix[1][1] = TEMP->matrix[2][2] = toxi::math::MathUtils::cos(theta);
@@ -510,7 +530,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateX( double theta )
 	return this->multiplySelf(*TEMP);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateY( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateY( const double & theta )
 {
 	TEMP->identity();
 	TEMP->matrix[0][0] = TEMP->matrix[2][2] = toxi::math::MathUtils::cos(theta);
@@ -519,7 +539,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateY( double theta )
 	return this->multiplySelf(*TEMP);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateZ( double theta )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateZ( const double & theta )
 {
 	TEMP->identity();
 	TEMP->matrix[0][0] = TEMP->matrix[1][1] = toxi::math::MathUtils::cos(theta);
@@ -528,39 +548,39 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateZ( double theta )
 	return this->multiplySelf(*TEMP);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( double scale )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( const double & scale )
 {
 	return Matrix4x4( *this ).scaleSelf( scale );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( double scaleX, double scaleY, double scaleZ )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( const double & scaleX, const double & scaleY, const double & scaleZ )
 {
 	return Matrix4x4( *this ).scaleSelf( scaleX, scaleY, scaleZ );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( Vec3D scale )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( const Vec3D & scale )
 {
 	return Matrix4x4( *this).scaleSelf( scale.x, scale.y, scale.z );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( double scale )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const double & scale )
 {
 	return scaleSelf( scale, scale, scale );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( double scaleX, double scaleY, double scaleZ )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const double & scaleX, const double & scaleY, const double & scaleZ )
 {
 	TEMP->identity();
 	TEMP->setScale(scaleX, scaleY, scaleZ);
 	return this->multiplySelf(*TEMP);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( Vec3D scale )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const Vec3D & scale )
 {
 	return scaleSelf( scale.x, scale.y, scale.z );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k, double l, double m, double n, double o, double p )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( const double & a, const double & b, const double & c, const double & d, const double & e, const double & f, const double & g, const double & h, const double & i, const double & j, const double & k, const double & l, const double & m, const double & n, const double & o, const double & p )
 {
 	matrix[ 0 ][ 0 ] = a;
 	matrix[ 0 ][ 1 ] = b;
@@ -585,7 +605,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( double a, double b, double c, 
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( Matrix4x4 mat )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( const Matrix4x4 & mat )
 {
 	for ( int i = 0; i < 4; i++ ) 
 	{
@@ -598,7 +618,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( Matrix4x4 mat )
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setFrustum( double left, double right, double top, double bottom, double near, double far )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setFrustum( const double & left, const double & right, const double & top, const double & bottom, const double & near, const double & far )
 {
 	return set( ( 2.0 * near ) / ( right - left ), 0, ( left + right )
 		/ ( right - left ), 0, 0, ( 2.0 * near ) / ( top - bottom ),
@@ -607,21 +627,21 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setFrustum( double left, double rig
 		-1, 0);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setOrtho( double left, double right, double top, double bottom, double near, double far )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setOrtho( const double & left, const double & right, const double & top, const double & bottom, const double & near, const double & far )
 {
 	return set(2.0 / (right - left), 0, 0, (left + right) / (right - left),
 		0, 2.0 / (top - bottom), 0, (top + bottom) / (top - bottom), 0,
 		0, -2.0 / (far - near), (far + near) / (far - near), 0, 0, 0, 1);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setPerspective( double fov, double aspect, double near, double far )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setPerspective( const double & fov, const double & aspect, const double & near, const double & far )
 {
 	double y = near * std::tan(0.5 * toxi::math::MathUtils::radians(fov));
 	double x = aspect * y;
 	return setFrustum(-x, x, y, -y, near, far);
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setPosition( double x, double y, double z )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setPosition( const double & x, const double & y, const double & z )
 {
 	matrix[ 0 ][ 3 ] = x;
 	matrix[ 1 ][ 3 ] = y;
@@ -629,7 +649,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setPosition( double x, double y, do
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setScale( double scaleX, double scaleY, double scaleZ )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setScale( const double & scaleX, const double & scaleY, const double & scaleZ )
 {
 	matrix[ 0 ][ 0 ] = scaleX;
 	matrix[ 1 ][ 1 ] = scaleY;
@@ -637,12 +657,12 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::setScale( double scaleX, double sca
 	return *this;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::sub( Matrix4x4 mat )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::sub( const Matrix4x4 & mat )
 {
 	return Matrix4x4( *this ).subSelf( mat );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::subSelf( Matrix4x4 mat )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::subSelf( const Matrix4x4 & mat )
 {
 	for ( int i = 0; i < 4; i++ ) 
 	{
@@ -699,17 +719,17 @@ float* toxi::geom::Matrix4x4::toTransposedFloatArray()
 	return result;
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( double dx, double dy, double dz )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( const double & dx, const double & dy, const double & dz )
 {
 	return Matrix4x4( *this ).translateSelf( dx, dy, dz );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( Vec3D v )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( const Vec3D & v )
 {
 	return Matrix4x4( *this ).translateSelf( v.x, v.y, v.z );
 }
 
-toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translateSelf( double dx, double dy, double dz )
+toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translateSelf( const double & dx, const double & dy, const double & dz )
 {
 	TEMP->identity();
 	TEMP->setPosition(dx, dy, dz);
