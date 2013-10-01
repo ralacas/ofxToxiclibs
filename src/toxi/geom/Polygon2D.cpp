@@ -526,12 +526,16 @@ bool toxi::geom::Polygon2D::toOutLine()
 	int maxSegs = corners * 3;
 	std::vector<Vec2D> newVerts;
 
-	Vec2D * segments;
-	segments = ( Vec2D* ) malloc( sizeof( Vec2D ) * maxSegs);
-	Vec2D * segEnds;
-	segEnds = (Vec2D * ) malloc(sizeof( Vec2D ) * maxSegs );
-	float * segAngles;
-	segAngles = (float * ) malloc( sizeof( float ) * maxSegs );
+	std::vector< Vec2D > segments( maxSegs );
+	std::vector< Vec2D > segEnds( maxSegs );
+	std::vector< double > segAngles( maxSegs );
+
+	//Vec2D * segments;
+	//segments = ( Vec2D* ) malloc( sizeof( Vec2D ) * maxSegs);
+	//Vec2D * segEnds;
+	//segEnds = (Vec2D * ) malloc(sizeof( Vec2D ) * maxSegs );
+	//float * segAngles;
+	//segAngles = (float * ) malloc( sizeof( float ) * maxSegs );
 	//Vec2D[] segments = new Vec2D[maxSegs];
 	//Vec2D[] segEnds = new Vec2D[maxSegs];
 	//float[] segAngles = new float[maxSegs];
