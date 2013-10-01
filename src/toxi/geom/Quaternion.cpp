@@ -8,7 +8,7 @@ toxi::geom::Quaternion::Quaternion(void)
 	identity();
 }
 
-toxi::geom::Quaternion::Quaternion( float w, float x, float y, float z )
+toxi::geom::Quaternion::Quaternion( const float & w, const float & x, const float & y, const float & z )
 {
 	this->w = w;
 	this->x = x;
@@ -16,7 +16,7 @@ toxi::geom::Quaternion::Quaternion( float w, float x, float y, float z )
 	this->z = z;
 }
 
-toxi::geom::Quaternion::Quaternion( float w, Vec3D v )
+toxi::geom::Quaternion::Quaternion( const float & w, const Vec3D & v )
 {
 	this->x = v.x;
 	this->y = v.y;
@@ -29,26 +29,26 @@ toxi::geom::Quaternion::~Quaternion(void)
 {
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::createFromAxisAngle( Vec3D axis, float angle )
+toxi::geom::Quaternion toxi::geom::Quaternion::createFromAxisAngle( Vec3D axis, const float & angle )
 {
-	angle *= 0.5;
-	float sin = toxi::math::MathUtils::sin( angle );
-	float cos = toxi::math::MathUtils::cos( angle );
+	float _angle = angle * 0.5f;
+	float sin = toxi::math::MathUtils::sin( _angle );
+	float cos = toxi::math::MathUtils::cos( _angle );
 	Quaternion q = Quaternion( cos, axis.getNormalizedTo( sin ) );
 	return q;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::createFromEuler( float pitch, float yaw, float roll )
+toxi::geom::Quaternion toxi::geom::Quaternion::createFromEuler( const float & pitch, const float & yaw, const float & roll )
 {
-	pitch *= 0.5;
-	yaw *= 0.5;
-	roll *= 0.5;
-	float sinPitch = toxi::math::MathUtils::sin(pitch);
-	float cosPitch = toxi::math::MathUtils::cos(pitch);
-	float sinYaw = toxi::math::MathUtils::sin(yaw);
-	float cosYaw = toxi::math::MathUtils::cos(yaw);
-	float sinRoll = toxi::math::MathUtils::sin(roll);
-	float cosRoll = toxi::math::MathUtils::cos(roll);
+	float _pitch = pitch * 0.5f;
+	float _yaw = yaw * 0.5f;
+	float _roll = roll * 0.5f;
+	float sinPitch = toxi::math::MathUtils::sin(_pitch);
+	float cosPitch = toxi::math::MathUtils::cos(_pitch);
+	float sinYaw = toxi::math::MathUtils::sin(_yaw);
+	float cosYaw = toxi::math::MathUtils::cos(_yaw);
+	float sinRoll = toxi::math::MathUtils::sin(_roll);
+	float cosRoll = toxi::math::MathUtils::cos(_roll);
 	float cosPitchCosYaw = cosPitch * cosYaw;
 	float sinPitchSinYaw = sinPitch * sinYaw;
 
@@ -78,7 +78,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::createFromEuler( float pitch, flo
 	return q;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( Matrix4x4 m )
+toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( const Matrix4x4 & m )
 {
 	double s = 0.0f;
 	double q[4];
@@ -119,21 +119,21 @@ toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( Matrix4x4 m )
 		(float) q[2]);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::getAlignmentQuat( Vec3D dir, Vec3D forward )
+toxi::geom::Quaternion toxi::geom::Quaternion::getAlignmentQuat( Vec3D & dir, Vec3D & forward )
 {
 	Vec3D target = dir.getNormalized();
-	Vec3D axis = forward.cross(&target);
+	Vec3D axis = forward.cross(target);
 	float length = axis.magnitude() + 0.0001f;
-	float angle = (float) std::atan2(length, forward.dot(&target));
+	float angle = (float) std::atan2(length, forward.dot(target));
 	return createFromAxisAngle(axis, angle);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::add( Quaternion q )
+toxi::geom::Quaternion toxi::geom::Quaternion::add( const Quaternion & q )
 {
 	return Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::addSelf( Quaternion q )
+toxi::geom::Quaternion toxi::geom::Quaternion::addSelf( const Quaternion & q )
 {
 	x += q.x;
 	y += q.y;
@@ -142,7 +142,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::addSelf( Quaternion q )
 	return *this;
 }
 
-float toxi::geom::Quaternion::dot( Quaternion q )
+float toxi::geom::Quaternion::dot( const Quaternion & q )
 {
 	return (x * q.x) + (y * q.y) + (z * q.z) + (w * q.w);
 }
@@ -176,17 +176,17 @@ toxi::geom::Quaternion toxi::geom::Quaternion::identity()
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( const Quaternion & target, const float & t )
 {
 	return Quaternion( *this ).interpolateToSelf( target, t );
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( Quaternion target, float t, toxi::math::InterpolateStrategy * is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateTo( const Quaternion & target, const float & t, toxi::math::InterpolateStrategy & is )
 {
-	return Quaternion( *this ).interpolateToSelf( target, is->interpolate(0, 1, t) );
+	return Quaternion( *this ).interpolateToSelf( target, is.interpolate(0, 1, t) );
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( const Quaternion & target, const double & t )
 {
 	double scale;
 	double invscale;
@@ -214,9 +214,9 @@ toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion tar
 	return normalize();
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( Quaternion target, double t, toxi::math::InterpolateStrategy * is )
+toxi::geom::Quaternion toxi::geom::Quaternion::interpolateToSelf( const Quaternion & target, const double & t, toxi::math::InterpolateStrategy & is )
 {
-	float st = is->interpolate(0, 1, t);
+	double st = is.interpolate(0, 1, t);
 	return interpolateToSelf(target, st);
 }
 
@@ -225,7 +225,7 @@ float toxi::geom::Quaternion::magnitude()
 	return (float) toxi::math::MathUtils::sqrt(x * x + y * y + z * z + w * w);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::multiply( Quaternion q2 )
+toxi::geom::Quaternion toxi::geom::Quaternion::multiply( const Quaternion & q2 )
 {
 	Quaternion res = Quaternion();
 	res.w = w * q2.w - x * q2.x - y * q2.y - z * q2.z;
@@ -238,9 +238,9 @@ toxi::geom::Quaternion toxi::geom::Quaternion::multiply( Quaternion q2 )
 
 toxi::geom::Quaternion toxi::geom::Quaternion::normalize()
 {
-	double mag = std::sqrt(x * x + y * y + z * z + w * w);
+	float mag = std::sqrt(x * x + y * y + z * z + w * w);
 	if (mag > toxi::math::MathUtils::EPS) {
-		mag = 1.0 / mag;
+		mag = 1.0f / mag;
 		x *= mag;
 		y *= mag;
 		z *= mag;
@@ -249,12 +249,12 @@ toxi::geom::Quaternion toxi::geom::Quaternion::normalize()
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::scale( float t )
+toxi::geom::Quaternion toxi::geom::Quaternion::scale( const float & t )
 {
 	return Quaternion(x * t, y * t, z * t, w * t);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::scaleSelf( float t )
+toxi::geom::Quaternion toxi::geom::Quaternion::scaleSelf( const float & t )
 {
 	x *= t;
 	y *= t;
@@ -263,7 +263,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::scaleSelf( float t )
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::set( float w, float x, float y, float z )
+toxi::geom::Quaternion toxi::geom::Quaternion::set( const float & w, const float & x, const float & y, const float & z )
 {
 	this->w = w;
 	this->x = x;
@@ -272,7 +272,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::set( float w, float x, float y, f
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::set( float w, Vec3D v )
+toxi::geom::Quaternion toxi::geom::Quaternion::set( const float & w, const Vec3D & v )
 {
 	this->w = w;
 	x = v.x;
@@ -281,7 +281,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::set( float w, Vec3D v )
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::set( Quaternion q )
+toxi::geom::Quaternion toxi::geom::Quaternion::set( const Quaternion & q )
 {
 	w = q.w;
 	x = q.x;
@@ -290,12 +290,12 @@ toxi::geom::Quaternion toxi::geom::Quaternion::set( Quaternion q )
 	return *this;
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::sub( Quaternion q )
+toxi::geom::Quaternion toxi::geom::Quaternion::sub( const Quaternion & q )
 {
 	return Quaternion(x - q.x, y - q.y, z - q.z, w - q.w);
 }
 
-toxi::geom::Quaternion toxi::geom::Quaternion::subSelf( Quaternion q )
+toxi::geom::Quaternion toxi::geom::Quaternion::subSelf( const Quaternion & q )
 {
 	x -= q.x;
 	y -= q.y;
@@ -304,26 +304,31 @@ toxi::geom::Quaternion toxi::geom::Quaternion::subSelf( Quaternion q )
 	return *this;
 }
 
-float * toxi::geom::Quaternion::toArray()
+std::vector< float > toxi::geom::Quaternion::toArray()
 {
-	float arr[4] = {w, x, y, z};
+	std::vector<float> arr(4);
+	arr[1] = x;
+	arr[2] = y;
+	arr[3] = z;
+	arr[0] = w;
+	//float arr[4] = {w, x, y, z};
 	return arr;
 }
 
-float * toxi::geom::Quaternion::toAxisAngle()
+std::vector< float > toxi::geom::Quaternion::toAxisAngle()
 {
-	float res[4];
+	std::vector<float> arr(4);
 	float sa = (float) std::sqrt(1.0f - w * w);
 	if (sa < toxi::math::MathUtils::EPS) {
 		sa = 1.0f;
 	} else {
 		sa = 1.0f / sa;
 	}
-	res[0] = (float) std::acos(w) * 2.0f;
-	res[1] = x * sa;
-	res[2] = y * sa;
-	res[3] = z * sa;
-	return res;
+	arr[0] = (float) std::acos(w) * 2.0f;
+	arr[1] = x * sa;
+	arr[2] = y * sa;
+	arr[3] = z * sa;
+	return arr;
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Quaternion::toMatrix4x4()
