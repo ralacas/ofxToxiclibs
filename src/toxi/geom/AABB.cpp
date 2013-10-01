@@ -7,7 +7,7 @@ toxi::geom::AABB::AABB(void)
 
 toxi::geom::AABB::AABB( AABB& aabb )
 {
-	AABB( toxi::geom::Vec3D(aabb.getMin().x, aabb.getMin().y, aabb.getMin().z), aabb.getExtend() );
+	AABB( toxi::geom::Vec3D(aabb.getMin().getX(), aabb.getMin().getY(), aabb.getMin().getZ()), aabb.getExtend() );
 }
 
 toxi::geom::AABB::AABB( const double & extend )
@@ -22,9 +22,9 @@ toxi::geom::AABB::AABB( const Vec3D & point, const double & extend )
 
 toxi::geom::AABB::AABB( const Vec3D & point, const Vec3D & extend )
 {
-	this->x = point.x;
-	this->y = point.y;
-	this->z = point.z;
+	this->x = point.getX();
+	this->y = point.getY();
+	this->z = point.getZ();
 	setExtend( extend );
 }
 
@@ -61,14 +61,14 @@ toxi::geom::Vec3D toxi::geom::AABB::getNormalForPoint( Vec3D & p )
 	p = p.sub( Vec3D( x, y, z ) );
 	Vec3D pabs = extent.sub( p.getAbs() );
 	Vec3D psign = p.getSignum();
-	Vec3D normal = Vec3D::X_AXIS().scale(psign.x);
-	float minDist = pabs.x;
-	if (pabs.y < minDist) {
-		minDist = pabs.y;
-		normal = Vec3D::Y_AXIS().scale(psign.y);
+	Vec3D normal = Vec3D::X_AXIS().scale( static_cast< float > ( psign.getX() ) );
+	double minDist = pabs.getX();
+	if (pabs.getY() < minDist) {
+		minDist = pabs.getY();
+		normal = Vec3D::Y_AXIS().scale( static_cast< float > ( psign.getY() ) );
 	}
-	if (pabs.z < minDist) {
-		normal = Vec3D::Z_AXIS().scale(psign.z);
+	if (pabs.getZ() < minDist) {
+		normal = Vec3D::Z_AXIS().scale( static_cast< float > ( psign.getZ() ) );
 	}
 	return normal;
 }
@@ -85,25 +85,25 @@ toxi::geom::AABB * toxi::geom::AABB::growToContainPoint( const Vec3D & p )
 bool toxi::geom::AABB::intersectsBox( AABB & box )
 {
 	Vec3D t = box.sub(x, y, z);
-	return toxi::math::MathUtils::abs( t.x ) <= ( extent.x + box.extent.x )
-		&& toxi::math::MathUtils::abs( t.y ) <= ( extent.y + box.extent.y )
-		&& toxi::math::MathUtils::abs( t.z ) <= ( extent.z + box.extent.z );
+	return toxi::math::MathUtils::abs( t.getX() ) <= ( extent.getX() + box.extent.getX() )
+		&& toxi::math::MathUtils::abs( t.getY() ) <= ( extent.getZ() + box.extent.getY() )
+		&& toxi::math::MathUtils::abs( t.getY() ) <= ( extent.getY() + box.extent.getZ() );
 }
 
 toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( toxi::geom::Ray3D & ray, const float & minDist, const float & maxDist )
 {
 	Vec3D invDir = ray.getDirection().getReciprocal();
-	bool signDirX = invDir.x < 0;
-	bool signDirY = invDir.y < 0;
-	bool signDirZ = invDir.z < 0;
+	bool signDirX = invDir.getX() < 0;
+	bool signDirY = invDir.getY() < 0;
+	bool signDirZ = invDir.getZ() < 0;
 	Vec3D bbox = signDirX ? max : min;
-	float tmin = (bbox.x - ray.x) * invDir.x;
+	double tmin = (bbox.getX() - ray.getX()) * invDir.getX();
 	bbox = signDirX ? min : max;
-	float tmax = (bbox.x - ray.x) * invDir.x;
+	double tmax = (bbox.getX() - ray.getX()) * invDir.getX();
 	bbox = signDirY ? max : min;
-	float tymin = (bbox.y - ray.y) * invDir.y;
+	double tymin = (bbox.getY() - ray.getY()) * invDir.getY();
 	bbox = signDirY ? min : max;
-	float tymax = (bbox.y - ray.y) * invDir.y;
+	double tymax = (bbox.getY() - ray.getY()) * invDir.getY();
 	if ((tmin > tymax) || (tymin > tmax)) {
 		return Vec3D();
 	}
@@ -114,9 +114,9 @@ toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( toxi::geom::Ray3D & ray, cons
 		tmax = tymax;
 	}
 	bbox = signDirZ ? max : min;
-	float tzmin = (bbox.z - ray.z) * invDir.z;
+	double tzmin = (bbox.getZ() - ray.getZ()) * invDir.getZ();
 	bbox = signDirZ ? min : max;
-	float tzmax = (bbox.z - ray.z) * invDir.z;
+	double tzmax = (bbox.getZ() - ray.getZ()) * invDir.getZ();
 	if ((tmin > tzmax) || (tzmin > tmax)) {
 		return Vec3D();
 	}
@@ -127,37 +127,37 @@ toxi::geom::Vec3D toxi::geom::AABB::intersectsRay( toxi::geom::Ray3D & ray, cons
 		tmax = tzmax;
 	}
 	if ((tmin < maxDist) && (tmax > minDist)) {
-		return ray.getPointAtDistance(tmin);
+		return ray.getPointAtDistance( static_cast < float > ( tmin ) );
 	}
 	return Vec3D();
 }
 
 bool toxi::geom::AABB::intersectsSphere( const Vec3D & c, const float & r )
 {
-	float s, d = 0;
+	double s, d = 0;
 	// find the square of the distance
 	// from the sphere to the box
-	if (c.x < min.x) {
-		s = c.x - min.x;
+	if (c.getX() < min.getX()) {
+		s = c.getX() - min.getX();
 		d = s * s;
-	} else if (c.x > max.x) {
-		s = c.x - max.x;
+	} else if (c.getX() > max.getX()) {
+		s = c.getX() - max.getX();
 		d += s * s;
 	}
 
-	if (c.y < min.y) {
-		s = c.y - min.y;
+	if (c.getY() < min.getY()) {
+		s = c.getY() - min.getY();
 		d += s * s;
-	} else if (c.y > max.y) {
-		s = c.y - max.y;
+	} else if (c.getY() > max.getY()) {
+		s = c.getY() - max.getY();
 		d += s * s;
 	}
 
-	if (c.z < min.z) {
-		s = c.z - min.z;
+	if (c.getZ() < min.getZ()) {
+		s = c.getZ() - min.getZ();
 		d += s * s;
-	} else if (c.z > max.z) {
-		s = c.z - max.z;
+	} else if (c.getZ() > max.getZ()) {
+		s = c.getZ() - max.getZ();
 		d += s * s;
 	}
 
@@ -169,28 +169,28 @@ bool toxi::geom::AABB::planeBoxOverlap( Vec3D & normal, const float & d, const V
 	Vec3D vmin = Vec3D();
 	Vec3D vmax = Vec3D();
 
-	if (normal.x > 0.0f) {
-		vmin.x = -maxBox.x;
-		vmax.x = maxBox.x;
+	if (normal.getX() > 0.0f) {
+		vmin.setX( -maxBox.getX() );
+		vmax.setX( maxBox.getX() );
 	} else {
-		vmin.x = maxBox.x;
-		vmax.x = -maxBox.x;
+		vmin.setX( maxBox.getX() );
+		vmax.setX( -maxBox.getX() );
 	}
 
-	if (normal.y > 0.0f) {
-		vmin.y = -maxBox.y;
-		vmax.y = maxBox.y;
+	if (normal.getY() > 0.0f) {
+		vmin.setY( -maxBox.getY() );
+		vmax.setY( maxBox.getY() );
 	} else {
-		vmin.y = maxBox.y;
-		vmax.y = -maxBox.y;
+		vmin.setY( maxBox.getY() );
+		vmax.setY( -maxBox.getY() );
 	}
 
-	if (normal.z > 0.0f) {
-		vmin.z = -maxBox.z;
-		vmax.z = maxBox.z;
+	if (normal.getZ() > 0.0f) {
+		vmin.setZ( -maxBox.getZ() );
+		vmax.setZ( maxBox.getZ() );
 	} else {
-		vmin.z = maxBox.z;
-		vmax.z = -maxBox.z;
+		vmin.setZ( maxBox.getZ() );
+		vmax.setZ( -maxBox.getZ() );
 	}
 	if (normal.dot(vmin) + d > 0.0f) {
 		return false;
@@ -217,9 +217,9 @@ toxi::geom::AABB * toxi::geom::AABB::set( const float & a, const float & b, cons
 
 toxi::geom::AABB * toxi::geom::AABB::set( const Vec3D & v )
 {
-	this->x = v.x;
-	this->y = v.y;
-	this->z = v.z;
+	this->x = v.getX();
+	this->y = v.getY();
+	this->z = v.getZ();
 	updateBound();
 	return this;
 }
@@ -254,12 +254,12 @@ bool toxi::geom::AABB::testAxis( const float & a, const float & b, const float &
 	toxi::geom::mesh::Mesh3D* mesh;
 	Vec3D a = *min;
 	Vec3D g = *max;
-	Vec3D b = Vec3D(a.x, a.y, g.z);
-	Vec3D c = Vec3D(g.x, a.y, g.z);
-	Vec3D d = Vec3D(g.x, a.y, a.z);
-	Vec3D e = Vec3D(a.x, g.y, a.z);
-	Vec3D f = Vec3D(a.x, g.y, g.z);
-	Vec3D h = Vec3D(g.x, g.y, a.z);
+	Vec3D b = Vec3D(a.getX(), a.getY(), g.getZ());
+	Vec3D c = Vec3D(g.getX(), a.getY(), g.getZ());
+	Vec3D d = Vec3D(g.getX(), a.getY(), a.getZ());
+	Vec3D e = Vec3D(a.getX(), g.getY(), a.getZ());
+	Vec3D f = Vec3D(a.getX(), g.getY(), g.getZ());
+	Vec3D h = Vec3D(g.getX(), g.getY(), a.getZ());
 	Vec2D ua = Vec2D(0, 0);
 	Vec2D ub = Vec2D(1, 0);
 	Vec2D uc = Vec2D(1, 1);
@@ -305,9 +305,14 @@ toxi::geom::Vec3D toxi::geom::AABB::sub( const float & a, const float & b, const
 	return Vec3D( x-a, y-b, z-c );
 }
 
+toxi::geom::Vec3D toxi::geom::AABB::sub( const double & a, const double & b, const double & c )
+{
+	return Vec3D( x-a, y-b, z-c );
+}
+
 toxi::geom::Vec3D toxi::geom::AABB::sub( const toxi::geom::Vec3D & v )
 {
-	return Vec3D( x - v.x, y - v.y, z - v.z );
+	return Vec3D( x - v.getX(), y - v.getY(), z - v.getZ() );
 }
 
 toxi::geom::Vec3D toxi::geom::AABB::add( const float & a, const float & b, const float & c )
@@ -315,7 +320,12 @@ toxi::geom::Vec3D toxi::geom::AABB::add( const float & a, const float & b, const
 	return Vec3D( x + a, y + b, z + c );
 }
 
+toxi::geom::Vec3D toxi::geom::AABB::add( const double & a, const double & b, const double & c )
+{
+	return Vec3D( x + a, y + b, z + c );
+}
+
 toxi::geom::Vec3D toxi::geom::AABB::add( const Vec3D & v )
 {
-	return Vec3D( x + v.y, y + v.y, z + v.z );
+	return Vec3D( x + v.getX(), y + v.getY(), z + v.getZ() );
 }

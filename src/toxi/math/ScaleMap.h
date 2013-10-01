@@ -30,7 +30,7 @@ namespace toxi
 				toxi::util::datatypes::DoubleRange * in;
 				toxi::util::datatypes::DoubleRange * out;
 
-				double getClippedValueFor( double val );
+				double getClippedValueFor( double val ) const;
 				double getInputMedian( void );
 				double getMappedMedian( void );
 				double getMappedValueFor( double val );

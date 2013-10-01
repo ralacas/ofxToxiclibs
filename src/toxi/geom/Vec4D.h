@@ -13,6 +13,7 @@ namespace toxi
 		public:
 			Vec4D(void);
 			Vec4D( float x, float y, float z, float w );
+			Vec4D( double x, double y, double z, double w );
 			Vec4D( Vec3D v, float w );
 			virtual ~Vec4D(void);
 			//TODO: implement

@@ -24,6 +24,7 @@ namespace toxi
 		public:
 			Quaternion(void);
 			Quaternion( const float & w, const float & x, const float & y, const float & z );
+			Quaternion( const double & w, const double & x, const double & y, const double & z );
 			Quaternion( const float & w, const Vec3D & v );
 
 			~Quaternion(void);
@@ -33,11 +34,11 @@ namespace toxi
 			static Quaternion createFromMatrix( const Matrix4x4 & m );
 			static Quaternion getAlignmentQuat( Vec3D & dir, Vec3D & forward );
 
-			float x, y, z, w;
+			double x, y, z, w;
 
 			Quaternion add( const Quaternion & q );
 			Quaternion addSelf( const Quaternion & q );
-			float dot( const Quaternion & q );
+			double dot( const Quaternion & q );
 			Quaternion getConjugate();
 			Matrix4x4 getMatrix();
 			Quaternion getNormalized();
@@ -56,8 +57,8 @@ namespace toxi
 			Quaternion set( const Quaternion & q );
 			Quaternion sub( const Quaternion & q );
 			Quaternion subSelf( const Quaternion & q );
-			std::vector< float > toArray();
-			std::vector< float > toAxisAngle();
+			std::vector< double > toArray();
+			std::vector< double > toAxisAngle();
 			Matrix4x4 toMatrix4x4();
 			std::string toString();
 

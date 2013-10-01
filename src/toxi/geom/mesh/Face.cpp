@@ -20,7 +20,7 @@ toxi::geom::mesh::Face::Face( Vertex * a, Vertex * b, Vertex * c )
 	this->a = a;
 	this->b = b;
 	this->c = c;
-	normal = &a->sub(c).crossSelf(&a->sub(b)).normalize();
+	normal = a->sub(c).crossSelf(a->sub(b)).normalize();
 	a->addFaceNormal(normal);
 	b->addFaceNormal(normal);
 	c->addFaceNormal(normal);

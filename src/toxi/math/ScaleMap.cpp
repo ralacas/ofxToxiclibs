@@ -36,7 +36,7 @@ namespace toxi
 			delete out;
 		}
 
-		double ScaleMap::getClippedValueFor( double val )
+		double ScaleMap::getClippedValueFor( double val ) const
 		{
 			double cl = ( val - in->getMin() ) / *this->interval; 
 			double t = toxi::math::MathUtils::clipNormalized( cl );

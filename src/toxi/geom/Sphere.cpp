@@ -39,7 +39,7 @@ float toxi::geom::Sphere::intersectRay( Ray3D & ray )
 	float result[ 2 ];
 	Vec3D q = ray.sub( *this );
 	float distSquared = q.magSquared();
-	float v = -q.dot( ray.getDirection() );
+	float v = static_cast< float > ( -q.dot( ray.getDirection() ) );
 	float d = radius * radius - (distSquared - v * v);
 	if (d >= 0.0) {
 		d = (float) toxi::math::MathUtils::sqrt(d);

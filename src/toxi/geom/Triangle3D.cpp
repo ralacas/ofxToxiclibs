@@ -145,9 +145,9 @@ toxi::geom::Triangle3D toxi::geom::Triangle3D::flipVertexOrder()
 
 toxi::geom::Vec3D toxi::geom::Triangle3D::fromVarycentric( Vec3D & v )
 {
-	return Vec3D( a.x * v.x + b.x * v.y + c.x * v.z, a.y * v.x
-		+ b.y * v.y + c.y * v.z, a.z * v.x + b.z * v.y + c.z
-		* v.z );
+	return Vec3D( a.getX() * v.getX() + b.getX() * v.getY() + c.getX() * v.getZ(), a.getY() * v.getX()
+		+ b.getY() * v.getY() + c.getY() * v.getZ(), a.getZ() * v.getX() + b.getZ() * v.getY() + c.getZ()
+		* v.getZ() );
 }
 
 toxi::geom::AABB toxi::geom::Triangle3D::getBoundingBox()
@@ -194,25 +194,25 @@ std::vector< toxi::geom::Vec3D > toxi::geom::Triangle3D::getVertexVector()
 
 bool toxi::geom::Triangle3D::isClockWiseInXY()
 {
-	float determ = ( b.x - a.x ) * ( c.y - a.y ) - ( c.x - a.x ) * ( b.y - a.y );
+	double determ = ( b.getX() - a.getX() ) * ( c.getY() - a.getY() ) - ( c.getX() - a.getX() ) * ( b.getY() - a.getY() );
 	return ( determ < 0.0 );
 }
 
 bool toxi::geom::Triangle3D::isClockWiseInXZ()
 {
-	float determ = (b.x - a.x) * (c.z - a.z) - (c.x - a.x) * (b.z - a.z);
+	double determ = (b.getX() - a.getX()) * (c.getZ() - a.getZ()) - (c.getX() - a.getX()) * (b.getZ() - a.getZ());
 	return (determ < 0.0);
 }
 
 bool toxi::geom::Triangle3D::isClockWiseInYZ()
 {
-	float determ = ( b.x - a.x ) * ( c.z - a.z ) - ( c.x - a.x ) * ( b.z - a.z );
+	double determ = ( b.getX() - a.getX() ) * ( c.getZ() - a.getZ() ) - ( c.getX() - a.getX() ) * ( b.getZ() - a.getZ() );
 	return ( determ < 0.0 );
 }
 
 bool toxi::geom::Triangle3D::isSameClockDir( Vec3D & a, Vec3D & b, Vec3D & p, Vec3D & norm )
 {
-	float determ = ( b.y - a.y ) * ( c.z - a.z ) - ( c.y - a.y ) * ( b.z - a.z );
+	double determ = ( b.getY() - a.getY() ) * ( c.getZ() - a.getZ() ) - ( c.getY() - a.getY() ) * ( b.getZ() - a.getZ() );
 	return ( determ < 0.0 );
 }
 

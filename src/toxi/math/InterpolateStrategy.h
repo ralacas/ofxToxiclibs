@@ -13,8 +13,8 @@ namespace toxi
 				InterpolateStrategy(void);
 				~InterpolateStrategy(void);
 
-				virtual double InterpolateStrategy::interpolate( double a, double b, double f );
-				virtual float InterpolateStrategy::interpolate( float a, float b, float f);
+				virtual double InterpolateStrategy::interpolate( double a, double b, double f ) const;
+				virtual float InterpolateStrategy::interpolate( float a, float b, float f) const;
 		};
 	}
 }

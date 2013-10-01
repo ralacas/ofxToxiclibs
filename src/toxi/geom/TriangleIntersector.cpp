@@ -37,8 +37,8 @@ bool toxi::geom::TriangleIntersector::intersectsRay( Ray3D & ray )
 	float dotprod = n.dot(ray.dir);
 	if (dotprod < 0) {
 		Vec3D rt = ray.sub(triangle.a);
-		double t = -(double) (n.x * rt.x + n.y * rt.y + n.z * rt.z)
-			/ (n.x * ray.dir.x + n.y * ray.dir.y + n.z * ray.dir.z);
+		double t = -(double) (n.getX() * rt.getX() + n.getY() * rt.getY() + n.getZ() * rt.getZ())
+			/ (n.getX() * ray.dir.getX() + n.getY() * ray.dir.getY() + n.getZ() * ray.dir.getZ());
 		if (t >= toxi::math::MathUtils::EPS) {
 			Vec3D pos = ray.getPointAtDistance((float) t);
 			// check if pos is inside triangle
