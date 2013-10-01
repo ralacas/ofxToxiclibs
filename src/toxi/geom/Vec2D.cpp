@@ -64,7 +64,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::add( double _x, double _y )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::add( Vec2D & v )
 {
-	Vec2D _v = Vec2D( *v.x + getX(), *v.y + getY() );
+	Vec2D _v = Vec2D( v.x + getX(), v.y + getY() );
 	return _v;
 }
 
@@ -168,13 +168,13 @@ toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Rect & r )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Polygon2D & poly )
 {
-	float minD = FLT_MAX;
+	double minD = FLT_MAX;
 	toxi::geom::Vec2D q;
-	for (toxi::geom::Line2D *l : poly.getEdges()) {
-		toxi::geom::Vec2D * c = l->closestPointTo( * this );
-		float d = c->distanceToSquared( *this );
+	for (toxi::geom::Line2D l : poly.getEdges()) {
+		toxi::geom::Vec2D c = l.closestPointTo( * this );
+		double d = c.distanceToSquared( *this );
 		if (d < minD) {
-			q = *c;
+			q = c;
 			minD = d;
 		}
 	}
@@ -240,7 +240,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getNormalized()
 toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( double len )
 {
 	Vec2D v = Vec2D( getX(), getX() );
-	double mag = (double) toxi::math::MathUtils::sqrt( *x * *x + *y * *y );
+	double mag = (double) toxi::math::MathUtils::sqrt( x * x + y * y );
 	if (mag > 0) {
 		mag = len / mag;
 		v.x *= mag;
@@ -251,7 +251,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( double len )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::normalize()
 {
-	double mag = *x * *x + *y * *y;
+	double mag = x * x + y * y;
 	if (mag > 0) {
 		mag = 1.0 / toxi::math::MathUtils::sqrt( mag );
 		this->x *= mag;
@@ -270,7 +270,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getPerpendicular()
 
 toxi::geom::Vec2D toxi::geom::Vec2D::toPolar()
 {
-	double r = toxi::math::MathUtils::sqrt( *x * *x + *y * *y );
+	double r = toxi::math::MathUtils::sqrt( x * x + y * y );
 	this->y = std::atan2( getY(), getX() );
 	this->x = r;
 	return *this;
@@ -383,7 +383,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::interpolateTo( Vec2D & v, double f, toxi::m
 
 bool toxi::geom::Vec2D::isInCircle( Vec2D & sO, double sR )
 {
-	float d = sub( sO ).magSquared();
+	double d = sub( sO ).magSquared();
 	return ( d <= sR * sR );
 }
 
@@ -413,9 +413,9 @@ bool toxi::geom::Vec2D::isInTriangle( Vec2D & a, Vec2D & b, Vec2D & c )
 
 bool toxi::geom::Vec2D::isMajorAxis( double tol )
 {
-	float ax = toxi::math::MathUtils::abs( getX() );
-	float ay = toxi::math::MathUtils::abs( getY() );
-	float itol = 1 - tol;
+	double ax = toxi::math::MathUtils::abs( getX() );
+	double ay = toxi::math::MathUtils::abs( getY() );
+	double itol = 1 - tol;
 	if (ax > itol) {
 		return (ay < tol);
 	} else if (ay > itol) {
@@ -480,7 +480,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::sub( double a, double b )
 	return Vec2D(getX() - a, getY() - b);
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::sub( const Vec2D & v )
+toxi::geom::Vec2D toxi::geom::Vec2D::sub( const Vec2D & v ) const
 {
 	return Vec2D(this->getX() - v.getX(), this->getY() - v.getY());
 }
@@ -489,15 +489,15 @@ toxi::geom::Vec2D toxi::geom::Vec2D::tangentNormalOfEllipse( Vec2D & eO, Vec2D &
 {
 	Vec2D p = this->sub( eO );
 
-	float xr2 = eR.getX() * eR.getX();
-	float yr2 = eR.getY() * eR.getY();
+	double xr2 = eR.getX() * eR.getX();
+	double yr2 = eR.getY() * eR.getY();
 
 	return Vec2D( p.getX() / xr2, p.getY() / yr2 ).normalize();
 }
 
-std::vector< float > toxi::geom::Vec2D::toVector()
+std::vector< double > toxi::geom::Vec2D::toVector()
 {
-	std::vector < float > vec;
+	std::vector < double > vec;
 	vec.push_back( getX() );
 	vec.push_back( getY() );
 	return vec;
@@ -512,8 +512,8 @@ toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( Vec2D & v )
 {
-	this->x *= v->x;
-	this->y *= v->y;
+	this->x *= v.x;
+	this->y *= v.y;
 	return *this;
 }
 
@@ -582,9 +582,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getConstrained( toxi::geom::Rect & rec )
 int toxi::geom::Vec2D::hashCode()
 {
 	long bits = 1L;
-	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(getX());
-	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(getY());
-	return (int) (bits ^ (bits >> 32));
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(static_cast< float > ( getX() ) );
+	bits = 31L * bits + toxi::geom::VecMathUtil::floatToIntBits(static_cast< float > ( getY() ) );
+	return (int) (bits ^ (bits >> 16));
 }
 
 toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, float f )
@@ -608,12 +608,12 @@ toxi::geom::Vec2D toxi::geom::Vec2D::invert()
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::jitter( float j )
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( double j )
 {
 	return jitter( j, j );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::jitter( float jx, float jy )
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( double jx, double jy )
 {
 	this->x += toxi::math::MathUtils::normalizedRandom() * jx;
 	this->y += toxi::math::MathUtils::normalizedRandom() * jy;
@@ -662,22 +662,22 @@ toxi::geom::Vec2D toxi::geom::Vec2D::normalizeTo( float len )
 
 toxi::geom::Vec2D toxi::geom::Vec2D::perpendicular()
 {
-	float t = getX();
+	double t = getX();
 	this->x = -getY();
 	this->y = t;
 	return *this;
 }
 
-float toxi::geom::Vec2D::positiveHeading()
+double toxi::geom::Vec2D::positiveHeading()
 {
 	double dist = toxi::math::MathUtils::sqrt( getX() * getX() + getY() * getY() );
 	if( y >= 0 )
 	{
-		return std::acosf( getX() / dist );
+		return std::acos( getX() / dist );
 	}
 	else 
 	{
-		return std::acosf( -getX() / dist ) + toxi::math::MathUtils::PI;
+		return std::acos( -getX() / dist ) + toxi::math::MathUtils::PI;
 	}
 }
 
@@ -741,12 +741,12 @@ std::string toxi::geom::Vec2D::toString()
 	return ss.str();
 }
 
-const double toxi::geom::Vec2D::getX()
+const double toxi::geom::Vec2D::getX() const
 {
 	return x;
 }
 
-const double toxi::geom::Vec2D::getY()
+const double toxi::geom::Vec2D::getY() const
 {
 	return y;
 }

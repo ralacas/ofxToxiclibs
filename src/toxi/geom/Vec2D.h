@@ -72,7 +72,7 @@ namespace toxi
 			bool isZeroVector();
 			double magnitude();
 			double magSquared();
-			float positiveHeading();
+			double positiveHeading();
 
 			// those modify the current instance
 			Vec3D bisect( Vec2D & p );
@@ -106,8 +106,8 @@ namespace toxi
 			Vec2D interpolateTo(Vec2D & v, double f, toxi::math::InterpolateStrategy s);
 			Vec2D interpolateToSelf( Vec2D & v, float f );
 			Vec2D interpolateToSelf( Vec2D & v, float f, toxi::math::InterpolateStrategy s );
-			Vec2D jitter( float j );
-			Vec2D jitter( float jx, float jy );
+			Vec2D jitter( double j );
+			Vec2D jitter( double jx, double jy );
 			Vec2D jitter( Vec2D & jv );
 			Vec2D tangentNormalOfEllipse(Vec2D & eO, Vec2D & eR);
 			Vec2D scaleSelf( float s );
@@ -121,7 +121,7 @@ namespace toxi
 			Vec3D to3DXZ();
 			Vec3D to3DYZ();
 
-			std::vector< float > toVector();
+			std::vector< double > toVector();
 			std::string toString();
 
 			// those return new instances
@@ -146,7 +146,7 @@ namespace toxi
 			Vec2D scale(double s);
 			Vec2D scale(double a, double b);
 			Vec2D scale(Vec2D & s);
-			Vec2D max(Vec2D v);
+			Vec2D max(Vec2D & v);
 			Vec2D min(Vec2D & v);
 			static Vec2D min( Vec2D & v1, Vec2D & v2 );
 			static Vec2D max( Vec2D & v1, Vec2D & v2 );
@@ -154,8 +154,8 @@ namespace toxi
 			Vec2D sub(const Vec2D & v) const ;
 			Vec2D randomVector( void );
 
-			const double getX() const;
-			const double getY() const;
+			const double getX() const ;
+			const double getY() const ;
 			
 
 		private:
