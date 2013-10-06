@@ -5,7 +5,7 @@
 
 #include "LinearInterpolation.h"
 #include "MathUtils.h"
-#include "../util/DoubleRange.h"
+#include "../util/datatypes/DoubleRange.h"
 
 namespace toxi
 {
@@ -18,22 +18,19 @@ namespace toxi
 		class ScaleMap
 		{
 			public:
-				ScaleMap( void );
 				ScaleMap( double minIn, double maxIn, double minOut, double maxOut );
-				ScaleMap(const ScaleMap& copyFrom);
+				ScaleMap( const ScaleMap& copyFrom );
 				~ScaleMap( void );
 
 				ScaleMap& operator= (const ScaleMap &cSource);
 
-			protected:
 				InterpolateStrategy * mapFunction;
-				double interval;
-				double mapRange;
+				double *interval;
+				double *mapRange;
 				toxi::util::datatypes::DoubleRange * in;
 				toxi::util::datatypes::DoubleRange * out;
 
-			public:
-				double getClippedValueFor( double val );
+				double getClippedValueFor( double val ) const;
 				double getInputMedian( void );
 				double getMappedMedian( void );
 				double getMappedValueFor( double val );
@@ -42,15 +39,8 @@ namespace toxi
 				void setMapFunction( toxi::math::InterpolateStrategy * func );
 				void setOutputRange( double min, double max );
 				
-				toxi::util::datatypes::DoubleRange * getOutputRange( void ) const
-				{
-					return this->out;
-				}
-				
-				toxi::util::datatypes::DoubleRange * getInputRange( void ) const
-				{
-					return this->in;
-				}
+				toxi::util::datatypes::DoubleRange * getOutputRange( void );
+				toxi::util::datatypes::DoubleRange * getInputRange( void );
 		};
 	}
 }

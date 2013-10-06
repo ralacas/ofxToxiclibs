@@ -6,7 +6,7 @@
 #include <string>
 
 #include "../Vec3D.h"
-#include "Vertex.h"
+//#include "Vertex.h"
 
 namespace toxi
 {
@@ -14,6 +14,8 @@ namespace toxi
 	{
 		namespace mesh
 		{
+			class Vertex;
+			class Vec3D;
 			class OBJWriter
 			{
 			public:
@@ -22,8 +24,8 @@ namespace toxi
 				int getCurrVertexOffset();
 				int getCurrNormalOffset();
 				void newObject( std::string name );
-				void vertex( toxi::geom::mesh::Vertex * v );
-				void normal( toxi::geom::Vec3D * normal );
+				void vertex( const toxi::geom::mesh::Vertex & v );
+				void normal( const toxi::geom::Vec3D & normal );
 				void faceWithNormals( int a, int b, int c, int d, int e, int f );
 				void face( int a, int b, int c );
 				void beginSave( std::string path );

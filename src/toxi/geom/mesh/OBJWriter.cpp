@@ -25,12 +25,12 @@ void toxi::geom::mesh::OBJWriter::newObject( std::string name )
 	throw std::exception("The method or operation is not implemented.");
 }
 
-void toxi::geom::mesh::OBJWriter::vertex( toxi::geom::mesh::Vertex * v )
+void toxi::geom::mesh::OBJWriter::vertex( const toxi::geom::mesh::Vertex & v )
 {
 	throw std::exception("The method or operation is not implemented.");
 }
 
-void toxi::geom::mesh::OBJWriter::normal( toxi::geom::Vec3D * normal )
+void toxi::geom::mesh::OBJWriter::normal( const toxi::geom::Vec3D & normal )
 {
 	throw std::exception("The method or operation is not implemented.");
 }

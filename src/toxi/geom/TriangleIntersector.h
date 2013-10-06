@@ -21,18 +21,18 @@ namespace toxi
 		{
 		public:
 			TriangleIntersector(void);
-			TriangleIntersector( Triangle3D * t );
+			TriangleIntersector( const Triangle3D & t );
 			~TriangleIntersector(void);
 
-			Triangle3D * triangle;
+			Triangle3D triangle;
 
 			IsectData3D getIntersectionData();
 			Triangle3D getTriangle();
-			bool intersectsRay( Ray3D ray );
-			TriangleIntersector setTriangle( Triangle3D tri );
+			bool intersectsRay( Ray3D & ray );
+			TriangleIntersector setTriangle( Triangle3D & tri );
 
 		private:
-			IsectData3D * isectData;
+			IsectData3D isectData;
 		};
 	}
 }

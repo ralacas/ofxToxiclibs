@@ -8,6 +8,9 @@
 #include <math.h>
 #include <time.h>
 
+#undef max
+#undef min
+
 namespace toxi
 {
 	namespace math
@@ -42,100 +45,99 @@ namespace toxi
 					float float_bits;
 				};
 
-				static double abs( double x );
-				static float abs( float x );
-				static int abs( int x );
+				static double abs( const double & x );
+				static float abs( const float & x );
+				static int abs( const int & x );
 
-				static int ceilPowerOf2( const int x );
-				static int floorPowerOf2( int x );
+				static int ceilPowerOf2( const int & x );
+				static int floorPowerOf2( const int & x );
 
-				static double clip( double a, double min, double max );
-				static float clip( float a, float min, float max );
-				static int clip( int a , int min, int max );
-				static long clip( long a, long min, long max );
+				static double clip( const double & a, const double & min, const double & max );
+				static float clip( const float & a, const float & min, const float & max );
+				static int clip( const int & a , const int & min, const int & max );
+				static long clip( const long & a, const long & min, const long & max );
 
-				static int clipNormalized( int a );
-				static int clipNormalized( long a );
-				static float clipNormalized( float a );
-				static double clipNormalized( double a );
+				static int clipNormalized( const int & a );
+				static int clipNormalized( const long & a );
+				static float clipNormalized( const float & a );
+				static double clipNormalized( const double & a );
 
-				static float cos( int theta );
-				static double cos( double theta );
-				static float cos( float theta );
+				static float cos( const int & theta );
+				static double cos( const double & theta );
+				static float cos( const float & theta );
 
-				static double sin( double theta );
-				static float sin( float theta );
-				static float sin( int theta );
+				static double sin( const double & theta );
+				static float sin( const float & theta );
+				static float sin( const int & theta );
 
-				static double degrees( double radians );
-				static double radians( double degrees );
-				static float degrees( float radians );
-				static float radians( float degrees );
-				static float degrees( int radians );
-				static float radians( int degrees );
+				static double degrees( const double & radians );
+				static double radians( const double & degrees );
+				static float degrees( const float & radians );
+				static float radians( const float & degrees );
+				static float degrees( const int & radians );
+				static float radians( const int & degrees );
 
-				static long floor( double x );
-				static int floor( float x );
+				static long floor( const double & x );
+				static int floor( const float & x );
 
 				static bool flipCoin( void );
-				static double dualSign( double a, double b );
-				static float dualSign( float a, float b );
-				static int gcd( int p, int q );
-				static double impulse( double k, double t );
-				static float impulse( float k, float t );
-				static int lcm( int p, int q );
+				static double dualSign( const double & a, const double & b );
+				static float dualSign( const float & a, const float & b );
+				static int gcd( const int & p, const int & q );
+				static double impulse( const double & k, const double & t );
+				static float impulse( const float & k, const float & t );
+				static int lcm( const int & p, const int & q );
 
 				// TODO: find some faster implementations of those functions
-				static double fastCos( double x);
-				static double fastCos( double* x);
-				static double fastInverseSqrt( double x );
-				static double fastPow( double a, double b );
-				static double fastSin( double x );
+				static double fastCos( const double & x);
+				static double fastInverseSqrt( const double & x );
+				static double fastPow( const double & a, const double & b );
+				static double fastSin( const double & x );
 
-				static double max( double a, double b );
-				static double max( double a, double b, double c );
-				static float max( float a, float b );
-				static float max( float a, float b, float c );
-				static int max( int a, int b );
-				static int max( int a, int b, int c );
-				static long max( long a, long b );
-				static long max( long a, long b, long c );
+				static double max( const double & a, const double & b );
+				static double max( const double & a, const double & b, const double & c );
+				static float max( const float & a, const float & b );
+				static float max( const float & a, const float & b, const float & c );
+				static int max( const int & a, const int & b );
+				static int max( const int & a, const int & b, const int & c );
+				static long max( const long & a, const long & b );
+				static long max( const long & a, const long & b, const long & c );
 
-				static double min( double a, double b );
-				static double min( float a, float b );
-				static double min( double a, double b, double c );
-				static float min( float a, float b, float c );
-				static int min( int a, int b );
-				static int min( int a, int b, int c );
-				static int min( int values );
+				static double min( const double & a, const double & b );
+				static double min( const float & a, const float & b );
+				static double min( const double & a, const double & b, const double & c );
+				static float min( const float & a, const float & b, const float & c );
+				static int min( const int & a, const int & b );
+				static int min( const int & a, const int & b, const int & c );
+				static int min( const int & values );
 
 				static double normalizedRandom( void );
-				static double random( double max );
-				static double random( double min, double max );
-				static float random( float max );
-				static float random( float min, float max );
-				static double random( int max );
-				static double random( int min, int max );
+				static double random( const double & max );
+				static double random( const double & min, const double & max );
+				static float random( const float & max );
+				static float random( const float & min, const float & max );
+				static double random( const int & max );
+				static double random( const int & min, const int & max );
 
-				static double reduceAngle( double theta );
-				static float reduceAngle( float theta );
+				static double reduceAngle( const double & theta );
+				static float reduceAngle( const float & theta );
 
-				static double roundTo( double val, double prec );
-				static float roundTo( float val, float prec );
-				static int roundTo( int val, int prec );
+				static double roundTo( const double & val, const double & prec );
+				static float roundTo( const float & val, const float & prec );
+				static int roundTo( const int & val, const int & prec );
 
-				static int sign( double x );
-				static int sign( float x );
-				static int sign( int x );
+				static int sign( const double & x );
+				static int sign( const float & x );
+				static int sign( const int & x );
 				
-				static double sqrt( double x );
-				static float sqrt( float x );
+				static double sqrt( const double & x );
+				static float sqrt( const float & x );
 
 				//TODO
-				static unsigned floatToBits( float x );
+				static unsigned floatToBits( const float & x );
 				static float intBitsToFloat ( unsigned x );
 
-				static bool isNan( double d );
+				static bool isNan( const double & d );
 		};
 	}
 }

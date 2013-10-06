@@ -1,5 +1,6 @@
 #include <cstring>
 #include <cmath>
+#include "../util/Random.h"
 #include "MathUtils.h"
 
 namespace toxi
@@ -27,17 +28,17 @@ namespace toxi
 		double MathUtils::SIN_B = 4.0 / MathUtils::PI;
 		double MathUtils::SIN_P = 9.0 / MathUtils::PI;
 
-		double MathUtils::abs( double x )
+		double MathUtils::abs( const double & x )
 		{
 			return x < 0 ? -x : x;
 		}
 
-		float MathUtils::abs( float x )
+		float MathUtils::abs( const float & x )
 		{
 			return x < 0 ? -x : x;
 		}
 
-		int MathUtils::abs( int x )
+		int MathUtils::abs( const int & x )
 		{
 			int y = x >> 31;
 			return ( x ^ y ) - y;
@@ -46,7 +47,7 @@ namespace toxi
 		/*
 		* Rounds up the value to the nearest higher power^2 value.
 		*/
-		int MathUtils::ceilPowerOf2( const int x )
+		int MathUtils::ceilPowerOf2( const int & x )
 		{
 			int pow2 = 1;
 			while ( pow2 < x ) 
@@ -56,27 +57,27 @@ namespace toxi
 			return pow2;
 		}
 
-		double MathUtils::clip( double a, double min, double max )
+		double MathUtils::clip( const double & a, const double & min, const double & max )
 		{
 			return ( a < min ? min : ( a > max ? max : a ) );
 		}
 
-		int MathUtils::clip( int a , int min, int max )
+		int MathUtils::clip( const int & a , const int & min, const int & max )
 		{
 			return a < min ? min : ( a > max ? max : a );
 		}
 
-		long MathUtils::clip( long a , long min, long max )
+		long MathUtils::clip( const long & a , const long & min, const long & max )
 		{
 			return a < min ? min : ( a > max ? max : a );
 		}
 
-		float MathUtils::clip( float a , float min, float max )
+		float MathUtils::clip( const float & a , const float & min, const float & max )
 		{
 			return a < min ? min : ( a > max ? max : a );
 		}
 
-		int MathUtils::clipNormalized( int a )
+		int MathUtils::clipNormalized( const int & a )
 		{
 			if ( a < 0 ) 
 			{
@@ -89,7 +90,7 @@ namespace toxi
 			return a;
 		}
 
-		int MathUtils::clipNormalized( long a )
+		int MathUtils::clipNormalized( const long & a )
 		{
 			if ( a < 0 ) 
 			{
@@ -102,7 +103,7 @@ namespace toxi
 			return a;
 		}
 
-		float MathUtils::clipNormalized( float a )
+		float MathUtils::clipNormalized( const float & a )
 		{
 			if ( a < 0.0f ) 
 			{
@@ -115,7 +116,7 @@ namespace toxi
 			return a;
 		}
 
-		double MathUtils::clipNormalized( double a )
+		double MathUtils::clipNormalized( const double & a )
 		{
 			if ( a < 0 ) 
 			{
@@ -128,72 +129,65 @@ namespace toxi
 			return a;
 		}
 
-		double MathUtils::cos( double theta )
+		double MathUtils::cos( const double & theta )
 		{
 			return std::cos( theta );
 		}
 
-		float MathUtils::cos( float theta )
+		float MathUtils::cos( const float & theta )
 		{
 			return ( float ) ( cos( static_cast< double > ( theta ) ) );
 		}
 
-		float MathUtils::cos( int theta )
+		float MathUtils::cos( const int & theta )
 		{
 			return ( float ) ( cos( static_cast< float > ( theta ) ) );
 		}
 
-		double MathUtils::degrees( double radians )
+		double MathUtils::degrees( const double & radians )
 		{
 			return radians * toxi::math::MathUtils::RAD2DEG;
 		}
 
-		float MathUtils::degrees( float radians )
+		float MathUtils::degrees( const float & radians )
 		{
 			return static_cast< float > ( degrees( static_cast< double > ( radians ) ) );
 		}
 
-		float MathUtils::degrees( int radians )
+		float MathUtils::degrees( const int & radians )
 		{
 			return degrees( static_cast< float > ( radians ) );
 		}
 
-		double MathUtils::dualSign( double a, double b )
+		double MathUtils::dualSign( const double & a, const double & b )
 		{
 			double x = ( a >= 0 ? a : -a );
 			return ( b >= 0 ? x : -x );
 		}
 
-		float MathUtils::dualSign( float a, float b )
+		float MathUtils::dualSign( const float & a, const float & b )
 		{
 			float x = ( a >= 0 ? a : -a );
 			return ( b >= 0 ? x : -x );
 		}
 
-		double MathUtils::fastCos( double x )
+		double MathUtils::fastCos( const double & x )
 		{
 			double val = x + ((x > toxi::math::MathUtils::HALF_PI) ? -toxi::math::MathUtils::THREE_HALVES_PI : toxi::math::MathUtils::HALF_PI);
 			return toxi::math::MathUtils::fastSin(val);
 		}
 
-		double MathUtils::fastCos( double* x )
-		{
-			double _x = *x;
-			double val = _x + ((_x > toxi::math::MathUtils::HALF_PI) ? -toxi::math::MathUtils::THREE_HALVES_PI : toxi::math::MathUtils::HALF_PI);
-			return toxi::math::MathUtils::fastSin(val);
-		}
-
-		double MathUtils::fastInverseSqrt( double x )
+		double MathUtils::fastInverseSqrt( const double & x )
 		{
 			double half = 0.5F * x;
 			int i = floatToBits( static_cast<float>( x ) );
 			i = 0x5f375a86 - ( i >> 1 );
-			x = intBitsToFloat( i );
-			return x * ( 1.5F - half * x * x );
+			float _x = intBitsToFloat( i );
+			return x * ( 1.5F - half * _x * _x );
 		}
 
 
-		unsigned MathUtils::floatToBits(float x)
+		unsigned MathUtils::floatToBits(const float & x)
 		{
 			//TODO
 			std::cerr << "The untested floatToBits function has just been called. Handle with care." << std::endl;
@@ -211,19 +205,20 @@ namespace toxi
 			return bits.float_bits;
 		}
 
-		double MathUtils::fastPow( double a, double b )
+		double MathUtils::fastPow( const double & a, const double & b )
 		{
 			double x = floatToBits( static_cast<float> ( a ) );
 			x *= MathUtils::INV_SHIFT23;
 			x -= 127;
-			double  y = x - ( x >= 0 ? ( int ) x : ( int ) x - 1 );
-			b *= x + ( y - y * y ) * 0.346607f;
-			y = b - ( b >= 0 ? ( int ) b : ( int ) b - 1 );
+			double y = x - ( x >= 0 ? ( int ) x : ( int ) x - 1 );
+			double _b = b;
+			_b *= x + ( y - y * y ) * 0.346607f;
+			y = _b - ( _b >= 0 ? ( int ) _b : ( int ) _b - 1 );
 			y = ( y - y * y ) * 0.33971f;
-			return intBitsToFloat( ( int ) ( ( b + 127 - y ) * MathUtils::SHIFT23 ) );
+			return intBitsToFloat( ( int ) ( ( _b + 127 - y ) * MathUtils::SHIFT23 ) );
 		}
 
-		double MathUtils::fastSin( double x )
+		double MathUtils::fastSin( const double & x )
 		{
 			double _x = toxi::math::MathUtils::SIN_B * x + toxi::math::MathUtils::SIN_A * x * toxi::math::MathUtils::abs( x );
 			return toxi::math::MathUtils::SIN_P * (_x * toxi::math::MathUtils::abs( x ) - _x) + _x;
@@ -234,7 +229,7 @@ namespace toxi
 			return ( std::rand() % 100 > 50 );
 		}
 
-		long MathUtils::floor( double x )
+		long MathUtils::floor( const double & x )
 		{
 			long y = (long) x;
 			if ( x < 0 && x != y ) 
@@ -244,7 +239,7 @@ namespace toxi
 			return y;
 		}
 
-		int MathUtils::floor( float x )
+		int MathUtils::floor( const float & x )
 		{
 			int y = (int) x;
 			if ( x < 0 && x != y ) 
@@ -254,13 +249,13 @@ namespace toxi
 			return y;
 		}
 
-		int MathUtils::floorPowerOf2( int x )
+		int MathUtils::floorPowerOf2( const int & x )
 		{
 			
 			return ( int ) std::pow( 2.0, ( int ) ( std::log( x ) / toxi::math::MathUtils::LOG2 ) );
 		}
 
-		int MathUtils::gcd( int p, int q )
+		int MathUtils::gcd( const int & p, const int & q )
 		{
 			if ( q == 0 ) {
 				return p;
@@ -269,148 +264,155 @@ namespace toxi
 			return gcd( q, pq );
 		}
 
-		double MathUtils::impulse( double k, double t )
+		double MathUtils::impulse( const double & k, const double & t )
 		{
 			double h = k * t;
 			return h * std::exp( 1.0 - h );
 		}
 
-		float MathUtils::impulse( float k, float t )
+		float MathUtils::impulse( const float & k, const float & t )
 		{
 			float h = k * t;
 			return static_cast < float > ( h * std::exp( 1.0 - h ) );
 		}
 
-		int MathUtils::lcm( int p, int q )
+		int MathUtils::lcm( const int & p, const int & q )
 		{
 			int pq = p * q;
 			return toxi::math::MathUtils::abs(pq) / toxi::math::MathUtils::gcd(p, q);
 		}
 
-		double MathUtils::max( double a, double b )
+		double MathUtils::max( const double & a, const double & b )
 		{
 			return a > b ? a : b;
 		}
 
-		double MathUtils::max( double a, double b, double c )
+		double MathUtils::max( const double & a, const double & b, const double & c )
 		{
 			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 		}
 
-		int MathUtils::max( int a, int b, int c )
+		int MathUtils::max( const int & a, const int & b, const int & c )
 		{
 			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 		}
 
-		int MathUtils::max( int a, int b )
+		int MathUtils::max( const int & a, const int & b )
 		{
 			return a > b ? a : b;
 		}
 
-		float MathUtils::max( float a, float b )
+		float MathUtils::max( const float & a, const float & b )
 		{
 			return a > b ? a : b;
 		}
 
-		float MathUtils::max( float a, float b, float c )
+		float MathUtils::max( const float & a, const float & b, const float & c )
 		{
 			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 		}
 
-		long MathUtils::max( long a, long b )
+		long MathUtils::max( const long & a, const long & b )
 		{
 			return a > b ? a : b;
 		}
 
-		long MathUtils::max( long a, long b, long c )
+		long MathUtils::max( const long & a, const long & b, const long & c )
 		{
 			return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 		}
 
-		double MathUtils::min( double a, double b )
+		double MathUtils::min( const double & a, const double & b )
 		{
 			 return a < b ? a : b;
 		}
 
-		double MathUtils::min( double a, double b, double c )
+		double MathUtils::min( const double & a, const double & b, const double & c )
 		{
 			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
 		}
 
-		int MathUtils::min( int a, int b )
+		int MathUtils::min( const int & a, const int & b )
 		{
 			return a < b ? a : b;
 		}
 
-		int MathUtils::min( int a, int b, int c )
+		int MathUtils::min( const int & a, const int & b, const int & c )
 		{
 			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
 		}
 
-		double MathUtils::min( float a, float b )
+		double MathUtils::min( const float & a, const float & b )
 		{
 			return a < b ? a : b;
 		}
 
-		float MathUtils::min( float a, float b, float c )
+		float MathUtils::min( const float & a, const float & b, const float & c )
 		{
 			return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
 		}
 
 		double MathUtils::normalizedRandom( void )
 		{
-			
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * 2 - 1;
+			double rnd = toxi::util::Random::getRandom( 0.0, 1.0 );
+			return rnd;
+			 
+			// ditched cause of c++11
+			//return ( static_cast<double>( std::rand() ) / RAND_MAX ) * 2 - 1;
 		}
 
-		double MathUtils::radians( double degrees )
+		double MathUtils::radians( const double & degrees )
 		{
 			return degrees * toxi::math::MathUtils::DEG2RAD;
 		}
 
-		float MathUtils::radians( float degrees )
+		float MathUtils::radians( const float & degrees )
 		{
 			return static_cast< float > ( radians( static_cast< double > ( degrees ) ) );
 		}
 
-		float MathUtils::radians( int degrees )
+		float MathUtils::radians( const int & degrees )
 		{
 			return radians( static_cast< float > ( degrees ) );
 		}
 
-		double MathUtils::random( double max )
+		double MathUtils::random( const double & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * max;
+			double rnd = toxi::util::Random::getRandom( 0.0, max );
+			return rnd;
 		}
 
-		double MathUtils::random( double min, double max )
+		double MathUtils::random( const double & min, const double & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			double rnd = toxi::util::Random::getRandom( min, max );
+			return rnd;
 		}
 
-		double MathUtils::random( int max )
+		double MathUtils::random( const int & max )
 		{
-			double f = std::rand()  / (double)RAND_MAX;
-			double r = (  f ) * max;
-			return r;
+			double rnd = toxi::util::Random::getRandom( 0.0, static_cast< double > ( max ) );
+			return rnd;
 		}
 
-		double MathUtils::random( int min, int max )
+		double MathUtils::random( const int & min, const int & max )
 		{
-			return ( static_cast<double>( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			double rnd = toxi::util::Random::getRandom( static_cast< long > ( min ), static_cast< long > ( max ) );
+			return rnd;
 		}
 
-		float MathUtils::random( float max )
+		float MathUtils::random( const float & max )
 		{
-			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * max;
+			double rnd = toxi::util::Random::getRandom( 0.0, max );
+			return static_cast< float > ( rnd );
 		}
 
-		float MathUtils::random( float min, float max )
+		float MathUtils::random( const float & min, const float & max )
 		{
-			return ( static_cast< float >( std::rand() ) / RAND_MAX ) * ( max - min ) + min;
+			double rnd = toxi::util::Random::getRandom( min, max );
+			return static_cast< float > ( rnd );
 		}
 
-		double MathUtils::reduceAngle( double theta )
+		double MathUtils::reduceAngle( const double & theta )
 		{
 			double t = std::fmod( theta, TWO_PI );
 			if ( abs( t ) > MathUtils::PI ) 
@@ -424,7 +426,7 @@ namespace toxi
 			return t;
 		}
 
-		float MathUtils::reduceAngle( float theta )
+		float MathUtils::reduceAngle( const float & theta )
 		{
 			float t = static_cast< float > ( std::fmod( theta, MathUtils::TWO_PI ) );
 			if ( abs( t ) > MathUtils::PI ) 
@@ -438,65 +440,65 @@ namespace toxi
 			return t;
 		}
 
-		double MathUtils::roundTo( double val, double prec )
+		double MathUtils::roundTo( const double & val, const double & prec )
 		{
 			double reval = val / prec + 0.5;
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		int MathUtils::roundTo( int val, int prec )
+		int MathUtils::roundTo( const int & val, const int & prec )
 		{
 			double reval = val / prec + 0.5;
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		float MathUtils::roundTo( float val, float prec )
+		float MathUtils::roundTo( const float & val, const float & prec )
 		{
 			float reval = val / prec + 0.5f;
 			return toxi::math::MathUtils::floor( reval ) * prec;
 		}
 
-		int MathUtils::sign( double x )
+		int MathUtils::sign( const double & x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
-		int MathUtils::sign( int x )
+		int MathUtils::sign( const int & x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
-		int MathUtils::sign( float x )
+		int MathUtils::sign( const float & x )
 		{
 			return x < 0 ? -1 : ( x > 0 ? 1 : 0 );
 		}
 
-		double MathUtils::sin( double theta )
+		double MathUtils::sin( const double & theta )
 		{
 			return std::sin( theta );		}
 
-		float MathUtils::sin( float theta )
+		float MathUtils::sin( const float & theta )
 		{
 			return std::sinf( theta );
 		}
 
-		float MathUtils::sin( int theta )
+		float MathUtils::sin( const int & theta )
 		{
 			return sin( static_cast< float > ( theta ) );
 		}
 
-		double MathUtils::sqrt( double x )
+		double MathUtils::sqrt( const double & x )
 		{
 			return std::sqrt( x );
 		}
 
-		float MathUtils::sqrt( float x )
+		float MathUtils::sqrt( const float & x )
 		{
 			return static_cast< float > ( std::sqrt( x ) );
 		}
 
-		bool MathUtils::isNan( double d ) {
-			std::cerr << "The untested isNan function has just been called. Handle with care." << std::endl;
+		bool MathUtils::isNan( const double & d ) {
+			//std::cerr << "The untested isNan function has just been called. Handle with care." << std::endl;
 			return (d != d);
 		}
 	}

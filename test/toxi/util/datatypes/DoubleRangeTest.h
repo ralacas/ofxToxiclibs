@@ -19,14 +19,34 @@ class DoubleRangeTest : public CppUnit::TestFixture
 {
 	public:
 		CPPUNIT_TEST_SUITE(DoubleRangeTest);
-		CPPUNIT_TEST(getRangeTest);
+		CPPUNIT_TEST( construktorTest );
+		CPPUNIT_TEST( adjustCurrent );
+		CPPUNIT_TEST( getMedian );
+		CPPUNIT_TEST( getRange );
+		CPPUNIT_TEST( isValueInRange );
+		CPPUNIT_TEST( pickRandom );
+		CPPUNIT_TEST( setCurrent );
+		CPPUNIT_TEST( toVector );
+		CPPUNIT_TEST( toString );
+		CPPUNIT_TEST( getters );
+		CPPUNIT_TEST( assignmentOperatorOverloading );
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
 		/**
-		 * Tests the "getRange" method.
+		 * Tests the construktor method.
 		 */
-		void getRangeTest(void);
+		void construktorTest(void);
+		void adjustCurrent( void );
+		void getMedian( void );
+		void getRange( void );
+		void isValueInRange( void );
+		void pickRandom( void );
+		void setCurrent( void );
+		void toVector( void );
+		void toString( void );
+		void getters( void );
+		void assignmentOperatorOverloading( void );
 };
 
 #endif

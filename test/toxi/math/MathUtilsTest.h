@@ -1,18 +1,17 @@
 #ifndef __MATH_UTILS_TEST_H__
 #define __MATH_UTILS_TEST_H__
 
+#pragma once
+
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestCase.h>
 #include < cmath >
 
-
-/**
- * Test Suite for the MathUtils module.
- */
 class MathUtilsTest : public CppUnit::TestFixture
 {
 	public:
 		CPPUNIT_TEST_SUITE( MathUtilsTest );
+
 		CPPUNIT_TEST( absInt );
 		CPPUNIT_TEST( absFloat );
 		CPPUNIT_TEST( absDouble );
@@ -40,12 +39,9 @@ class MathUtilsTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( random );
 		CPPUNIT_TEST( reduceAngle );
 		CPPUNIT_TEST( sign );
+
 		CPPUNIT_TEST_SUITE_END();
 		
-	public:	
-		/**
-		 * Tests the construktor method.
-		 */
 		void absInt(void);
 		void absFloat( void );
 		void absDouble( void );

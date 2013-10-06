@@ -3,7 +3,7 @@
 #ifndef __SURFACEFUNCTION_H__
 #define __SURFACEFUNCTION_H__
 
-#include "../Sphere.h"
+//#include "../Sphere.h"
 #include "../Vec3D.h"
 
 namespace toxi

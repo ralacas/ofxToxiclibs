@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "../Vec3D.h"
+//#include "../Vec3D.h"
 #include "Vertex.h"
 
 namespace toxi
@@ -21,8 +21,8 @@ namespace toxi
 				~STLWriter(void);
 				void beginSave( std::string path, int numFaces );
 				void endSave();
-				void setScale( toxi::geom::Vec3D * v );
-				void face( toxi::geom::mesh::Vertex *a, toxi::geom::mesh::Vertex * b, toxi::geom::mesh::Vertex * c, toxi::geom::Vec3D * normal, int type);
+				void setScale( const toxi::geom::Vec3D & v );
+				void face( const toxi::geom::mesh::Vertex & a, const toxi::geom::mesh::Vertex & b, const toxi::geom::mesh::Vertex & c, const toxi::geom::Vec3D & normal, const int & type);
 
 				static const int DEFAULT_RGB = 1;
 			};

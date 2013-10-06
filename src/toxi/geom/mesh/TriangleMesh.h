@@ -9,17 +9,13 @@
 #include <utility>
 
 #include "../IsectData3D.h"
+#include "../Ray3D.h"
+#include "../Triangle3D.h"
 #include "../Matrix4x4.h"
-#include "../Quaternion.h"
-#include "../Sphere.h"
 #include "../TriangleIntersector.h"
 #include "../Vec3D.h"
-#include "Face.h"
+#include "../AABB.h"
 #include "Mesh3D.h"
-#include "OBJWriter.h"
-#include "STLWriter.h"
-#include "Vertex.h"
-#include "WETriangleMesh.h"
 
 namespace toxi 
 {
@@ -28,9 +24,9 @@ namespace toxi
 		namespace mesh
 		{
 			class Sphere;
-			class AABB;
+			class toxi::geom::AABB;
 			class Mesh3D;
-			class Vec3D;
+			class toxi::geom::Vec3D;
 			class Vertex;
 			class Face;
 			class Vec2D;
@@ -42,12 +38,12 @@ namespace toxi
 			class WETriangleMesh;
 			class STLWriter;
 			class TriangleIntersector;
-			class TriangleMesh// : public Mesh3D
+			class TriangleMesh : public Mesh3D
 			{
 			public:
 				TriangleMesh( void );
-				TriangleMesh( std::string name );
-				TriangleMesh( std::string name, int numV, int numF );
+				TriangleMesh( const std::string & name );
+				TriangleMesh( const std::string & name, const int & numV, const int & numF );
 
 				~TriangleMesh( void );
 				static int DEFAULT_NUM_VERTICES;
@@ -59,92 +55,88 @@ namespace toxi
 				std::vector< Face > faces;
 
 				//TODO they should always return a pointer to themselves
-				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c );
-				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec2D * uvA,
-					toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC );
-				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n );
-				TriangleMesh* addFace( toxi::geom::Vec3D * a, toxi::geom::Vec3D * b, toxi::geom::Vec3D * c, toxi::geom::Vec3D * n, toxi::geom::Vec2D * uvA,
-					toxi::geom::Vec2D * uvB, toxi::geom::Vec2D * uvC );
-				TriangleMesh* addMesh( Mesh3D& m );
-				toxi::geom::AABB * center( toxi::geom::Vec3D * origin );
-				Vertex checkVertex( toxi::geom::Vec3D * v );
-				TriangleMesh* clear();
-				toxi::geom::Vec3D computeCentroid();
-				TriangleMesh* computeFaceNormals();
-				TriangleMesh* computeVertexNormals();
-				Vertex createVertex( toxi::geom::Vec3D v, int id );
-				TriangleMesh* faceOutwards();
-				TriangleMesh* flipVertexOrder();
-				TriangleMesh* flipYAxis();
+				TriangleMesh * addFace( const toxi::geom::Vec3D & a, const toxi::geom::Vec3D &  b, const toxi::geom::Vec3D &  c );
+				TriangleMesh * addFace( const toxi::geom::Vec3D &  a, const toxi::geom::Vec3D &  b, const toxi::geom::Vec3D &  c, const toxi::geom::Vec2D  & uvA,
+					const toxi::geom::Vec2D  & uvB, const toxi::geom::Vec2D  & uvC );
+				TriangleMesh  *addFace( const toxi::geom::Vec3D &  a, const toxi::geom::Vec3D &  b, const toxi::geom::Vec3D &  c, const toxi::geom::Vec3D &  n );
+				TriangleMesh * addFace( const toxi::geom::Vec3D &  a, const toxi::geom::Vec3D &  b, const toxi::geom::Vec3D &  c, const toxi::geom::Vec3D &  n, const toxi::geom::Vec2D  & uvA,
+					const toxi::geom::Vec2D  & uvB, const toxi::geom::Vec2D  & uvC );
+				toxi::geom::AABB center( toxi::geom::Vec3D & origin );
+				Vertex checkVertex( const toxi::geom::Vec3D &  v );
+				TriangleMesh * clear();	
+				toxi::geom::Vec3D * computeCentroid();
+				TriangleMesh * computeFaceNormals();
+				TriangleMesh * computeVertexNormals();
+				Vertex createVertex( const toxi::geom::Vec3D & v, const int & id );
+				TriangleMesh * faceOutwards();
+				TriangleMesh * flipVertexOrder();
+				TriangleMesh * flipYAxis();
 				toxi::geom::AABB * getBoundingBox();
-				//toxi::geom::Sphere * getBoundingSphere();
-				Vertex getClosestVertexToPoint( toxi::geom::Vec3D p );
-				std::vector< float> * getFaceNormalsAsArray();
-				std::vector< float> * getFaceNormalsAsArray( int offset, int stride );
+				Vertex * getClosestVertexToPoint( const toxi::geom::Vec3D & p );
+				std::vector< double>  getFaceNormalsAsArray();
+				std::vector< double>  getFaceNormalsAsArray( const int & offset, int & stride );
 				std::vector< Face > getFaces();
 				toxi::geom::IsectData3D getIntersectionData();
-				std::vector< float> * getMeshAsVertexArray();
-				std::vector< float> * getMeshAsVertexArray( int offset, int strie );
-				std::vector< float> * getNormalsForUniqueVerticesArray();
+				std::vector< double>  getMeshAsVertexArray();
+				std::vector< double>  getMeshAsVertexArray( const int & offset, int & strie );
+				std::vector< double>  getNormalsForUniqueVerticesArray();
 				int getNumFaces();
 				int getNumVertices();
-				TriangleMesh* getRotatedAroundAxis( toxi::geom::Vec3D axis, float theta );
-				TriangleMesh* getRotatedX( float theta );
-				TriangleMesh* getRotatedY( float theta );
-				TriangleMesh* getRotatedZ( float theta );
-				TriangleMesh* getScaled( float factor );
-				TriangleMesh* getScaled( toxi::geom::Vec3D scale );
-				TriangleMesh* getTranslated( toxi::geom::Vec3D trans );
-				std::vector< float> * getUniqueVerticesAsArray();
-				Vertex getVertexAtPoint( toxi::geom::Vec3D v );
-				Vertex getVertexForID( int id );
-				std::vector< float> * getVertexNormalsAsArray();
-				std::vector< float> * getVertexNormalsAsArray( int offset, int stride );
+				TriangleMesh * getRotatedAroundAxis( const toxi::geom::Vec3D & axis, const float & theta );
+				TriangleMesh * getRotatedX( const float & theta );
+				TriangleMesh * getRotatedY( const float & theta );
+				TriangleMesh * getRotatedZ( const float & theta );
+				TriangleMesh * getScaled( const float & factor );
+				TriangleMesh * getScaled( const toxi::geom::Vec3D & scale );
+				TriangleMesh * getTranslated( const toxi::geom::Vec3D & trans );
+				std::vector< float>  getUniqueVerticesAsArray();
+				Vertex getVertexAtPoint( const toxi::geom::Vec3D & v );
+				Vertex getVertexForID( const int & id );
+				std::vector< float>  getVertexNormalsAsArray();
+				std::vector< float>  getVertexNormalsAsArray( const int & offset, int & stride );
 				std::vector< Vertex > getVertices();
-				TriangleMesh* init( std::string name, int numV, int numF );
-				bool intersectsRay( toxi::geom::Ray3D ray );
-				toxi::geom::Triangle3D perforateFace( Face f, float size );
-				TriangleMesh* pointTowards( toxi::geom::Vec3D dir );
-				TriangleMesh* pointTowards( toxi::geom::Vec3D dir, toxi::geom::Vec3D forward );
-				void remove( Face f );
-				TriangleMesh* rotateAroundAxis( toxi::geom::Vec3D axis, float theta );
-				TriangleMesh* rotateX( float theta );
-				TriangleMesh* rotateY( float theta );
-				TriangleMesh* rotateZ( float theta );
-				void saveAsOBJ( OBJWriter * obj );
-				void saveAsOBJ( OBJWriter * obj, bool saveNormals );
-				void saveAsOBJ( std::string path );
-				void saveAsOBJ( std::string path, bool saveNormals );
-				void saveAsSTL( std::string path );
-				void saveAsSTL( std::string path, bool useFlippedY );
-				TriangleMesh* scale( float scale );
-				TriangleMesh* scale( float _x, float _y, float _z );
-				TriangleMesh* setName( std::string name );
+				TriangleMesh * init( const std::string & name, const int & numV, const int & numF );
+				bool intersectsRay( toxi::geom::Ray3D & ray );
+				toxi::geom::Triangle3D perforateFace( Face & f, const float & size );
+				TriangleMesh * pointTowards( toxi::geom::Vec3D & dir );
+				TriangleMesh * pointTowards( toxi::geom::Vec3D & dir, toxi::geom::Vec3D & forward );
+				void remove( const Face & f );
+				TriangleMesh * rotateAroundAxis( const toxi::geom::Vec3D & axis, const float & theta );
+				TriangleMesh * rotateX( const float & theta );
+				TriangleMesh * rotateY( const float & theta );
+				TriangleMesh * rotateZ( const float & theta );
+				void saveAsOBJ(  OBJWriter  & obj );
+				void saveAsOBJ(  OBJWriter  & obj, const bool & saveNormals );
+				void saveAsOBJ( const std::string & path );
+				void saveAsOBJ( const std::string & path, const bool & saveNormals );
+				void saveAsSTL( const std::string & path );
+				void saveAsSTL( const std::string & path, const bool & useFlippedY );
+				TriangleMesh * scale( const float & scale );
+				TriangleMesh * scale( const float & _x, const float & _y, const float & _z );
+				TriangleMesh * setName( const std::string & name );
 				std::string toString();
-				WETriangleMesh toWEMesh();
-				TriangleMesh* transform( toxi::geom::Matrix4x4 mat );
-				TriangleMesh* transform( toxi::geom::Matrix4x4 mat, bool updateNormals );
-				TriangleMesh* translate( float _x, float _y, float _z );
-				TriangleMesh* translate( toxi::geom::Vec3D trans );
-				TriangleMesh* updateVertex( toxi::geom::Vec3D orig, toxi::geom::Vec3D newPos );
+				WETriangleMesh * toWEMesh();
+				TriangleMesh * transform( toxi::geom::Matrix4x4 & mat );
+				TriangleMesh * transform( toxi::geom::Matrix4x4 & mat, const bool & updateNormals );
+				TriangleMesh * translate( const float & _x, const float & _y, const float & _z );
+				TriangleMesh * translate( const toxi::geom::Vec3D & trans );
+				TriangleMesh * updateVertex( const toxi::geom::Vec3D & orig, const toxi::geom::Vec3D & newPos );
 
 				
 
 			protected:
-				void handleSaveAsStl( STLWriter stl, bool useFlippedY );
+				void handleSaveAsStl( STLWriter & stl, const bool & useFlippedY );
 
-
-			protected:
-				toxi::geom::AABB * bounds;
-				toxi::geom::Vec3D * centroid;
+				toxi::geom::AABB  bounds;
+				toxi::geom::Vec3D  centroid;
 				int numVertices;
 				int numFaces;
-				toxi::geom::Matrix4x4 * matrix;
-				toxi::geom::TriangleIntersector * intersector;
+				toxi::geom::Matrix4x4  matrix;
+				toxi::geom::TriangleIntersector  intersector;
 				int uniqueVertexID;
 
-
-			private:
+				toxi::geom::mesh::Mesh3D  * addMesh( toxi::geom::mesh::Mesh3D *  m );
+				Vertex  getClosestVertexToPoint( const Vec3D  & p );
 
 			};
 		}

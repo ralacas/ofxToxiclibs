@@ -1,7 +1,10 @@
 #include "SurfaceMeshBuilder.h"
+#include "SurfaceFunction.h"
+#include "../Vec2D.h"
+#include "Mesh3D.h"
 
 
-toxi::geom::mesh::SurfaceMeshBuilder::SurfaceMeshBuilder( SurfaceFunction * function  )
+toxi::geom::mesh::SurfaceMeshBuilder::SurfaceMeshBuilder( const SurfaceFunction & function  )
 {
 	this->function = function;
 }
@@ -21,7 +24,7 @@ toxi::geom::mesh::SurfaceMeshBuilder::~SurfaceMeshBuilder(void)
 {
 }
 
-toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( int res )
+/*toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( int res )
 {
 	//return createMesh( new toxi::geom::mesh::TriangleMesh(), res, 1 );
 	//TODO
@@ -43,9 +46,9 @@ toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( Mes
 	float phiRange = function->getPhiRange();
 	int thetaRes = function->getThetaResolutionLimit(res);
 	float thetaRange = function->getThetaRange();
-	float pres = 1.0 / phiRes;
-	float tres = 1.0 / thetaRes;
-	float ires = 1.0 / res;
+	float pres = 1.0f / phiRes;
+	float tres = 1.0f / thetaRes;
+	float ires = 1.0f / res;
 	toxi::geom::Vec2D pauv = toxi::geom::Vec2D();
 	toxi::geom::Vec2D pbuv = toxi::geom::Vec2D();
 	toxi::geom::Vec2D auv = toxi::geom::Vec2D();
@@ -61,7 +64,7 @@ toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( Mes
 			auv.set(t * tres, 1 - (p + 1) * pres);
 			b = function->computeVertexFor(&b, phi, theta)->scaleSelf(size);
 			buv.set(t * tres, 1 - p * pres);
-			if (b.equalsWithTolerance(&a, 0.0001f)) {
+			if (b.equalsWithTolerance(a, 0.0001f)) {
 				b.set(&a);
 			}
 			if (t > 0) {
@@ -78,19 +81,21 @@ toxi::geom::mesh::Mesh3D * toxi::geom::mesh::SurfaceMeshBuilder::createMesh( Mes
 			}
 			pa.set(&a);
 			pb.set(&b);
-			pauv.set(auv);
-			pbuv.set(buv);
+			pauv.set(&auv);
+			pbuv.set(&buv);
 		}
 	}
 	return mesh;
 }
 
-toxi::geom::mesh::SurfaceFunction * toxi::geom::mesh::SurfaceMeshBuilder::getFunction()
+*/
+
+toxi::geom::mesh::SurfaceFunction toxi::geom::mesh::SurfaceMeshBuilder::getFunction()
 {
 	return function;
 }
 
-void toxi::geom::mesh::SurfaceMeshBuilder::setFunction( SurfaceFunction * function )
+void toxi::geom::mesh::SurfaceMeshBuilder::setFunction( const SurfaceFunction & function )
 {
 	this->function = function;
 }

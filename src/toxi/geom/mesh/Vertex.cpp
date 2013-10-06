@@ -2,7 +2,7 @@
 
 
 toxi::geom::mesh::Vertex::Vertex(void) :
-	normal(new Vec3D( ))
+	normal()
 {
 	//TODO: call super constructor
 }
@@ -18,24 +18,24 @@ toxi::geom::mesh::Vertex::~Vertex(void)
 {
 }
 
-void toxi::geom::mesh::Vertex::addFaceNormal( toxi::geom::Vec3D * n )
+void toxi::geom::mesh::Vertex::addFaceNormal( const toxi::geom::Vec3D & n )
 {
-	normal->addSelf( n );
+	normal.addSelf( n );
 }
 
 void toxi::geom::mesh::Vertex::clearNormal()
 {
-	normal->clear( );
+	normal.clear( );
 }
 
 void toxi::geom::mesh::Vertex::computeNormal()
 {
-	normal->normalize();
+	normal.normalize();
 }
 
 std::string toxi::geom::mesh::Vertex::toString()
 {
 	std::stringstream ss;
-	ss << id << ": p: " << Vec3D::toString( ) << " n: " << normal->toString();
+	ss << id << ": p: " << Vec3D::toString( ) << " n: " << normal.toString();
 	return ss.str();
 }
