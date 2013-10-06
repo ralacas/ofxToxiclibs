@@ -2,14 +2,14 @@
 
 
 toxi::util::datatypes::BiasedFloatRange::BiasedFloatRange(void)
-	: bias( 0.5 ),
-	  standardDeviation( bias * 0.5 )
+	: bias( 0.5f ),
+	  standardDeviation( bias * 0.5f )
 {
 }
 
 toxi::util::datatypes::BiasedFloatRange::BiasedFloatRange( float min, float max, float bias, float sd )
-	: bias( 0.5 ),
-	standardDeviation( bias * 0.5 )
+	: bias( 0.5f ),
+	standardDeviation( bias * 0.5f )
 {
 
 }

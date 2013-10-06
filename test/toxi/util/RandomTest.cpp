@@ -21,7 +21,7 @@ void RandomTest::randomDouble( void )
 	bool r2 = true;
 	for( int i = 0; i < 100; i++ ) 
 	{
-		long rnd = toxi::util::Random::getRandom( min_l, max_l );
+		double rnd = toxi::util::Random::getRandom( min_l, max_l );
 		if( rnd < min_l || rnd > max_l )
 		{
 			r2 = false;

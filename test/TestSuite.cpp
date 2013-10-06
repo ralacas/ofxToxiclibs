@@ -20,13 +20,16 @@
 #include <cppunit/Outputter.h>
 #include <cppunit/TestResultCollector.h>
 #include "toxi/math/MathUtilsTest.h"
+#include "toxi/math/MathUtils.h"
 #include "toxi/util/datatypes/DoubleRangeTest.h"
 #include "toxi/math/LinearInterpolationTest.h"
 #include "toxi/geom/VecMathUtilTest.h"
 #include "toxi/math/ScaleMapTest.h"
+#include "toxi/util/RandomTest.h"
 #include "toxi/geom/Vec2DTest.h"
 #include "HtmlOutputter.h"
 #include "../toxi/main/Toxiclibs.h"
+#include <ctime>
 
 
 /**
@@ -45,11 +48,12 @@ int main(void)
 
 	//runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
 	runner.setOutputter( hmtlOutputter );
-	Toxiclibs::init();
+	//Toxiclibs::init();
 	runner.addTest( MathUtilsTest::suite() );
 	runner.addTest( DoubleRangeTest::suite() );
 	runner.addTest( LinearInterpolationTest::suite() );
 	runner.addTest( ScaleMapTest::suite() );
+	runner.addTest( RandomTest::suite() );
 	runner.addTest( VecMathUtilTest::suite() );
 	runner.addTest( Vec2DTest::suite() );
 

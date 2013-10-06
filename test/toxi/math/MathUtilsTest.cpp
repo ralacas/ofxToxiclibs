@@ -406,7 +406,7 @@ void MathUtilsTest::minTest( void )
 	//three longs 
 	long o1 = 9898989;
 	long o2 = 23;
-	long o3 = 44444444444;
+	long o3 = 444444444;
 	long or = MathUtils::min( o1, o2, o3 );
 	bool eighth = or == o2 ? true : false;
 
@@ -428,7 +428,7 @@ void MathUtilsTest::random( void )
 	bool dr = ( d1 > 0 && d1 < 10 ) ? true : false;
 
 	// random float 
-	float f1 = MathUtils::random( 145 );
+	double f1 = MathUtils::random( 145 );
 	bool fr = ( f1 > 0 && f1 < 145 ) ? true : false;
 
 	// range random double
@@ -436,7 +436,7 @@ void MathUtilsTest::random( void )
 	bool ar = ( a1 > 222222 && a1 < 444444444 );
 
 	// range random float
-	float w1 = MathUtils::random( 12.345, 13.0 );
+	double w1 = MathUtils::random( 12.345, 13.0 );
 	bool wr = ( w1 > 12.345 && w1 < 13.0 );
 
 	// int random
@@ -444,7 +444,7 @@ void MathUtilsTest::random( void )
 	bool or = ( o1 > 0 && o1 < 5 );
 
 	// range random int
-	int p1 = MathUtils::random( 3, 10 );
+	double p1 = MathUtils::random( 3, 10 );
 	bool pr = ( p1 > 3 && p1 < 10 );
 
 	CPPUNIT_ASSERT( nr1 && nr2 && dr && fr && ar && wr && or && pr );
@@ -458,8 +458,8 @@ void MathUtilsTest::reduceAngle( void )
 	bool r1 = ( inRange > -MathUtils::QUARTER_PI && inRange < MathUtils::QUARTER_PI ) ? true : false;
 
 	//testing float
-	float outOfRange2 = 245.23;
-	float inRange2 = MathUtils::reduceAngle( outOfRange );
+	float outOfRange2 = 245.23f;
+	double inRange2 = MathUtils::reduceAngle( outOfRange );
 	bool r2 = ( inRange > -MathUtils::QUARTER_PI && inRange < MathUtils::QUARTER_PI ) ? true : false;
 
 	CPPUNIT_ASSERT( r1 && r2 );

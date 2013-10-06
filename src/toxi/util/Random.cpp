@@ -20,7 +20,7 @@ double toxi::util::Random::getRandom( double min, double max )
 	return dr( rnd_dev );
 }
 
-long toxi::util::Random::getRandom( long min, long max )
+double toxi::util::Random::getRandom( long min, long max )
 {
 	std::random_device rnd_dev;
 	//dre.seed( std::time(0) );

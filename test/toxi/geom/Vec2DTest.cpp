@@ -86,10 +86,10 @@ void Vec2DTest::equalsTest( void )
 	bool r1 = v1 == v2;
 
 	v2.addSelf( 0.4, 0.4 );
-	bool r2 = v1.equalsWithTolerance( &v2, 0.5 );
+	bool r2 = v1.equalsWithTolerance( v2, 0.5 );
 
 	v2.subSelf( 1.0, 1.0 );
-	bool r3 = v1.equalsWithTolerance( &v2, 0.7 );
+	bool r3 = v1.equalsWithTolerance( v2, 0.7 );
 	CPPUNIT_ASSERT( r1 && r2 && r3 );
 }
 
@@ -196,10 +196,10 @@ void Vec2DTest::magSquaredTest( void )
 void Vec2DTest::positiveHeadingTest( void )
 {
 	Vec2D v = Vec2D( 2, 2 );
-	float pos = v.positiveHeading();
+	double pos = v.positiveHeading();
 
 	v.set( 20, 20 );
-	float pos2 = v.positiveHeading();
+	double pos2 = v.positiveHeading();
 
 	bool r1 = pos == pos2 ? true : false;
 
@@ -210,11 +210,11 @@ void Vec2DTest::bisectTest( void )
 {
 	Vec2D v1 = Vec2D( 10, 20 );
 	Vec2D v2 = Vec2D( 3, 2 );
-	Vec3D *bis = v1.bisect( &v2 );
-	bool r1 = ( bis->x == 7.0 && bis->y == 18.0 && bis->z == -243.5 ) ? true : false;
+	Vec3D bis = v1.bisect( v2 );
+	bool r1 = ( bis.getX() == 7.0 && bis.getY() == 18.0 && bis.getZ() == -243.5 ) ? true : false;
 
 	CPPUNIT_ASSERT( r1 );
-	delete bis;
+	//delete bis;
 }
 
 void Vec2DTest::absTest( void )

@@ -11,7 +11,7 @@ void VecMathUtilTest::doubleToLongBits( void )
 
 void VecMathUtilTest::floatToIntBis( void )
 {
-	float f = 10.342;
+	float f = 10.342f;
 	int i = toxi::geom::VecMathUtil::floatToIntBits( f );
 	bool r1 = i == 1092974805 ? true : false;
 	CPPUNIT_ASSERT( r1 );
