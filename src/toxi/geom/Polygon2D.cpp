@@ -70,13 +70,14 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::add( const toxi::geom::Vec2D & v 
 std::vector< toxi::geom::Line2D > toxi::geom::Polygon2D::getEdges()
 {
 	int num = vertices.size();
-	std::vector< Line2D * > edges;
+	std::vector< Line2D > edges;
 	for( int i = 0; i < num; i++ )
 	{
 		int i2 = (i + 1 ) % num;
 		//int i2 = std::fmod( ( i + 1 ), num );
-		edges.push_back( new Line2D( vertices[i], vertices[ i2 ] ) );
+		edges.push_back( Line2D( vertices[i], vertices[ i2 ] ) );
 	}
+	return edges;
 }
 
 float toxi::geom::Polygon2D::getRadiusForEdgeLength( const float & len, const int & res )

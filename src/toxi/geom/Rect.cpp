@@ -21,14 +21,6 @@ toxi::geom::Rect::Rect( const float & x, const float & y, const float & w, const
 	this->height = h;
 }
 
-toxi::geom::Rect::Rect( const double & x, const double & y, const double & w, const double & h )
-{
-	this->x = x;
-	this->y = y;
-	this->width = w;
-	this->height = h;
-}
-
 toxi::geom::Rect::Rect( Vec2D & p1, Vec2D & p2, const CreationType & type )
 {
 	switch( type ) 
@@ -256,10 +248,10 @@ toxi::geom::Rect toxi::geom::Rect::intersectionRectWith( Rect & r )
 {
 	Rect isec;
 	if (intersectsRect(r)) {
-		double x1 = toxi::math::MathUtils::max(x, r.x);
-		double y1 = toxi::math::MathUtils::max(y, r.y);
-		double x2 = toxi::math::MathUtils::min(getRight(), r.getRight());
-		double y2 = toxi::math::MathUtils::min(getBottom(), r.getBottom());
+		float x1 = static_cast< float > ( toxi::math::MathUtils::max(x, r.x) );
+		float y1 = static_cast< float > ( toxi::math::MathUtils::max(y, r.y) );
+		float x2 = static_cast< float > ( toxi::math::MathUtils::min(getRight(), r.getRight()));
+		float y2 = static_cast< float > ( toxi::math::MathUtils::min(getBottom(), r.getBottom()));
 		isec = Rect(x1, y1, x2 - x1, y2 - y1);
 	}
 	return isec;
@@ -367,7 +359,7 @@ toxi::geom::Rect toxi::geom::Rect::unionRectWith( const Rect & r )
 	double y1 = toxi::math::MathUtils::min(y, r.y);
 	double y2 = toxi::math::MathUtils::max(y + height, r.y + r.height);
 	double h = y2 - y1;
-	return Rect(x1, y1, w, h);
+	return Rect(static_cast< float > ( x1 ), static_cast< float > ( y1 ), static_cast< float > ( w ), static_cast< float > ( h ));
 }
 
 void toxi::geom::Rect::toPolyArc( Polygon2D & poly, Vec2D & o, const double & radius, const double & theta, const int & res )
@@ -381,7 +373,7 @@ void toxi::geom::Rect::toPolyArc( Polygon2D & poly, Vec2D & o, const double & ra
 toxi::geom::Rect toxi::geom::Rect::getBoundingRect( const std::vector< Vec2D > & vertices )
 {
 	Vec2D first = vertices.at(0);
-	Rect bounds = toxi::geom::Rect(first.getX(), first.getY(), 0, 0);
+	Rect bounds = toxi::geom::Rect(static_cast< float > ( first.getX() ), static_cast< float > ( first.getY() ), 0, 0);
 
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
 	{

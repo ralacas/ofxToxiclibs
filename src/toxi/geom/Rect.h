@@ -30,7 +30,6 @@ namespace toxi
 
 			Rect( void );
 			Rect( const float & x, const float & y, const float & w, const float & h );
-			Rect( const double & x, const double & y, const double & w, const double & h );
 			Rect( Vec2D & p1, Vec2D & p2, const CreationType & type );
 			Rect( const Rect & toCopy );
 	

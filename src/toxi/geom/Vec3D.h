@@ -41,7 +41,7 @@ namespace toxi
 			Vec3D crossInto(const Vec3D & v);
 			double distanceTo( const Vec3D & v);
 			double distanceToSquared(const Vec3D & v);
-			float dot( const Vec3D & v );
+			float dot( const Vec3D & v ) const;
 			bool equals(const Vec3D & obj);
 			bool equalsWithTolerance(const Vec3D & v, const float & tolerance);
 			Vec3D getAbs();
@@ -87,7 +87,7 @@ namespace toxi
 			bool isInAABB( const AABB & box );
 			bool isInAABB(const Vec3D & boxOrigin, const Vec3D & boxExtent);
 			bool isMajorAxis(const float & tolerance);
-			bool isZeroVector();
+			bool isZeroVector() const;
 			float magnitude();
 			float magSquared() const;
 			Vec3D scale(const float & s) const ;

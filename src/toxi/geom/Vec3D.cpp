@@ -118,7 +118,7 @@ double toxi::geom::Vec3D::distanceToSquared( const Vec3D & v )
 	return dx * dx + dy * dy + dz * dz;
 }
 
-float toxi::geom::Vec3D::dot( const toxi::geom::Vec3D & v )
+float toxi::geom::Vec3D::dot( const toxi::geom::Vec3D & v ) const
 {
 	return static_cast< float > ( this->x * v.x + this->y * v.y + this->z * v.z );
 }
@@ -382,9 +382,9 @@ bool toxi::geom::Vec3D::isMajorAxis( const float & tolerance )
 	return false;
 }
 
-bool toxi::geom::Vec3D::isZeroVector()
+bool toxi::geom::Vec3D::isZeroVector() const
 {
-	return toxi::math::MathUtils::abs(x) < toxi::math::MathUtils::EPS
+	return toxi::math::MathUtils::abs( x ) < toxi::math::MathUtils::EPS
 		&& toxi::math::MathUtils::abs(y) < toxi::math::MathUtils::EPS
 		&& toxi::math::MathUtils::abs(z) < toxi::math::MathUtils::EPS;
 }
@@ -787,4 +787,19 @@ this->y = _y;
 void toxi::geom::Vec3D::setZ( const double & _z )
 {
 	this->z = _z;
+}
+
+double toxi::geom::Vec3D::getX() const
+{
+	return x;
+}
+
+double toxi::geom::Vec3D::getY() const
+{
+	return y;
+}
+
+double toxi::geom::Vec3D::getZ() const
+{
+	return z;
 }

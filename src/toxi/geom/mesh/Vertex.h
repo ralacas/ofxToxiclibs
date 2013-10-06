@@ -21,12 +21,12 @@ namespace toxi
 				Vertex( Vec3D v, int id );
 				~Vertex(void);
 
-				void addFaceNormal( Vec3D * n );
+				void addFaceNormal( const Vec3D & n );
 				void clearNormal( );
 				void computeNormal( );
 				std::string toString( );
 
-				Vec3D * normal;
+				Vec3D normal;
 				int id;
 			};
 		}

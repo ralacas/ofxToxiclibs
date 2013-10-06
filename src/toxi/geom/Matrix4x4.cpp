@@ -293,7 +293,7 @@ toxi::geom::Vec3D toxi::geom::Matrix4x4::applyToSelf( Vec3D & v )
 {
 	for ( int i = 0; i < 4; i++ ) {
 		double* m = matrix[ i ];
-		temp[ i ] = v.x * m[ 0 ] + v.y * m[ 1 ] + v.z * m[ 2 ] + m[ 3 ];
+		temp[ i ] = v.getX() * m[ 0 ] + v.getY() * m[ 1 ] + v.getZ() * m[ 2 ] + m[ 3 ];
 	}
 	v.set( ( float ) temp[ 0 ], ( float ) temp[ 1 ], ( float ) temp[ 2 ] ).scaleSelf(
 		( float ) ( 1.0 / temp[ 3 ] ) );
@@ -460,8 +460,8 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::lookAt(  Vec3D & eye, Vec3D & targe
 	Vec3D f = eye.sub( target ).normalize();
 	Vec3D s = up.cross( f ).normalize();
 	Vec3D t = f.cross( s ).normalize();
-	return set( s.x, s.y, s.z, -s.dot( eye ), t.x, t.y, t.z, -t.dot( eye ), f.x,
-		f.y, f.z, -f.dot( eye ), 0, 0, 0, 1 );
+	return set( s.getX(), s.getY(), s.getZ(), -s.dot( eye ), t.getX(), t.getY(), t.getZ(), -t.dot( eye ), f.getX(),
+		f.getY(), f.getZ(), -f.dot( eye ), 0, 0, 0, 1 );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiply( const double & factor )
@@ -507,9 +507,9 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::multiplySelf( const Matrix4x4 & mat
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::rotateAroundAxis( const Vec3D & axis, const double & theta )
 {
 	double x, y, z, s, c, t, tx, ty;
-	x = axis.x;
-	y = axis.y;
-	z = axis.z;
+	x = axis.getX();
+	y = axis.getY();
+	z = axis.getZ();
 	s = toxi::math::MathUtils::sin( theta );
 	c = toxi::math::MathUtils::cos( theta );
 	t = 1 - c;
@@ -560,7 +560,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( const double & scaleX, const
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scale( const Vec3D & scale )
 {
-	return Matrix4x4( *this).scaleSelf( scale.x, scale.y, scale.z );
+	return Matrix4x4( *this).scaleSelf( scale.getX(), scale.getY(), scale.getZ() );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const double & scale )
@@ -577,7 +577,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const double & scaleX, c
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::scaleSelf( const Vec3D & scale )
 {
-	return scaleSelf( scale.x, scale.y, scale.z );
+	return scaleSelf( scale.getX(), scale.getY(), scale.getZ() );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::set( const double & a, const double & b, const double & c, const double & d, const double & e, const double & f, const double & g, const double & h, const double & i, const double & j, const double & k, const double & l, const double & m, const double & n, const double & o, const double & p )
@@ -726,7 +726,7 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( const double & dx, const
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translate( const Vec3D & v )
 {
-	return Matrix4x4( *this ).translateSelf( v.x, v.y, v.z );
+	return Matrix4x4( *this ).translateSelf( v.getX(), v.getY(), v.getZ() );
 }
 
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::translateSelf( const double & dx, const double & dy, const double & dz )

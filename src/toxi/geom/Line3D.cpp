@@ -36,11 +36,11 @@ toxi::geom::LineIntersection3D toxi::geom::Line3D::closestLineTo(  toxi::geom::L
 	}
 	Vec3D p13 = a.sub( l.a );
 
-	double d1343 = p13.x * p43.x + p13.y * p43.y + p13.z * p43.z;
-	double d4321 = p43.x * p21.x + p43.y * p21.y + p43.z * p21.z;
-	double d1321 = p13.x * p21.x + p13.y * p21.y + p13.z * p21.z;
-	double d4343 = p43.x * p43.x + p43.y * p43.y + p43.z * p43.z;
-	double d2121 = p21.x * p21.x + p21.y * p21.y + p21.z * p21.z;
+	double d1343 = p13.getX() * p43.getX() + p13.getY() * p43.getY() + p13.getZ() * p43.getZ();
+	double d4321 = p43.getX() * p21.getX() + p43.getY() * p21.getY() + p43.getZ() * p21.getZ();
+	double d1321 = p13.getX() * p21.getX() + p13.getY() * p21.getY() + p13.getZ() * p21.getZ();
+	double d4343 = p43.getX() * p43.getX() + p43.getY() * p43.getY() + p43.getZ() * p43.getZ();
+	double d2121 = p21.getX() * p21.getX() + p21.getY() * p21.getY() + p21.getZ() * p21.getZ();
 
 	double denom = d2121 * d4343 - d4321 * d4321;
 	if ( toxi::math::MathUtils::abs( denom ) < toxi::math::MathUtils::EPS ) {
@@ -82,12 +82,12 @@ toxi::geom::Vec3D toxi::geom::Line3D::getDirection()
 
 float toxi::geom::Line3D::getLength()
 {
-	return a.distanceTo( b );
+	return static_cast< float > ( a.distanceTo( b ) );
 }
 
 float toxi::geom::Line3D::getLengthSquared()
 {
-	return a.distanceToSquared( b );
+	return static_cast< float > ( a.distanceToSquared( b ) );
 }
 
 toxi::geom::Vec3D toxi::geom::Line3D::getMidPoint()
@@ -158,7 +158,7 @@ std::vector< toxi::geom::Vec3D > toxi::geom::Line3D::splitIntoSegments( const  f
 	if ( addFirst ) {
 		segments.push_back( a );
 	}
-	float dist = a.distanceTo( b );
+	double dist = a.distanceTo( b );
 	if ( dist > stepLength ) {
 		Vec3D pos = a;
 		Vec3D step = b.sub( a ).limit( stepLength );
