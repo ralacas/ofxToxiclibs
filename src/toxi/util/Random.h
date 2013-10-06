@@ -22,7 +22,7 @@ namespace toxi
 			~Random(void);
 
 			static double getRandom( double min, double max );
-			static long getRandom( long min, long max );
+			static double getRandom( long min, long max );
 		};
 	}
 }
