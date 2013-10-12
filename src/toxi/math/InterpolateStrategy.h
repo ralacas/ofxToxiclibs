@@ -3,6 +3,8 @@
 #ifndef __INTERPOLATE_STRATEGY_H__
 #define __INTERPOLATE_STRATEGY_H__
 
+#include <iostream>
+
 namespace toxi
 {
 	namespace math
@@ -13,8 +15,8 @@ namespace toxi
 				InterpolateStrategy(void);
 				~InterpolateStrategy(void);
 
-				virtual double InterpolateStrategy::interpolate( double a, double b, double f ) const;
-				virtual float InterpolateStrategy::interpolate( float a, float b, float f) const;
+				virtual double InterpolateStrategy::interpolate( const double & a, const double & b, const double & f ) = 0;
+				virtual float InterpolateStrategy::interpolate( const float & a, const float & b, const float & f) = 0;
 		};
 	}
 }
