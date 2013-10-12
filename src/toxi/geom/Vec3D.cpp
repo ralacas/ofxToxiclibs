@@ -320,10 +320,10 @@ toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( const Vec3D & v, const doubl
 		+ (v.z - z) * f);
 }
 
-toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( const toxi::geom::Vec3D & v, const double & f, const toxi::math::InterpolateStrategy & s )
+toxi::geom::Vec3D toxi::geom::Vec3D::interpolateTo( const toxi::geom::Vec3D & v, const double & f, toxi::math::InterpolateStrategy * s )
 {
-	return Vec3D(s.interpolate(x, v.x, f),
-		s.interpolate(y, v.y, f), s.interpolate(z, v.z, f));
+	return Vec3D(s->interpolate(x, v.x, f),
+		s->interpolate(y, v.y, f), s->interpolate(z, v.z, f));
 }
 
 bool toxi::geom::Vec3D::isInAABB( const  toxi::geom::AABB & box )

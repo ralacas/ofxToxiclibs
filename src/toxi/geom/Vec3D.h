@@ -83,7 +83,7 @@ namespace toxi
 			float headingXZ();
 			float headingYZ();
 			Vec3D interpolateTo(const Vec3D & v, const double & f);
-			Vec3D interpolateTo(const toxi::geom::Vec3D & v, const double & f, const toxi::math::InterpolateStrategy & s);
+			Vec3D interpolateTo(const toxi::geom::Vec3D & v, const double & f, toxi::math::InterpolateStrategy * s);
 			bool isInAABB( const AABB & box );
 			bool isInAABB(const Vec3D & boxOrigin, const Vec3D & boxExtent);
 			bool isMajorAxis(const float & tolerance);
