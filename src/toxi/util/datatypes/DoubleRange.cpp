@@ -136,12 +136,12 @@ namespace toxi
 				return *curr_value;
 			}
 
-			double DoubleRange::getMin()
+			double DoubleRange::getMin() const
 			{
 				return *min;
 			}
 
-			double DoubleRange::getMax()
+			double DoubleRange::getMax() const
 			{
 				return *max;
 			}
