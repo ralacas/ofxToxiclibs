@@ -230,6 +230,26 @@ void Vec2DTest::constrainTest( void )
 {
 	Vec2D v = Vec2D( 100, 100 );
 	Polygon2D poly = Polygon2D( );
+	poly.add(0.0, 0.0)->add(10.0, 20.0 )->add(-10.0, 20.0 )->add(10.0, -20.0 )->add(20.0, 50.0 )->add(-10.0, -20.0 );
+
+	v.constrain(poly);
+
+	bool r1 = ( v.getX() == 20.0 && v.getY() == 50.0) ? true : false;
+
+	Vec2D v2 = Vec2D( -50, 100 );
+	Rect rect = Rect(0, 0, -20, 50 );
+	v2.constrain(rect);
+
+	bool r2 = ( v2.getX() == 0.0 && v2.getY() == 50.0) ? true : false;
+
+	Vec2D v3 = Vec2D( -50, - 50 );
+	Vec2D v2_t1 = Vec2D( -80, -20 );
+	Vec2D v2_t2 = Vec2D( -20, 0 );
+	v3.constrain( v2_t1, v2_t2 );
+
+	bool r3 = ( v3.getX() == -50.0 && v3.getY() == -20.0) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 && r3 );
 }
 
 
