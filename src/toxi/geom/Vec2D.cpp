@@ -12,13 +12,13 @@ toxi::geom::Vec2D toxi::geom::Vec2D::MIN_VALUE( FLT_MIN, FLT_MIN );
 toxi::geom::Vec2D toxi::geom::Vec2D::MAX_VALUE( FLT_MAX, FLT_MAX );
 
 
-toxi::geom::Vec2D::Vec2D( double _x, double _y )
+toxi::geom::Vec2D::Vec2D( const double & _x, const double & _y )
 {
 	this->x = _x;
 	this->y = _y;
 }
 
-toxi::geom::Vec2D::Vec2D( double theta )
+toxi::geom::Vec2D::Vec2D( const double & theta )
 {
 	this->x = toxi::math::MathUtils::cos( theta );
 	this->y = toxi::math::MathUtils::sin( theta );
@@ -27,13 +27,13 @@ toxi::geom::Vec2D::Vec2D( double theta )
 toxi::geom::Vec2D::Vec2D( const Vec2D & v )
 {
 	this->x = v.x;
-	this->y = v.x;
+	this->y = v.y;
 }
 
-toxi::geom::Vec2D::Vec2D(  )
+toxi::geom::Vec2D::Vec2D(  ) :
+	x(0),
+	y(0)
 {
-	this->x = 0;
-	this->y = 0;
 }
 
 toxi::geom::Vec2D::~Vec2D(void)
@@ -45,7 +45,7 @@ double toxi::geom::Vec2D::angleBetween( Vec2D & v )
 	return std::acos( dot( v ) );
 }
 
-double toxi::geom::Vec2D::angleBetween( Vec2D & v, bool forceNormalize )
+double toxi::geom::Vec2D::angleBetween( Vec2D & v, const bool & forceNormalize )
 {
 	double theta;
 	if (forceNormalize) {
@@ -56,7 +56,7 @@ double toxi::geom::Vec2D::angleBetween( Vec2D & v, bool forceNormalize )
 	return (double) std::acos(toxi::math::MathUtils::clipNormalized(theta));
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::add( double _x, double _y )
+toxi::geom::Vec2D toxi::geom::Vec2D::add( const double & _x, const double & _y )
 {
 	Vec2D v = Vec2D( _x + getX(), _y + getY() );
 	return v;
@@ -100,7 +100,7 @@ double toxi::geom::Vec2D::dot( Vec2D & v )
 	return getX() * v.getX() + getY() * v.getY();
 }
 
-bool toxi::geom::Vec2D::equalsWithTolerance( Vec2D & v, double tolerance )
+bool toxi::geom::Vec2D::equalsWithTolerance( Vec2D & v, const double & tolerance )
 {
 	double diff = getX() - v.getX();
 	//std::cout << diff << std::endl;
@@ -133,7 +133,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getCartesian()
 	return v;
 }
 
-double toxi::geom::Vec2D::getComponent( int id )
+double toxi::geom::Vec2D::getComponent( const int & id )
 {
 	switch ( id ) {
 	case 0:
@@ -219,7 +219,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getInverted()
 	return Vec2D( -getX(), -getY() );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::getLimited( double lim )
+toxi::geom::Vec2D toxi::geom::Vec2D::getLimited( const double & lim )
 {
 	if ( magSquared() > lim * lim ) {
 		return getNormalizedTo( lim );
@@ -237,7 +237,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getNormalized()
 	return toxi::geom::Vec2D( *this ).normalize();
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( double len )
+toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( const double & len )
 {
 	Vec2D v = Vec2D( getX(), getX() );
 	double mag = (double) toxi::math::MathUtils::sqrt( x * x + y * y );
@@ -294,7 +294,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getReflected( Vec2D & normal )
 	return v.reflect(normal);
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::rotate( double theta )
+toxi::geom::Vec2D toxi::geom::Vec2D::rotate( const double & theta )
 {
 	double co = std::cos( theta );
 	double si = std::sin(theta);
@@ -304,20 +304,20 @@ toxi::geom::Vec2D toxi::geom::Vec2D::rotate( double theta )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::getRotated( double theta )
+toxi::geom::Vec2D toxi::geom::Vec2D::getRotated( const double & theta )
 {
 	Vec2D v = Vec2D( *this );
 	return v.rotate( theta );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::roundTo( double prec )
+toxi::geom::Vec2D toxi::geom::Vec2D::roundTo( const double & prec )
 {
 	this->x = toxi::math::MathUtils::roundTo(getX(), prec);
 	this->y = toxi::math::MathUtils::roundTo(getY(), prec);
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::getRoundedTo( double prec )
+toxi::geom::Vec2D toxi::geom::Vec2D::getRoundedTo( const double & prec )
 {
 	Vec2D v = Vec2D( *this );
 	return v.roundTo( prec );
@@ -336,7 +336,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getSignum()
 	return v.signum();
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( double a, double b )
+toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( const double & a, const double & b )
 {
 	this->x -= a;
 	this->y -= b;
@@ -350,7 +350,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( Vec2D & v )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::set( double x, double y )
+toxi::geom::Vec2D toxi::geom::Vec2D::set( const double & x, const double & y )
 {
 	this->x = x;
 	this->y = y;
@@ -369,19 +369,19 @@ double toxi::geom::Vec2D::heading()
 	return std::atan2(getY(), getX());
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::interpolateTo( Vec2D & v, double f )
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateTo( Vec2D & v, const double & f )
 {
 	Vec2D  vr = Vec2D( this->getX() + ( v.getX() - getX() ) * f, getY() + ( v.getY() - getY() ) * f );
 	return vr;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::interpolateTo( Vec2D & v, double f, toxi::math::InterpolateStrategy s )
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateTo( Vec2D & v, const double & f, toxi::math::InterpolateStrategy * s )
 {
-	Vec2D vr = Vec2D( s.interpolate(getX(), v.getX(), f), s.interpolate(getY(), v.getY(), f) );
+	Vec2D vr = Vec2D( s->interpolate(getX(), v.getX(), f), s->interpolate(getY(), v.getY(), f) );
 	return vr;
 }
 
-bool toxi::geom::Vec2D::isInCircle( Vec2D & sO, double sR )
+bool toxi::geom::Vec2D::isInCircle( Vec2D & sO, const double & sR )
 {
 	double d = sub( sO ).magSquared();
 	return ( d <= sR * sR );
@@ -411,7 +411,7 @@ bool toxi::geom::Vec2D::isInTriangle( Vec2D & a, Vec2D & b, Vec2D & c )
 	return (toxi::math::MathUtils::abs( total_angles - toxi::math::MathUtils::TWO_PI) <= 0.005f);
 }
 
-bool toxi::geom::Vec2D::isMajorAxis( double tol )
+bool toxi::geom::Vec2D::isMajorAxis( const double & tol )
 {
 	double ax = toxi::math::MathUtils::abs( getX() );
 	double ay = toxi::math::MathUtils::abs( getY() );
@@ -460,12 +460,12 @@ toxi::geom::Vec2D toxi::geom::Vec2D::min( Vec2D & v1, Vec2D & v2 )
 	return Vec2D( toxi::math::MathUtils::min( v1.getX(), v2.getX() ), toxi::math::MathUtils::min( v1.getY(), v2.getY() ) );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::scale( double s )
+toxi::geom::Vec2D toxi::geom::Vec2D::scale( const double & s )
 {
 	return Vec2D(getX() * s, getY() * s);
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::scale( double a, double b )
+toxi::geom::Vec2D toxi::geom::Vec2D::scale( const double & a, const double & b )
 {
 	return Vec2D(getX() * a, getY() * b);
 }
@@ -475,7 +475,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::scale( Vec2D & s )
 	return Vec2D(getX() * s.getX(), getY() * s.getY() );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::sub( double a, double b )
+toxi::geom::Vec2D toxi::geom::Vec2D::sub( const double & a, const double & b )
 {
 	return Vec2D(getX() - a, getY() - b);
 }
@@ -503,7 +503,7 @@ std::vector< double > toxi::geom::Vec2D::toVector()
 	return vec;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s )
+toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( const float & s )
 {
 	this->x *= s;
 	this->y *= s;
@@ -517,14 +517,14 @@ toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( Vec2D & v )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( float s1, float s2 )
+toxi::geom::Vec2D toxi::geom::Vec2D::scaleSelf( const float & s1, const float & s2 )
 {
 	this->x *= s1;
 	this->y *= s2;
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( double a, double b )
+toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( const double & a, const double & b )
 {
 	this->x += a;
 	this->y += b;
@@ -587,17 +587,17 @@ int toxi::geom::Vec2D::hashCode()
 	return (int) (bits ^ (bits >> 16));
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, float f )
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float & f )
 {
 	this->x += ( v.getX() - this->getX() ) * f;
 	this->y += ( v.getY() - this->getY() ) * f;
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, float f, toxi::math::InterpolateStrategy s  )
+toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float & f, toxi::math::InterpolateStrategy * s  )
 {
-	this->x = s.interpolate( getX(), v.getX(), static_cast< double > ( f ) );
-	this->y = s.interpolate( getY(), v.getY(), static_cast< double > ( f ) );
+	this->x = s->interpolate( getX(), v.getX(), static_cast< double > ( f ) );
+	this->y = s->interpolate( getY(), v.getY(), static_cast< double > ( f ) );
 	return *this;
 }
 
@@ -608,12 +608,12 @@ toxi::geom::Vec2D toxi::geom::Vec2D::invert()
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::jitter( double j )
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( const double & j )
 {
 	return jitter( j, j );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::jitter( double jx, double jy )
+toxi::geom::Vec2D toxi::geom::Vec2D::jitter( const double & jx, const double & jy )
 {
 	this->x += toxi::math::MathUtils::normalizedRandom() * jx;
 	this->y += toxi::math::MathUtils::normalizedRandom() * jy;
@@ -625,7 +625,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::jitter( Vec2D & jv )
 	return jitter( jv.getX(), jv.getY() );
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::limit( float lim )
+toxi::geom::Vec2D toxi::geom::Vec2D::limit( const float & lim )
 {
 	if( magSquared() > lim * lim )
 	{
@@ -649,7 +649,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::minSelf( Vec2D & v )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::normalizeTo( float len )
+toxi::geom::Vec2D toxi::geom::Vec2D::normalizeTo( const float & len )
 {
 	float mag = (float) toxi::math::MathUtils::sqrt(getX() * getX() + getY() * getY());
 	if (mag > 0) {
@@ -681,7 +681,7 @@ double toxi::geom::Vec2D::positiveHeading()
 	}
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( Axis & id, float val )
+toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( Axis & id, const float & val )
 {
 	switch( id )
 	{
@@ -696,7 +696,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( Axis & id, float val )
 	return *this;
 }
 
-toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( int id, float val )
+toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( const int & id, const float & val )
 {
 	switch( id )
 	{
