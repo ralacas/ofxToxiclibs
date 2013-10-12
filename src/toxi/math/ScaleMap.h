@@ -18,29 +18,29 @@ namespace toxi
 		class ScaleMap
 		{
 			public:
-				ScaleMap( double minIn, double maxIn, double minOut, double maxOut );
+				ScaleMap( const double & minIn, const double & maxIn, const double & minOut, const double & maxOut );
 				ScaleMap( const ScaleMap& copyFrom );
 				~ScaleMap( void );
 
 				ScaleMap& operator= (const ScaleMap &cSource);
 
-				InterpolateStrategy * mapFunction;
-				double *interval;
-				double *mapRange;
-				toxi::util::datatypes::DoubleRange * in;
-				toxi::util::datatypes::DoubleRange * out;
+				toxi::math::InterpolateStrategy * mapFunction;
+				double interval;
+				double mapRange;
+				toxi::util::datatypes::DoubleRange in;
+				toxi::util::datatypes::DoubleRange out;
 
-				double getClippedValueFor( double val ) const;
+				double getClippedValueFor( const double & val ) const;
 				double getInputMedian( void );
 				double getMappedMedian( void );
-				double getMappedValueFor( double val );
+				double getMappedValueFor( const double & val );
 				double getOutputMedian( void );
-				void setInputRange( double min, double max );
-				void setMapFunction( toxi::math::InterpolateStrategy * func );
-				void setOutputRange( double min, double max );
+				void setInputRange( const double & min, const double & max );
+				void setMapFunction( toxi::math::InterpolateStrategy & func );
+				void setOutputRange( const double & min, const double & max );
 				
-				toxi::util::datatypes::DoubleRange * getOutputRange( void );
-				toxi::util::datatypes::DoubleRange * getInputRange( void );
+				toxi::util::datatypes::DoubleRange getOutputRange( void );
+				toxi::util::datatypes::DoubleRange getInputRange( void );
 		};
 	}
 }
