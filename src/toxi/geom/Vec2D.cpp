@@ -765,3 +765,8 @@ toxi::geom::Vec3D toxi::geom::Vec2D::to3DYZ()
 {
 	return toxi::geom::Vec3D();
 }
+
+/*inline std::ostream & operator << (std::ostream& stream, const toxi::geom::Vec2D & v) {
+	std::cout << "ACTUALLY OVERLOADED " << std::endl;
+	stream << "{x:" << v.getX() << ", y:" << v.getY() << "}";
+}*/

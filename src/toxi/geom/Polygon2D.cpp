@@ -673,7 +673,7 @@ std::string toxi::geom::Polygon2D::toString()
 	std::stringstream ss;
 	for( auto it = vertices.begin(); it != vertices.end(); ++it )
 	{
-		ss << it->toString() << ", ";
+		ss << *it << ", ";
 	}
 	return ss.str();
 }

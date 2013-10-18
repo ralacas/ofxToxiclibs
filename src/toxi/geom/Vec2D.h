@@ -3,6 +3,7 @@
 #ifndef __VEC2D_H__
 #define __VEC2D_H__
 
+#include <iostream>
 #include <math.h>
 #include "../math/ScaleMap.h"
 
@@ -25,6 +26,12 @@ namespace toxi
 			Vec2D( const double & theta );
 			Vec2D( const Vec2D & v );
 			~Vec2D(void);
+
+			friend std::ostream& operator << (std::ostream &os, const toxi::geom::Vec2D & v) 
+			{
+				os << "{x:" << v.getX() << ", y:" << v.getY() << "}";
+				return os;
+			}
 			
 			//bool operator==( const Vec2D & v1 ) const;
 			inline bool operator == (const Vec2D & lhs)
@@ -120,7 +127,6 @@ namespace toxi
 			Vec3D to3DYZ();
 
 			std::vector< double > toVector();
-			std::string toString();
 
 			// those return new instances
 			Vec2D add( const double & x, const double & y );
@@ -159,6 +165,8 @@ namespace toxi
 		private:
 			double x;
 			double y;
+
+			std::string toString();
 		};
 	}
 }

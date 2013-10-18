@@ -54,7 +54,7 @@ bool toxi::geom::LineIntersection::iIntersectionInside()
 std::string toxi::geom::LineIntersection::toString()
 {
 	std::stringstream ss;
-	ss << "type: " << type << " line: " << line->toString();
+	ss << "type: " << type << " line: " << line;
 	return ss.str();
 }
 
