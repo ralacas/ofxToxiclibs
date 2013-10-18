@@ -252,4 +252,62 @@ void Vec2DTest::constrainTest( void )
 	CPPUNIT_ASSERT( r1 && r2 && r3 );
 }
 
+void Vec2DTest::floorTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 9.8 );
+	v.floor();
+
+	bool r = ( v.getX() == 10.0 && v.getY() == 9.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::fracTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 9.8 );
+	v.frac();
+
+	bool r = (v.getX() <= 0.41 && v.getX() >= 0.39 && v.getY() <= 0.81 && v.getY() >= 0.79 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::invertTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 9.8 );
+	v.invert();
+
+	bool r = (v.getX() == -10.4 && v.getY() == -9.8 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::normalizeTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	v.normalize();
+
+	bool r = ( v.getX() <= 0.9 && v.getX() >= 0.894 && v.getY() <= 0.45 && v.getY() >= 0.44 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::limitTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.limit( 5 );
+
+	bool r = ( v.getX() <= 3.55 && v.getX() >= 3.52 && v.getY() <= 3.55 && v.getY() >= 3.52 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::normalizeToTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.normalizeTo( 5.0 );
+	std::cout << "OVERLOADED" << std::endl;
+	std::cout << v << std::endl;
+}
+
 

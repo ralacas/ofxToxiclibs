@@ -44,6 +44,12 @@ class Vec2DTest : public CppUnit::TestFixture
 
 		CPPUNIT_TEST( absTest );
 		CPPUNIT_TEST( constrainTest );
+		CPPUNIT_TEST( floorTest );
+		CPPUNIT_TEST( fracTest );
+		CPPUNIT_TEST( invertTest );
+		CPPUNIT_TEST( limitTest );
+		CPPUNIT_TEST( normalizeTest );
+		CPPUNIT_TEST( normalizeToTest );
 
 		CPPUNIT_TEST_SUITE_END();
 		
@@ -72,6 +78,12 @@ class Vec2DTest : public CppUnit::TestFixture
 
 		void absTest( void );
 		void constrainTest( void );
+		void floorTest( void );
+		void fracTest( void );
+		void invertTest( void );
+		void limitTest( void );
+		void normalizeTest( void );
+		void normalizeToTest( void );
 };
 
 #endif
