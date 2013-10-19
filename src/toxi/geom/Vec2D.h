@@ -106,6 +106,7 @@ namespace toxi
 			Vec2D reflect( Vec2D & normal );
 			Vec2D rotate( const double & theta );
 			Vec2D roundTo( const double & prec );
+			Vec2D roundToAxis();
 			Vec2D signum( );
 			Vec2D interpolateTo(Vec2D & v, const double & f);
 			Vec2D interpolateTo(Vec2D & v, const double & f, toxi::math::InterpolateStrategy * s);
