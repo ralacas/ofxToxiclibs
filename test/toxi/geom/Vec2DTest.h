@@ -50,6 +50,16 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( limitTest );
 		CPPUNIT_TEST( normalizeTest );
 		CPPUNIT_TEST( normalizeToTest );
+		CPPUNIT_TEST( addSelfTest );
+		CPPUNIT_TEST( subSelfTest );
+		CPPUNIT_TEST( setTest );
+		CPPUNIT_TEST( setComponent );
+		CPPUNIT_TEST( perpendicularTest );
+		CPPUNIT_TEST( toPolarTest );
+		CPPUNIT_TEST( recuprocalTest );
+		CPPUNIT_TEST( reflectTest );
+		CPPUNIT_TEST( rotateTest );
+		CPPUNIT_TEST( roundToTest );
 
 		CPPUNIT_TEST_SUITE_END();
 		
@@ -84,6 +94,16 @@ class Vec2DTest : public CppUnit::TestFixture
 		void limitTest( void );
 		void normalizeTest( void );
 		void normalizeToTest( void );
+		void addSelfTest( void );
+		void subSelfTest( void );
+		void setTest( void );
+		void setComponent( void );
+		void perpendicularTest( void );
+		void toPolarTest( void );
+		void recuprocalTest( void );
+		void reflectTest( void );
+		void rotateTest( void );
+		void roundToTest( void );
 };
 
 #endif

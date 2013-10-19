@@ -306,8 +306,132 @@ void Vec2DTest::normalizeToTest( void )
 {
 	Vec2D v = Vec2D( 10, 10 );
 	v.normalizeTo( 5.0 );
-	std::cout << "OVERLOADED" << std::endl;
+
+	bool r1 = ( v.getX() <= 3.54 && v.getX() >= 3.53 && v.getY() <= 3.54 && v.getY() >= 3.53 ) ? true : false;
+	
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::addSelfTest( void )
+{
+	Vec2D v1 = Vec2D( 10, 10 );
+	v1.addSelf( v1 );
+
+	bool r1 = ( v1.getX() == 20.0 && v1.getY() == 20.0 ) ? true : false;
+
+	v1.addSelf(5.0, 5.0 );
+
+	bool r2 = ( v1.getX() == 25.0 && v1.getY() == 25.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::subSelfTest( void )
+{
+	Vec2D v1 = Vec2D( 25, 25 );
+	Vec2D vSub = Vec2D( 10, 10);
+	v1.subSelf( vSub );
+
+	bool r1 = ( v1.getX() == 15.0 && v1.getY() == 15.0 ) ? true : false;
+
+	v1.subSelf(5.0, 5.0 );
+
+	bool r2 = ( v1.getX() == 10.0 && v1.getY() == 10.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::setTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.set( 5, 8 );
+
+	bool r = ( v.getX() == 5.0 && v.getY() == 8.0 ) ? true : false;
+
+	Vec2D vSet = Vec2D( 20, 20 );
+	v.set( vSet );
+
+	bool r2 = ( v.getX() == 20.0 && v.getY() == 20.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r && r2 );
+}
+
+void Vec2DTest::setComponent( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.setComponent(0, 20 );
+
+	bool r1 = ( v.getX() == 20.0 && v.getY() == 10.0) ? true : false;
+
+	toxi::geom::Vec2D::Axis axis = toxi::geom::Vec2D::Axis::X;
+	v.setComponent( axis, 30.0 );
+
+	bool r2 = ( v.getX() == 30.0 && v.getY() == 10.0) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 );
+}
+
+void Vec2DTest::perpendicularTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.perpendicular();
+
+	bool r = ( v.getX() == -10.0 && v.getY() == 10.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::toPolarTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.toPolar();
+
+	std::cout << "heay" << std::endl;
 	std::cout << v << std::endl;
+
+	bool r = ( v.getX() == -10.0 && v.getY() == 10.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::reflectTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.reflect( Vec2D( 1, 1 ) );
+
+	bool r = ( v.getX() == 30.0 && v.getY() == 30.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::recuprocalTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.reciprocal();
+
+	bool r = ( v.getX() == 0.1 && v.getY() == 0.1 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::roundToTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.roundTo( 13.0 );
+
+	bool r = ( v.getX() == 13.0 && v.getY() == 13.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::rotateTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.rotate( 1.1 );
+
+	bool r = ( v.getX() <= 4.4 && v.getX() <= -4.2 && v.getY() >= 13.4 && v.getY() <= 13.5 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
 }
 
 
