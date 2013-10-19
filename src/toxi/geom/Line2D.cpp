@@ -83,7 +83,7 @@ toxi::geom::LineIntersection toxi::geom::Line2D::intersectLine( Line2D & _line )
 std::string toxi::geom::Line2D::toString()
 {
 	std::stringstream ss;
-	ss << a.toString() << " -> " << b.toString();
+	ss << a << " -> " << b;
 	return ss.str();
 }
 
