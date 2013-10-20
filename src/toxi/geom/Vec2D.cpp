@@ -645,7 +645,7 @@ toxi::geom::Vec2D toxi::geom::Vec2D::maxSelf( Vec2D & v )
 toxi::geom::Vec2D toxi::geom::Vec2D::minSelf( Vec2D & v )
 {
 	this->x = toxi::math::MathUtils::min( getX(), v.getX() );
-	this->y = toxi::math::MathUtils::max( getY(), v.getY() );
+	this->y = toxi::math::MathUtils::min( getY(), v.getY() );
 	return *this;
 }
 
