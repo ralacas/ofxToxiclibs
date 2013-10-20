@@ -60,6 +60,14 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( reflectTest );
 		CPPUNIT_TEST( rotateTest );
 		CPPUNIT_TEST( roundToTest );
+		CPPUNIT_TEST( signumTest );
+		CPPUNIT_TEST( scaleSelfTest );
+		CPPUNIT_TEST( interpolateToTest );
+		CPPUNIT_TEST( jitterTest );
+		CPPUNIT_TEST( tangentNormalOfEllipseTest );
+		CPPUNIT_TEST( minSelfTest );
+		CPPUNIT_TEST( maxSelfTest );
+		CPPUNIT_TEST( snapToAxisTest );
 
 		CPPUNIT_TEST_SUITE_END();
 		
@@ -104,6 +112,14 @@ class Vec2DTest : public CppUnit::TestFixture
 		void reflectTest( void );
 		void rotateTest( void );
 		void roundToTest( void );
+		void signumTest( void );
+		void scaleSelfTest( void );
+		void interpolateToTest( void );
+		void jitterTest( void );
+		void tangentNormalOfEllipseTest( void );
+		void minSelfTest( void );
+		void maxSelfTest( void );
+		void snapToAxisTest( void );
 };
 
 #endif

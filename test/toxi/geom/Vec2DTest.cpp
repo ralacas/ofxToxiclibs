@@ -386,9 +386,6 @@ void Vec2DTest::toPolarTest( void )
 	Vec2D v = Vec2D( 10, 10 );
 	v.toPolar();
 
-	std::cout << "heay" << std::endl;
-	std::cout << v << std::endl;
-
 	bool r = ( v.getX() == -10.0 && v.getY() == 10.0 ) ? true : false;
 
 	CPPUNIT_ASSERT( r );
@@ -430,6 +427,103 @@ void Vec2DTest::rotateTest( void )
 	v.rotate( 1.1 );
 
 	bool r = ( v.getX() <= 4.4 && v.getX() <= -4.2 && v.getY() >= 13.4 && v.getY() <= 13.5 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::signumTest( void )
+{
+	Vec2D v = Vec2D( -10, 10 );
+	v.signum();
+
+	bool r = ( v.getX() == -1.0 && v.getY() == 1.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::scaleSelfTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.scaleSelf( 5 );
+
+	bool r = ( v.getX() == 50.0 && v.getY() == 50.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::interpolateToTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	toxi::math::InterpolateStrategy * strat = new toxi::math::LinearInterpolation();
+	Vec2D interpolated = v.interpolateTo( Vec2D( 100, 100 ), 0.5f, strat);
+
+	bool r1 = ( interpolated.getX() == 55.0 && interpolated.getY() == 55.0 ) ? true : false;
+
+	interpolated = v.interpolateTo( Vec2D( 100, 100 ), 0.5f );
+
+	bool r2 = ( interpolated.getX() == 55.0 && interpolated.getY() == 55.0 ) ? true : false;	
+
+	Vec2D v2 = Vec2D( 10, 10 );
+	v2.interpolateToSelf( Vec2D( 100, 100 ), 0.5f, strat );
+
+	bool r3 = ( v2.getX() == 55.0 && v2.getY() == 55.0 ) ? true : false;
+
+	v2 = Vec2D( 10, 10 );
+	v2.interpolateToSelf( Vec2D( 100, 100 ), 0.5 );
+
+	bool r4 = ( v2.getX() == 55.0 && v2.getY() == 55.0 ) ? true : false;
+
+	delete strat;
+	CPPUNIT_ASSERT( r1 && r2 && r3 && r4 );
+}
+
+void Vec2DTest::jitterTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	Vec2D copy = Vec2D( v );
+
+	v.jitter( 5.0 );
+
+	bool r1 = ( v.getX() >= copy.getX() && v.getX() <= copy.getX() + 5.0 && v.getY() >= copy.getY() && v.getY() <= copy.getY() + 5.0 ) ? true : false;
+	
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::tangentNormalOfEllipseTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	Vec2D tN = v.tangentNormalOfEllipse( Vec2D( 5, 6 ), Vec2D( -4, 5 ) );
+
+	bool r = ( tN.getX() >= 0.89 && tN.getX() <= 0.891 && tN.getY() >= 0.45 && tN.getY() <= 0.46 ) ? true : false;
+	
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::snapToAxisTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	v.snapToAxis();
+	bool r = ( v.getX() == 1.0 && v.getY() == 0.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::maxSelfTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.maxSelf( Vec2D( 12, 13) );
+	
+	bool r = ( v.getX() == 12.0 && v.getY() == 13.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::minSelfTest( void )
+{
+	Vec2D v = Vec2D( 10, 10 );
+	v.minSelf( Vec2D( 5, 8) );
+
+	bool r = ( v.getX() == 5.0 && v.getY() == 8.0 ) ? true : false;
 
 	CPPUNIT_ASSERT( r );
 }
