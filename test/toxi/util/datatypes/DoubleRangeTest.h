@@ -27,7 +27,6 @@ class DoubleRangeTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( pickRandom );
 		CPPUNIT_TEST( setCurrent );
 		CPPUNIT_TEST( toVector );
-		CPPUNIT_TEST( toString );
 		CPPUNIT_TEST( getters );
 		CPPUNIT_TEST( assignmentOperatorOverloading );
 		CPPUNIT_TEST_SUITE_END();
@@ -44,7 +43,6 @@ class DoubleRangeTest : public CppUnit::TestFixture
 		void pickRandom( void );
 		void setCurrent( void );
 		void toVector( void );
-		void toString( void );
 		void getters( void );
 		void assignmentOperatorOverloading( void );
 };

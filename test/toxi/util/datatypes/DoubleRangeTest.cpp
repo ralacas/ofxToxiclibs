@@ -100,16 +100,6 @@ void DoubleRangeTest::toVector( void )
 	CPPUNIT_ASSERT( r1 );
 }
 
-void DoubleRangeTest::toString( void )
-{
-	toxi::util::datatypes::DoubleRange range( 10.345676, 100.87653 );
-	std::string toString = range.toString();
-	std::string toCompare = "DoubleRange: 10.345676 -> 100.87653";
-	bool r1 = toCompare.compare( toString ) == 0 ? true : false;
-
-	CPPUNIT_ASSERT( r1 );
-}
-
 void DoubleRangeTest::getters( void )
 {
 	toxi::util::datatypes::DoubleRange range( 50.0, 100.0 );
