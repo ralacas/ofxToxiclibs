@@ -8,8 +8,8 @@
 #include <math.h>
 #include <time.h>
 
-#undef max
 #undef min
+#undef max
 
 namespace toxi
 {

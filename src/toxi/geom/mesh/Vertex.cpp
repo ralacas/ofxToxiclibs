@@ -36,6 +36,6 @@ void toxi::geom::mesh::Vertex::computeNormal()
 std::string toxi::geom::mesh::Vertex::toString()
 {
 	std::stringstream ss;
-	ss << id << ": p: " << Vec3D::toString( ) << " n: " << normal.toString();
+	ss << id << ": p: " << *this << " n: " << normal;
 	return ss.str();
 }

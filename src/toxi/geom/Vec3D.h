@@ -28,6 +28,12 @@ namespace toxi
 			Vec3D( const double & x, const double & y, const double & z );
 			~Vec3D(void);
 
+			friend std::ostream& operator << (std::ostream &os, const toxi::geom::Vec3D & v) 
+			{
+				os << "{x:" << v.getX() << ", y:" << v.getY() << ", z:" << v.getZ() << "}";
+				return os;
+			}
+
 			Vec3D add(const double & a, const double & b, const double & c);
 
 			Vec3D add(const Vec3D & v);
@@ -127,7 +133,6 @@ namespace toxi
 			void setY( const double & _y );
 			void setZ( const double & _z );
 
-			std::string toString( );
 			Vec3D clear();
 			Vec3D crossSelf( const Vec3D & v );
 			Vec3D subSelf( const float & a, const float & b, const float & c);

@@ -582,13 +582,6 @@ toxi::geom::Vec3D toxi::geom::Vec3D::set( const double & x, const double & y, co
 	return *this;
 }
 
-std::string toxi::geom::Vec3D::toString()
-{
-	std::stringstream ss;
-	ss << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}";
-	return ss.str( );
-}
-
 toxi::geom::Vec3D toxi::geom::Vec3D::addSelf( const Vec3D & v )
 {
 	this->x += v.x;
