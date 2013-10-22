@@ -55,7 +55,7 @@ toxi::geom::Circle toxi::geom::Ellipse::getBoundingCircle()
 
 toxi::geom::Rect toxi::geom::Ellipse::getBounds()
 {
-	return toxi::geom::Rect( toxi::geom::Vec2D::sub( radius ), toxi::geom::Vec2D::add( radius ), Rect::NORMAL );
+	return toxi::geom::Rect( toxi::geom::Vec2D::getSub( radius ), toxi::geom::Vec2D::add( radius ), Rect::NORMAL );
 }
 
 float toxi::geom::Ellipse::getCircumference()
@@ -68,12 +68,12 @@ std::vector< toxi::geom::Vec2D > toxi::geom::Ellipse::getFoci()
 	std::vector< Vec2D > foci;
 	if( radius.getX() > radius.getY() )
 	{
-		foci.push_back( sub( focus, 0 ) );
+		foci.push_back( getSub( focus, 0 ) );
 		foci.push_back( add( focus, 0 ) );
 	}
 	else
 	{
-		foci.push_back( sub( 0, focus ) );
+		foci.push_back( getSub( 0, focus ) );
 		foci.push_back( add( 0, focus ) );
 	}
 	return foci;
@@ -88,7 +88,7 @@ toxi::geom::Vec2D toxi::geom::Ellipse::getRandomPoint()
 {
 	double theta = toxi::math::MathUtils::random( toxi::math::MathUtils::TWO_PI );
 	toxi::util::datatypes::BiasedFloatRange * rnd = new toxi::util::datatypes::BiasedFloatRange(0.0F, 1.0F, 1.0F, static_cast< float > ( toxi::math::MathUtils::SQRT2 ) );
-	return toxi::geom::Vec2D(theta).scaleSelf( radius.scale(rnd->pickRandom()) )
+	return toxi::geom::Vec2D(theta).scaleSelf( radius.getScaled(rnd->pickRandom()) )
 		.addSelf( this->getX(), this->getY());
 }
 

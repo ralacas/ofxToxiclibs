@@ -29,9 +29,9 @@ toxi::geom::Line2D::~Line2D(void)
 
 toxi::geom::Vec2D  toxi::geom::Line2D::closestPointTo( toxi::geom::Vec2D & p )
 {
-	toxi::geom::Vec2D v = b.sub( a );
-	toxi::geom::Vec2D tep = p.sub( a );
-	double t = p.sub( a ).dot( v ) / v.magSquared();
+	toxi::geom::Vec2D v = b.getSub( a );
+	toxi::geom::Vec2D tep = p.getSub( a );
+	double t = p.getSub( a ).dot( v ) / v.magSquared();
 	if( t < 0.0 )
 	{
 		return toxi::geom::Vec2D( a );

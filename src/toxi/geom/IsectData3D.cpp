@@ -25,7 +25,7 @@ std::string toxi::geom::IsectData3D::toString()
 	ss << "isec: " << isIntersection;
 	if( isIntersection )
 	{
-		ss << " at: " << pos.toString() << " dist: " << dist << " normal: " << normal.toString();
+		ss << " at: " << pos << " dist: " << dist << " normal: " << normal;
 	}
 	return ss.str();
 }

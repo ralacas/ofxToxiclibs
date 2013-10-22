@@ -25,7 +25,7 @@ toxi::geom::Polygon2D::Polygon2D( const std::vector< Vec2D > & points )
 toxi::geom::Polygon2D::Polygon2D( const Vec2D & baseA, const Vec2D & baseB, const int & res )
 {
 	double theta = -(toxi::math::MathUtils::PI - (toxi::math::MathUtils::PI * (res - 2) / res));
-	Vec2D dir = baseB.sub( baseA);
+	Vec2D dir = baseB.getSub( baseA);
 	Vec2D prev = baseB;
 	add( baseA );
 	add( baseB );
@@ -93,7 +93,7 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::center()
 toxi::geom::Polygon2D * toxi::geom::Polygon2D::center( Vec2D & origin )
 {
 	Vec2D centroid = getCentroid();
-	Vec2D delta = ( !origin.isZeroVector() ) ? origin.sub( centroid ) : centroid.invert();
+	Vec2D delta = ( !origin.isZeroVector() ) ? origin.getSub( centroid ) : centroid.invert();
 	for( Vec2D v : vertices )
 	{
 		v.addSelf( delta );
@@ -194,7 +194,7 @@ toxi::geom::Vec2D toxi::geom::Polygon2D::getCentroid()
 		double crossP = a.getX() * b.getY() - b.getX() * a.getY();
 		res.set( res.getX() +  (a.getX() + b.getX()) * crossP, res.getY() + (a.getY() + b.getY()) * crossP );
 	}
-	return res.scale(1 / (6 * getArea()));
+	return res.getScaled(1 / (6 * getArea()));
 }
 
 float toxi::geom::Polygon2D::getCircumference()
@@ -326,8 +326,8 @@ bool toxi::geom::Polygon2D::isConvex()
 	{
 		int prev = (i == 0) ? num - 1 : i - 1;
 		int next = (i == num - 1) ? 0 : i + 1;
-		Vec2D d0 = vertices.at(i).sub( vertices.at(prev));
-		Vec2D d1 = vertices.at(next).sub(vertices.at(i));
+		Vec2D d0 = vertices.at(i).getSub( vertices.at(prev));
+		Vec2D d1 = vertices.at(next).getSub(vertices.at(i));
 		bool newIsP = (d0.cross( d1 ) > 0);
 		if (i == 0) 
 		{
@@ -469,8 +469,8 @@ toxi::geom::Polygon2D * toxi::geom::Polygon2D::smooth( const float & amount, con
 	std::vector<Vec2D> filtered;
 	for (int i = 0, j = num - 1, k = 1; i < num; i++) {
 		Vec2D a = vertices.at(i);
-		Vec2D dir = vertices.at(j).sub( a ).addSelf( vertices.at(k).sub( a ))
-			.addSelf(a.sub( centroid).scaleSelf(baseWeight));
+		Vec2D dir = vertices.at(j).getSub( a ).addSelf( vertices.at(k).getSub( a ))
+			.addSelf(a.getSub( centroid).scaleSelf(baseWeight));
 		filtered.push_back(a.add(dir.scaleSelf(amount)));
 		j++;
 		if (j == num) {
@@ -598,7 +598,7 @@ bool toxi::geom::Polygon2D::toOutLine()
 
 	// Calculate the angle of each segment.
 	for (i = 0; i < segs; i++) {
-		segAngles[i] = segEnds[i].sub( segments[i] ).positiveHeading();
+		segAngles[i] = segEnds[i].getSub( segments[i] ).positiveHeading();
 	}
 
 	// 4. Build the perimeter polygon.

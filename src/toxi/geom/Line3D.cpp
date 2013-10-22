@@ -180,6 +180,6 @@ toxi::geom::Ray3D toxi::geom::Line3D::toRay3D()
 std::string toxi::geom::Line3D::toString()
 {
 	std::stringstream ss;
-	ss << a.toString() << " -> " << b.toString();
+	ss << a << " -> " << b;
 	return ss.str();
 }

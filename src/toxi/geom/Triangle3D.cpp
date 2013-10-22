@@ -247,7 +247,7 @@ toxi::geom::Vec3D toxi::geom::Triangle3D::toBarycentric( Vec3D & p )
 std::string toxi::geom::Triangle3D::toString()
 {
 	std::stringstream ss;
-	ss << "Triangle3D: " << a.toString() << ", " << b.toString() << ", " << c.toString();
+	ss << "Triangle3D: " << a << ", " << b << ", " << c;
 	return ss.str();
 }
 

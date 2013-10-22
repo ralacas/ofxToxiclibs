@@ -27,8 +27,8 @@ toxi::geom::Rect::Rect( Vec2D & p1, Vec2D & p2, const CreationType & type )
 	{
 	case NORMAL:
 		{
-			Vec2D tl = toxi::geom::Vec2D::min( p1, p2 );
-			Vec2D br = toxi::geom::Vec2D::max( p1, p2 );
+			Vec2D tl = toxi::geom::Vec2D::getMin( p1, p2 );
+			Vec2D br = toxi::geom::Vec2D::getMax( p1, p2 );
 			this->x = tl.getX();
 			this->y = tl.getY();
 			this->width = br.getX() - x;
@@ -37,10 +37,10 @@ toxi::geom::Rect::Rect( Vec2D & p1, Vec2D & p2, const CreationType & type )
 		break;
 	case CENTER:
 		{
-			Vec2D _p1 = p1.sub( p2 );
+			Vec2D _p1 = p1.getSub( p2 );
 			Vec2D _p2 = p1.add( p2 );
-			Vec2D tl = toxi::geom::Vec2D::min(_p1, _p2);
-			Vec2D br = toxi::geom::Vec2D::max(_p1, _p2);
+			Vec2D tl = toxi::geom::Vec2D::getMin(_p1, _p2);
+			Vec2D br = toxi::geom::Vec2D::getMax(_p1, _p2);
 			this->x = tl.getX();
 			this->y = tl.getY();
 			this->width = br.getX() - x;

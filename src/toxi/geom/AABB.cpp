@@ -289,7 +289,7 @@ bool toxi::geom::AABB::testAxis( const float & a, const float & b, const float &
 std::string toxi::geom::AABB::toString( void )
 {
 	std::stringstream ss;
-	ss << "<aabb> pos: " << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}" << " ext: " << extent.toString() ;
+	ss << "<aabb> pos: " << "{x:" << this->x << ", y:" << this->y << ", z:" << this->z << "}" << " ext: " << extent;
 	return ss.str( );
 }
 
