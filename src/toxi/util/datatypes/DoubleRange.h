@@ -23,6 +23,12 @@ namespace toxi
 				DoubleRange( const DoubleRange& copyFrom );
 				~DoubleRange( void );
 
+				friend std::ostream& operator << (std::ostream &os, const toxi::util::datatypes::DoubleRange & dr) 
+				{
+					os << "DoubleRange: "  << dr.getMin() << " -> " << dr.getMax();
+					return os;
+				}
+
 				DoubleRange& operator= (const DoubleRange &cSource);
 
 				double adjustCurrentBy( double val );
@@ -33,7 +39,6 @@ namespace toxi
 				double setCurrent( double val );
 				double getAt( double prec );
 				DoubleRangeVector toVector( double step );
-				std::string toString( void ) const;
 
 				double getCurrent( void );
 				double getMin( void ) const;

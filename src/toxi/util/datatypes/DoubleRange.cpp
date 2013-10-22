@@ -72,15 +72,6 @@ namespace toxi
 				delete curr_value;
 			}
 
-			std::string DoubleRange::toString( void ) const
-			{
-				std::stringstream strContent( std::stringstream::in | std::stringstream::out);
-				
-				strContent  << "DoubleRange: "<< std::setprecision( 10 )  << *this->min << " -> "<< std::setprecision( 10 ) << *this->max;
-				
-				return strContent.str();
-			}
-
 			double DoubleRange::adjustCurrentBy( double val )
 			{
 				return this->setCurrent( *this->curr_value + val );
