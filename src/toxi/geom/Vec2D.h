@@ -148,26 +148,27 @@ namespace toxi
 			Vec2D getRotated( const double & theta );
 			Vec2D getRoundedTo( const double & prec );
 			Vec2D getSignum();
-			Vec2D scale( const double & s );
-			Vec2D scale(const double & a, const double & b );
-			Vec2D scale(Vec2D & s);
-			Vec2D max(Vec2D & v);
-			Vec2D min(Vec2D & v);
-			static Vec2D min( Vec2D & v1, Vec2D & v2 );
-			static Vec2D max( Vec2D & v1, Vec2D & v2 );
-			Vec2D sub(const double & a, const double & b);
-			Vec2D sub(const Vec2D & v) const ;
+			Vec2D getScaled( const double & s );
+			Vec2D getScaled(const double & a, const double & b );
+			Vec2D getScaled(Vec2D & s);
+			Vec2D getMax(Vec2D & v);
+			Vec2D getMin(Vec2D & v);
+			Vec2D getSub(const double & a, const double & b);
+			Vec2D getSub(const Vec2D & v) const ;
 			Vec2D randomVector( void );
 
 			const double getX() const ;
 			const double getY() const ;
-			
 
-		private:
+			static Vec2D getMin( Vec2D & v1, Vec2D & v2 );
+			static Vec2D getMax( Vec2D & v1, Vec2D & v2 );			
+
 			double x;
 			double y;
 
-			std::string toString();
+		private:
+			
+
 		};
 	}
 }
