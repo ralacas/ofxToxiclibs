@@ -1,8 +1,10 @@
 #include "Vec2DTest.h"
 #include <toxi/geom/Vec2D.h>
+#include <toxi/geom/VecMathUtil.h>
 #include <toxi/geom/Vec3D.h>
 #include <toxi/geom/Rect.h>
 #include <toxi/geom/Polygon2D.h>
+#include <vector>
 
 using namespace toxi::geom;
 
@@ -29,11 +31,6 @@ void Vec2DTest::operatorOverloadingTest()
 	CPPUNIT_ASSERT( r1 );
 }
 
-void Vec2DTest::failedTest()
-{
-	CPPUNIT_ASSERT( false );
-}
-
 void Vec2DTest::angleBetweenTest( void )
 {
 	Vec2D v1 = Vec2D( 5, 15 );
@@ -44,7 +41,9 @@ void Vec2DTest::angleBetweenTest( void )
 
 	double angle2 = v1.angleBetween( v2, true );
 
-	CPPUNIT_ASSERT( false );
+	bool r2 = isRightAroundThis( angle2, 1.57 );
+
+	CPPUNIT_ASSERT( r1 && r2 );
 }
 
 void Vec2DTest::crossTest( void )
@@ -117,8 +116,8 @@ void Vec2DTest::hashCodeTest( void )
 {
 	Vec2D v = Vec2D( 10, 10 );
 	int hashCode = v.hashCode();
-	bool r1 = hashCode == 603980737 ? true : false;
 
+	bool r1 = hashCode == 603980737 ? true : false;
 	CPPUNIT_ASSERT( r1 );
 }
 
@@ -294,10 +293,10 @@ void Vec2DTest::normalizeTest( void )
 
 void Vec2DTest::limitTest( void )
 {
-	Vec2D v = Vec2D( 10, 10 );
-	v.limit( 5 );
+	Vec2D v = Vec2D( 100, 100 );
+	v.limit( 20 );
 
-	bool r = ( v.getX() <= 3.55 && v.getX() >= 3.52 && v.getY() <= 3.55 && v.getY() >= 3.52 ) ? true : false;
+	bool r = ( isRightAroundThis( v.getX(), 14.14)&& isRightAroundThis(v.getY(), 14.14 ) ) ? true : false;
 
 	CPPUNIT_ASSERT( r );
 }
@@ -386,7 +385,7 @@ void Vec2DTest::toPolarTest( void )
 	Vec2D v = Vec2D( 10, 10 );
 	v.toPolar();
 
-	bool r = ( v.getX() == -10.0 && v.getY() == 10.0 ) ? true : false;
+	bool r = ( isRightAroundThis( v.getX(), 14.14) && isRightAroundThis(v.getY(), 0.78 ) ) ? true : false;
 
 	CPPUNIT_ASSERT( r );
 }
@@ -526,6 +525,268 @@ void Vec2DTest::minSelfTest( void )
 	bool r = ( v.getX() == 5.0 && v.getY() == 8.0 ) ? true : false;
 
 	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::to3DTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	Vec3D vr1 = v.to3DXY();
+	Vec3D vr2 = v.to3DXZ();
+	Vec3D vr3 = v.to3DYZ();
+
+	bool r1 = ( vr1.getX() == 10.0 && vr1.getY() == 5.0 && vr1.getZ() == 0.0 ) ? true : false;
+	bool r2 = ( vr2.getX() == 10.0 && vr2.getY() == 0.0 && vr2.getZ() == 5.0 ) ? true : false;
+	bool r3 = ( vr3.getX() == 0.0 && vr3.getY() == 10.0 && vr3.getZ() == 5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 && r2 && r3 );
+}
+
+void Vec2DTest::toVectorTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	std::vector< double > vec = v.toVector();
+
+	bool r = ( vec.at( 0 ) == 10.0 && vec.at( 1 ) == 5.0 && vec.size() == 2 ) ? true : false;
+	
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::addTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	Vec2D vr = v.add( Vec2D( 5, 10 ) );
+
+	bool r = ( vr.getX() == 15.0 && vr.getY() == 15.0 && v.getX() == 10.0 && v.getY() == 5.0 ) ? true : false;
+	
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getAbsTest( void )
+{
+	Vec2D v = Vec2D( -10, 5 );
+	Vec2D vr = v.getAbs();
+
+	bool r = ( vr.getX() == 10.0 && vr.getY() == 5.0 && v.getX() == -10.0 && v.getY() == 5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getCartesianTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	Vec2D cr = v.getCartesian();
+
+	bool r = ( v.getX() == 10.0 && v.getY() == 5.0 && cr.getX() > 2.8 && cr.getX() < 2.85 && cr.getY() >= -9.6 && cr.getY() <= -9.5 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getConstrainedTest( void )
+{
+	Vec2D v = Vec2D( 10, 5 );
+	toxi::geom::Rect re = toxi::geom::Rect( 0, 0, 5, 5 );
+	Vec2D vr = v.getConstrained( re );
+	
+	bool r1 = ( v.getX() == 10.0 && v.getY() == 5.0 && vr.getX() == 5.0 && vr.getY() == 5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r1 );
+}
+
+void Vec2DTest::getFlooredTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getFloored();
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() == 10.0 && vr.getY() == 5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getFracTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getFrac();
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && (vr.getX() >= 0.39 && vr.getX() <= 0.41) && (vr.getY() >= 0.89 && vr.getY() <= 0.91) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getInvertedTest( void )
+{
+	Vec2D v = Vec2D( 10.0, 5.0 );
+	Vec2D vr = v.getInverted();
+	bool r = ( v.getX() == 10.0 && v.getY() == 5.0 && vr.getX() == -10.0 && vr.getY() == -5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getLimitedTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getLimited( 6.0 );
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() >= 5.2 && vr.getX() <= 5.3 && vr.getY() >= 2.96 && vr.getY() <= 2.97 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getMappedTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	toxi::math::ScaleMap map = toxi::math::ScaleMap( 0, 0, 5, 5 );
+	Vec2D vr = v.getMapped( map );
+	
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() == 5.0 && vr.getY() == 5.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getNormalizedTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getNormalized();
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() >= 0.86 && vr.getX() <= 0.87 && vr.getY() >= 0.49 && vr.getY() <= 0.5 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getNormalizedToTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getNormalizedTo( 2.0 );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() >= 1.73 && vr.getX() <= 1.74 && vr.getY() >= 0.98 && vr.getY() <= 0.99 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getPerpendicularTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getPerpendicular();
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis( vr.getX(), -5.9 ) && isRightAroundThis( vr.getY(), 10.4 ) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+
+
+void Vec2DTest::getReflectedTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getReflected( Vec2D( 3.0, 1.0 ) );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis(vr.getX(), 212.2 ) && isRightAroundThis(vr.getY(), 68.299) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getRotatedTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getRotated( toxi::math::MathUtils::PI );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis(vr.getX(), -10.399) && isRightAroundThis(vr.getY(), -5.9) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getRoundedToTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getRoundedTo( 0.5 );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis(vr.getX(), 10.5 ) && isRightAroundThis(vr.getY(), 6.0 ) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getSignumTest( void )
+{
+	Vec2D v = Vec2D( 10.4, -5.9 );
+	Vec2D vr = v.getSignum();
+
+	bool r = ( v.getX() == 10.4 && v.getY() == -5.9 && vr.getX() == 1.0 && vr.getY() == -1.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getScaledTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getScaled( 2.0, 1.0 );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() == 20.8 && vr.getY() == 5.9 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getMinTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getMin( Vec2D( 5.0, 6.0 ) );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis( vr.getX(), 5.0) && isRightAroundThis(vr.getY(), 5.9) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getMaxTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getMax( Vec2D( 5.0, 9.1 ) );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis( vr.getX(), 10.4) && isRightAroundThis(vr.getY(), 9.1) ) ? true : false;
+
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getSubTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.getSub( Vec2D( 5.0, 7.0 ) );
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && isRightAroundThis( vr.getX(), 5.4), isRightAroundThis( vr.getY(), -1.1) ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::randomVectorTest( void )
+{
+	Vec2D v = Vec2D( 10.4, 5.9 );
+	Vec2D vr = v.randomVector();
+
+	bool r = ( v.getX() == 10.4 && v.getY() == 5.9 && vr.getX() >= -1.0 && vr.getX() <= 1.0 && vr.getY() >= -1.0 && vr.getY() <= 1.0 ) ? true : false;
+
+	CPPUNIT_ASSERT( r );
+}
+
+void Vec2DTest::getMinTwoTest( void )
+{
+	Vec2D min = toxi::geom::Vec2D::getMin( Vec2D( 1.0, 1.0 ), Vec2D( 2.0, 2.0 ) );
+}
+
+void Vec2DTest::getMaxTwoTest( void )
+{
+	Vec2D max = toxi::geom::Vec2D::getMax( Vec2D( 1.0, 1.0 ), Vec2D( 2.0, 2.0 ) );
+}
+
+bool Vec2DTest::isRightAroundThis( double val, double goal )
+{
+	bool ret;
+
+	if( val >= 0.0 ) 
+	{
+		ret = ( val >= (goal - 0.01) && val <= (goal += 0.01) ) ? true : false;
+	}
+	else 
+	{
+		ret = ( val >= (goal - 0.01) && val <= (goal += 0.01) ) ? true : false;
+	}
+	
+
+	return ret;
 }
 
 

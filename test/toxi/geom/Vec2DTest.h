@@ -22,7 +22,6 @@ class Vec2DTest : public CppUnit::TestFixture
 
 		CPPUNIT_TEST( constuctorTest );
 		CPPUNIT_TEST( operatorOverloadingTest );
-		CPPUNIT_TEST( failedTest );
 		CPPUNIT_TEST( angleBetweenTest );
 		CPPUNIT_TEST( crossTest );
 		CPPUNIT_TEST( distanceToTest );
@@ -69,12 +68,39 @@ class Vec2DTest : public CppUnit::TestFixture
 		CPPUNIT_TEST( maxSelfTest );
 		CPPUNIT_TEST( snapToAxisTest );
 
+		CPPUNIT_TEST( to3DTest );
+
+		CPPUNIT_TEST( toVectorTest );
+		CPPUNIT_TEST( addTest );
+		CPPUNIT_TEST( getAbsTest ); 
+		CPPUNIT_TEST( getCartesianTest );
+		CPPUNIT_TEST( getConstrainedTest );
+		CPPUNIT_TEST( getFlooredTest );
+		CPPUNIT_TEST( getFracTest );
+		CPPUNIT_TEST( getInvertedTest );
+		CPPUNIT_TEST( getLimitedTest );
+		CPPUNIT_TEST( getMappedTest );
+		CPPUNIT_TEST( getNormalizedTest );
+		CPPUNIT_TEST( getNormalizedToTest );
+		CPPUNIT_TEST( getPerpendicularTest );
+		CPPUNIT_TEST( getReflectedTest );
+		CPPUNIT_TEST( getRotatedTest );
+		CPPUNIT_TEST( getRoundedToTest );
+		CPPUNIT_TEST( getSignumTest );
+		CPPUNIT_TEST( getScaledTest );
+		CPPUNIT_TEST( getMinTest );
+		CPPUNIT_TEST( getMaxTest );
+		CPPUNIT_TEST( getSubTest );
+		CPPUNIT_TEST( randomVectorTest );
+		CPPUNIT_TEST( getMinTwoTest );
+		CPPUNIT_TEST( getMaxTwoTest );
+
+
 		CPPUNIT_TEST_SUITE_END();
 		
 	public:	
 		void constuctorTest( void );
 		void operatorOverloadingTest( void );
-		void failedTest( void );
 		void angleBetweenTest( void );
 		void crossTest( void );
 		void distanceToTest( void );
@@ -120,6 +146,36 @@ class Vec2DTest : public CppUnit::TestFixture
 		void minSelfTest( void );
 		void maxSelfTest( void );
 		void snapToAxisTest( void );
+
+		void to3DTest( void );
+
+		void toVectorTest( void );
+		void addTest( void );
+		void getAbsTest( void );
+		void getCartesianTest( void );
+		void getConstrainedTest( void );
+		void getFlooredTest( void );
+		void getFracTest( void );
+		void getInvertedTest( void );
+		void getLimitedTest( void );
+		void getMappedTest( void );
+		void getNormalizedTest( void );
+		void getNormalizedToTest( void );
+		void getPerpendicularTest( void );
+		void getReflectedTest( void );
+		void getRotatedTest( void );
+		void getRoundedToTest( void );
+		void getSignumTest( void );
+		void getScaledTest( void );
+		void getMinTest( void );
+		void getMaxTest( void );
+		void getSubTest( void );
+		void randomVectorTest( void );
+
+		void getMinTwoTest( void );
+		void getMaxTwoTest( void );
+
+		bool isRightAroundThis( double val, double goal );
 };
 
 #endif
