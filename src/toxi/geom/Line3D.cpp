@@ -97,7 +97,7 @@ toxi::geom::Vec3D toxi::geom::Line3D::getMidPoint()
 
 toxi::geom::Vec3D toxi::geom::Line3D::getNormal()
 {
-	return b.cross( a );
+	return b.getCrossed( a );
 }
 
 bool toxi::geom::Line3D::hasEndPoint( const toxi::geom::Vec3D & p )
@@ -123,7 +123,7 @@ toxi::geom::Line3D toxi::geom::Line3D::offsetAndGrowBy( const float & offset, co
 {
 	Vec3D m = getMidPoint();
 	Vec3D d = getDirection();
-	Vec3D n = a.cross( d ).normalize();
+	Vec3D n = a.getCrossed( d ).normalize();
 	if ( m.sub( ref ).dot( n ) < 0 ) {
 		n.invert();
 	}
