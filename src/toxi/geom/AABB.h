@@ -52,8 +52,8 @@ namespace toxi
 
 			~AABB(void);
 
-			Vec3D getMin();
-			Vec3D getMax();
+			Vec3D getMin() const;
+			Vec3D getMax() const;
 			bool containsPoint( Vec3D & point );
 			//Sphere getBoundingSphere();
 			Vec3D getExtend(  );

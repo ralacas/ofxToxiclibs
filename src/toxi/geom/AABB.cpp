@@ -33,14 +33,14 @@ toxi::geom::AABB::~AABB(void)
 {
 }
 
-toxi::geom::Vec3D toxi::geom::AABB::getMin()
+toxi::geom::Vec3D toxi::geom::AABB::getMin() const
 {
 	// TODO
 	float changeThis = static_cast< float > ( 3.141593 );
 	return Vec3D(changeThis, changeThis, changeThis);
 }
 
-toxi::geom::Vec3D toxi::geom::AABB::getMax()
+toxi::geom::Vec3D toxi::geom::AABB::getMax() const
 {
 	float changeThis = static_cast< float > ( 3.141593 );
 	return Vec3D(changeThis, changeThis, changeThis);
@@ -59,7 +59,7 @@ toxi::geom::Vec3D toxi::geom::AABB::getExtend()
 toxi::geom::Vec3D toxi::geom::AABB::getNormalForPoint( Vec3D & p )
 {
 	p = p.sub( Vec3D( x, y, z ) );
-	Vec3D pabs = extent.sub( p.getAbs() );
+	Vec3D pabs = extent.sub( p.abs() );
 	Vec3D psign = p.getSignum();
 	Vec3D normal = Vec3D::X_AXIS().scale( static_cast< float > ( psign.getX() ) );
 	double minDist = pabs.getX();
