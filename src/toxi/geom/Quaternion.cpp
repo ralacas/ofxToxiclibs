@@ -130,7 +130,7 @@ toxi::geom::Quaternion toxi::geom::Quaternion::createFromMatrix( const Matrix4x4
 toxi::geom::Quaternion toxi::geom::Quaternion::getAlignmentQuat( Vec3D & dir, Vec3D & forward )
 {
 	Vec3D target = dir.getNormalized();
-	Vec3D axis = forward.cross(target);
+	Vec3D axis = forward.getCrossed(target);
 	float length = axis.magnitude() + 0.0001f;
 	float angle = (float) std::atan2(length, forward.dot(target));
 	return createFromAxisAngle(axis, angle);

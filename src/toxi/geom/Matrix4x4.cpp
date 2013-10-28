@@ -458,8 +458,8 @@ toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::invert()
 toxi::geom::Matrix4x4 toxi::geom::Matrix4x4::lookAt(  Vec3D & eye, Vec3D & target, Vec3D & up )
 {
 	Vec3D f = eye.sub( target ).normalize();
-	Vec3D s = up.cross( f ).normalize();
-	Vec3D t = f.cross( s ).normalize();
+	Vec3D s = up.getCrossed( f ).normalize();
+	Vec3D t = f.getCrossed( s ).normalize();
 	return set( s.getX(), s.getY(), s.getZ(), -s.dot( eye ), t.getX(), t.getY(), t.getZ(), -t.dot( eye ), f.getX(),
 		f.getY(), f.getZ(), -f.dot( eye ), 0, 0, 0, 1 );
 }

@@ -23,7 +23,7 @@ toxi::geom::Triangle3D toxi::geom::Triangle3D::createEquilateralFrom( Vec3D & a,
 {
 	Vec3D c = a.interpolateTo( b, 0.5 );
 	Vec3D dir = b.sub( a );
-	Vec3D n = a.cross( dir.normalize( ) );
+	Vec3D n = a.getCrossed( dir.normalize( ) );
 	c.addSelf( n.normalizeTo( dir.magnitude() * toxi::math::MathUtils::SQRT3 / 2 ) );
 	return Triangle3D( a, b, c );
 }
@@ -70,7 +70,7 @@ toxi::geom::Vec3D toxi::geom::Triangle3D::closestPointOnSurface( Vec3D & p )
 	}
 
 	// P is outside (or on) AB if the triple scalar product [N PA PB] <= 0
-	Vec3D n = ab.cross( ac );
+	Vec3D n = ab.getCrossed( ac );
 	float vc = n.dot( ap.crossSelf( bp ) );
 
 	// If P outside AB and within feature region of AB,
@@ -225,17 +225,17 @@ void toxi::geom::Triangle3D::set( Vec3D & a2, Vec3D & b2, Vec3D & c2 )
 
 toxi::geom::Vec3D toxi::geom::Triangle3D::toBarycentric( Vec3D & p )
 {
-	Vec3D e = b.sub( a ).cross( c.sub( a ) );
+	Vec3D e = b.sub( a ).getCrossed( c.sub( a ) );
 	Vec3D n = e.getNormalized();
 
 	// Compute twice area of triangle ABC
 	float areaABC = n.dot( e );
 	// Compute lambda1
-	float areaPBC = n.dot( b.sub( p ).cross( c.sub( p ) ) );
+	float areaPBC = n.dot( b.sub( p ).getCrossed( c.sub( p ) ) );
 	float l1 = areaPBC / areaABC;
 
 	// Compute lambda2
-	float areaPCA = n.dot( c.sub( p ).cross( a.sub( p ) ) );
+	float areaPCA = n.dot( c.sub( p ).getCrossed( a.sub( p ) ) );
 	float l2 = areaPCA / areaABC;
 
 	// Compute lambda3
