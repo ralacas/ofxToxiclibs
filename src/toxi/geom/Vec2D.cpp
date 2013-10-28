@@ -5,37 +5,53 @@
 #include "Polygon2D.h"
 #include "VecMathUtil.h"
 
+/**
+* Defines positive X axis
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::X_AXIS = toxi::geom::Vec2D( 1, 0 );
+/**
+* Defines positive Y axis
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::Y_AXIS = toxi::geom::Vec2D( 0, 1 );
+/** Defines the zero vector. */
 toxi::geom::Vec2D toxi::geom::Vec2D::ZERO = toxi::geom::Vec2D( 0, 0 );
-toxi::geom::Vec2D toxi::geom::Vec2D::MIN_VALUE( FLT_MIN, FLT_MIN );
-toxi::geom::Vec2D toxi::geom::Vec2D::MAX_VALUE( FLT_MAX, FLT_MAX );
+/**
+* Defines vector with both coords set to DBL_MIN. Useful for
+* bounding box operations.
+*/
+toxi::geom::Vec2D toxi::geom::Vec2D::MIN_VALUE( DBL_MIN, DBL_MIN );
+/**
+* Defines vector with both coords set to DBL_MAX. Useful for
+* bounding box operations.
+*/
+toxi::geom::Vec2D toxi::geom::Vec2D::MAX_VALUE( DBL_MAX, DBL_MAX );
 
-
-toxi::geom::Vec2D::Vec2D( const double & _x, const double & _y )
+//the constructor, initializing the object with its x and y values
+toxi::geom::Vec2D::Vec2D( const double & _x, const double & _y ) :
+	x( _x ),
+	y( _y )
 {
-	this->x = _x;
-	this->y = _y;
 }
-
-toxi::geom::Vec2D::Vec2D( const double & theta )
+//the constructor, initializing the object with its x and y values
+toxi::geom::Vec2D::Vec2D( const double & theta ) :
+	x( toxi::math::MathUtils::cos( theta ) ),
+	y( toxi::math::MathUtils::sin( theta ) )
 {
-	this->x = toxi::math::MathUtils::cos( theta );
-	this->y = toxi::math::MathUtils::sin( theta );
 }
-
-toxi::geom::Vec2D::Vec2D( const Vec2D & v )
+//the copy constructor
+toxi::geom::Vec2D::Vec2D( const Vec2D & v ) :
+	x( v.x ),
+	y( v.y )
 {
-	this->x = v.x;
-	this->y = v.y;
 }
 
 toxi::geom::Vec2D::Vec2D(  ) :
-	x(0),
-	y(0)
+	x( 0 ),
+	y( 0 )
 {
 }
 
+//the destructor. nothin to do
 toxi::geom::Vec2D::~Vec2D(void)
 {
 }
@@ -158,6 +174,14 @@ double toxi::geom::Vec2D::getComponent( toxi::geom::Vec2D::Axis axis )
 	}
 }
 
+/**
+* Constraints this vector to the perimeter of the given polygon. Unlike the
+* constrain(Rect) version of this method, this version DOES NOT
+* check containment automatically. If you want to only constrain a point if
+* its (for example) outside the polygon, then check containment with
+* Polygon2D::containsPoint(ReadonlyVec2D) first before calling this
+* method.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Rect & r )
 {
 	this->x = toxi::math::MathUtils::clip( getX(), r.x, r.x + r.width );
@@ -165,6 +189,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Rect & r )
 	return *this;
 }
 
+/**
+* Forcefully fits the vector in the given rectangle.
+* 
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Polygon2D & poly )
 {
 	double minD = FLT_MAX;
@@ -181,6 +209,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Polygon2D & poly )
 	return *this;
 }
 
+/**
+* Forcefully fits the vector in the given rectangle defined by the points.
+* 
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Vec2D & min, Vec2D & max )
 {
 	this->x = toxi::math::MathUtils::clip( getX(), min.getX(), max.getX() );
@@ -188,6 +220,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::constrain( Vec2D & min, Vec2D & max )
 	return *this;
 }
 
+/**
+* Replaces the vector components with integer values of their current
+* values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::floor( void )
 {
 	this->x = toxi::math::MathUtils::floor( getX() );
@@ -195,16 +231,28 @@ toxi::geom::Vec2D toxi::geom::Vec2D::floor( void )
 	return *this;
 }
 
+/**
+* Replaces the vector components with integer values of their current
+* values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getFloored()
 {
 	return toxi::geom::Vec2D( *this ).floor();
 }
 
+/**
+* Replaces the vector components with the fractional part of their current
+* values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getFrac()
 {
 	return toxi::geom::Vec2D( *this ).frac();
 }
 
+/**
+* Replaces the vector components with the fractional part of their current
+* values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::frac()
 {
 	this->x -= toxi::math::MathUtils::floor( getX() );
@@ -212,12 +260,18 @@ toxi::geom::Vec2D toxi::geom::Vec2D::frac()
 	return *this;
 }
 
-
+/**
+* Scales vector uniformly by factor -1 ( v = -v ), overrides coordinates
+* with result
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getInverted()
 {
 	return Vec2D( -getX(), -getY() );
 }
 
+/**
+* Limits the vector's magnitude to the length given
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getLimited( const double & lim )
 {
 	if ( magSquared() > lim * lim ) {
@@ -231,11 +285,17 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getMapped( toxi::math::ScaleMap & map )
 	return Vec2D( map.getClippedValueFor( getX() ), map.getClippedValueFor( getY() ) );
 }
 
+/**
+* Normalizes the vector so that its magnitude = 1
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getNormalized()
 {
 	return toxi::geom::Vec2D( *this ).normalize();
 }
 
+/**
+* Normalizes the vector to the given length.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( const double & len )
 {
 	Vec2D v = Vec2D( getX(), getY() );
@@ -248,6 +308,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getNormalizedTo( const double & len )
 	return v;
 }
 
+/**
+* Normalizes the vector so that its magnitude = 1
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::normalize()
 {
 	double mag = x * x + y * y;
@@ -291,6 +354,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getReflected( Vec2D & normal )
 	return v.reflect(normal);
 }
 
+/**
+* Rotates the vector by the given angle around the Z axis.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::rotate( const double & theta )
 {
 	double co = std::cos( theta );
@@ -301,6 +367,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::rotate( const double & theta )
 	return *this;
 }
 
+/**
+* Rotates the vector by the given angle around the Z axis.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getRotated( const double & theta )
 {
 	Vec2D v = Vec2D( *this );
@@ -320,6 +389,11 @@ toxi::geom::Vec2D toxi::geom::Vec2D::getRoundedTo( const double & prec )
 	return v.roundTo( prec );
 }
 
+/**
+* Replaces all vector components with the signum of their original values.
+* In other words if a components value was negative its new value will be
+* -1, if zero => 0, if positive => +1
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::signum()
 {
 	this->x = (x < 0 ? -1 : x == 0 ? 0 : 1);
@@ -327,12 +401,20 @@ toxi::geom::Vec2D toxi::geom::Vec2D::signum()
 	return *this;
 }
 
+/**
+* Replaces all vector components with the signum of their original values.
+* In other words if a components value was negative its new value will be
+* -1, if zero => 0, if positive => +1
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getSignum()
 {
 	Vec2D v = Vec2D( *this );
 	return v.signum();
 }
 
+/**
+* Subtracts vector {a,b,c} and overrides coordinates with result.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( const double & a, const double & b )
 {
 	this->x -= a;
@@ -340,6 +422,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( const double & a, const double & b
 	return *this;
 }
 
+/**
+* Subtracts vector v and overrides coordinates with result.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( Vec2D & v )
 {
 	this->x -= v.getX();
@@ -347,6 +432,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::subSelf( Vec2D & v )
 	return *this;
 }
 
+/**
+* Overrides coordinates with the given values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::set( const double & x, const double & y )
 {
 	this->x = x;
@@ -354,6 +442,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::set( const double & x, const double & y )
 	return *this;
 }
 
+/**
+* Overrides coordinates with the given values
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::set( Vec2D & v )
 {
 	this->x = v.getX();
@@ -535,6 +626,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::addSelf( Vec2D & v )
 	return *this;
 }
 
+/**
+* Static factory method. Creates a new random unit vector using the Random
+* implementation set as default for the {@link MathUtils} class.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::randomVector( void )
 {
 	return Vec2D( toxi::math::MathUtils::random( -1, 1), toxi::math::MathUtils::random( -1, 1 ) );
@@ -547,35 +642,40 @@ toxi::geom::Vec2D toxi::geom::Vec2D::abs()
 	return *this;
 }
 
-/*bool toxi::geom::Vec2D::operator==( const Vec2D & v1 ) const
-{
-	std::cout << " this: " << this->toString() << " v1: " << v1.toString() << std::endl;
-	if( *this->x == *v1.x && *this->y == *v1.y )
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
-}*/
-
 
 toxi::geom::Vec2D toxi::geom::Vec2D::getAbs( void )
 {
 	return Vec2D( *this ).abs();
 }
 
+/**
+* Constraints this vector to the perimeter of the given polygon. Unlike the
+* constrain(Rect) version of this method, this version DOES NOT
+* check containment automatically. If you want to only constrain a point if
+* its (for example) outside the polygon, then check containment with
+* Polygon2D::containsPoint(ReadonlyVec2D) first before calling this
+* method.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getConstrained( toxi::geom::Polygon2D & poly )
 {
 	return Vec2D( *this ).constrain( poly );
 }
 
+/**
+* Forcefully fits the vector in the given rectangle.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::getConstrained( toxi::geom::Rect & rec )
 {
 	return Vec2D( *this ).constrain( rec );
 }
 
+/**
+* Returns a hash code value based on the data values in this object. Two
+* different Vec2D objects with identical data values (i.e., Vec2D.equals
+* returns true) will return the same hash code value. Two objects with
+* different data members may return the same hash value, although this is
+* not likely.
+*/
 int toxi::geom::Vec2D::hashCode()
 {
 	long bits = 1L;
@@ -586,6 +686,10 @@ int toxi::geom::Vec2D::hashCode()
 	return ret;
 }
 
+/**
+* Interpolates the vector towards the given target vector, using linear
+* interpolation
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float & f )
 {
 	this->x += ( v.getX() - this->getX() ) * f;
@@ -593,6 +697,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float &
 	return *this;
 }
 
+/**
+* Interpolates the vector towards the given target vector, using the given
+* InterpolateStrategy
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float & f, toxi::math::InterpolateStrategy * s  )
 {
 	this->x = s->interpolate( getX(), v.getX(), static_cast< double > ( f ) );
@@ -600,6 +708,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::interpolateToSelf( Vec2D & v, const float &
 	return *this;
 }
 
+/**
+* Scales vector uniformly by factor -1 ( v = -v ), overrides coordinates
+* with result
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::invert()
 {
 	this->x = -getX();
@@ -607,11 +719,19 @@ toxi::geom::Vec2D toxi::geom::Vec2D::invert()
 	return *this;
 }
 
+/**
+* Adds random jitter to the vector in the range -j ... +j using the default
+* Random generator of MathUtils.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::jitter( const double & j )
 {
 	return jitter( j, j );
 }
 
+/**
+* Adds random jitter to the vector in the range -j ... +j using the default
+* Random generator of MathUtils.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::jitter( const double & jx, const double & jy )
 {
 	this->x += toxi::math::MathUtils::normalizedRandom() * jx;
@@ -619,11 +739,18 @@ toxi::geom::Vec2D toxi::geom::Vec2D::jitter( const double & jx, const double & j
 	return *this;
 }
 
+/**
+* Adds random jitter to the vector in the range -j ... +j using the default
+* Random generator of MathUtils.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::jitter( Vec2D & jv )
 {
 	return jitter( jv.getX(), jv.getY() );
 }
 
+/**
+* Limits the vector's magnitude to the length given
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::limit( const float & lim )
 {
 	if( magSquared() > lim * lim )
@@ -649,6 +776,9 @@ toxi::geom::Vec2D toxi::geom::Vec2D::minSelf( Vec2D & v )
 	return *this;
 }
 
+/**
+* Normalizes the vector to the given length.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::normalizeTo( const float & len )
 {
 	float mag = (float) toxi::math::MathUtils::sqrt(getX() * getX() + getY() * getY());
@@ -711,6 +841,10 @@ toxi::geom::Vec2D toxi::geom::Vec2D::setComponent( const int & id, const float &
 	return *this;
 }
 
+/**
+* Rounds the vector to the closest major axis. Assumes the vector is
+* normalized.
+*/
 toxi::geom::Vec2D toxi::geom::Vec2D::snapToAxis()
 {
 	if( toxi::math::MathUtils::abs( getX() ) < 0.5 )
