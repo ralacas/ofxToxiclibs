@@ -27,10 +27,10 @@
 #include "toxi/math/ScaleMapTest.h"
 #include "toxi/util/RandomTest.h"
 #include "toxi/geom/Vec2DTest.h"
+#include "toxi/geom/Vec3DTest.h"
 #include "HtmlOutputter.h"
 #include "../toxi/main/Toxiclibs.h"
 #include <ctime>
-
 
 /**
  * Performs this application as start point.
@@ -48,7 +48,6 @@ int main(void)
 
 	//runner.setOutputter(new CppUnit::XmlOutputter(&runner.result(), outputStream));
 	runner.setOutputter( hmtlOutputter );
-	//Toxiclibs::init();
 	runner.addTest( MathUtilsTest::suite() );
 	runner.addTest( DoubleRangeTest::suite() );
 	runner.addTest( LinearInterpolationTest::suite() );
@@ -56,6 +55,7 @@ int main(void)
 	runner.addTest( RandomTest::suite() );
 	runner.addTest( VecMathUtilTest::suite() );
 	runner.addTest( Vec2DTest::suite() );
+	runner.addTest( Vec3DTest::suite() );
 
 	runner.run();
 
